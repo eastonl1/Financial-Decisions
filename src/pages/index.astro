@@ -1,11 +1,103 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from '../components/Hero.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<main>
+		<Hero
+			title="Home Town Office with a Global Perspective"
+			subtitle='Locally owned and operated - proud to be Canadian'
+			eyebrow="Financial Decisions"
+			backgroundImage="/images/Office%20Painted.png"
+		>
+			<div class="flex flex-wrap gap-3">
+				<a
+					href="/contact"
+					class="no-link-style rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+				>
+					Contact Us
+				</a>
+			</div>
+		</Hero>
+
+		<section class="bg-white">
+			<div class="container mx-auto px-6 py-16">
+				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+					<div>
+						<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+							Community
+						</p>
+						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
+							Connected to the people we serve
+						</h2>
+						<p class="mt-4 text-base text-slate-600">
+							Proudly serving the lifestyle, financial planning and insurance needs of
+							hundreds of individuals, couples and families in the Greater Sudbury
+							area and beyond who we consider to be friends as well as clients.
+						</p>
+					</div>
+					<div class="overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm lg:max-w-sm lg:justify-self-center">
+						<img
+							src="/images/Meeting.jpg"
+							alt="Meeting with clients"
+							class="h-full w-full object-cover"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-slate-50">
+			<div class="container mx-auto px-6 py-16">
+				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+					<div class="order-2 lg:order-2">
+						<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+							Mission
+						</p>
+						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
+							Committed to your peace of mind
+						</h2>
+						<p class="mt-4 text-base text-slate-600">
+							Our dedicated mission for over 25 years is to bring to our valued clients
+							peace of mind as they understand we care about their financial well being
+							as if it were our own and specifically this is our continuing commitment.
+						</p>
+					</div>
+					<div class="order-1 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm lg:order-1 lg:justify-self-center lg:max-w-[220px]">
+						<img
+							src="/images/Award.jpg"
+							alt="Award recognition"
+							class="h-full w-full object-cover"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="bg-white">
+			<div class="container mx-auto px-6 py-16">
+				<div class="flex flex-col gap-6 border-t border-slate-200 pt-8">
+					<p class="text-sm text-slate-600">
+						Pages on our website highlight aspects of both lifestyle and financial
+						planning. Also available local newsletters and videos plus links to
+						market updates and client investment information.
+					</p>
+					<div class="self-center overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+						<img
+							src="/images/Banner.jpg"
+							alt="Financial Decisions banner"
+							class="h-full w-full object-cover"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
 </Layout>

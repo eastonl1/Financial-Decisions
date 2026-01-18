@@ -1,0 +1,39 @@
+---
+const {
+	title,
+	subtitle,
+	eyebrow,
+	backgroundImage,
+	overlayClass = "bg-white/60",
+	className = "",
+	contentClass = "",
+} = Astro.props;
+
+const sectionClass = [
+	"relative border-b border-slate-200 bg-slate-50",
+	backgroundImage && "bg-cover bg-center",
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+const style = backgroundImage ? `background-image: url('${backgroundImage}');` : undefined;
+const hasContent = Astro.slots.has("default");
+---
+
+<section class={sectionClass} style={style}>
+	{backgroundImage && <div class={`absolute inset-0 ${overlayClass}`}></div>}
+	<div class={`container relative mx-auto px-6 py-12 sm:py-16 ${contentClass}`}>
+		<div class="max-w-3xl">
+			{eyebrow && (
+				<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+					{eyebrow}
+				</p>
+			)}
+			<h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+				{title}
+			</h1>
+			{subtitle && <p class="mt-3 text-base text-slate-600">{subtitle}</p>}
+			{hasContent && <div class="mt-6"><slot /></div>}
+		</div>
+	</div>
+</section>

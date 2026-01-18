@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+main a {
+	color: #0f4c81;
+	text-decoration-color: transparent;
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+
+main a:hover {
+	color: #0b3b63;
+	text-decoration-color: currentColor;
+}
+
+main a.text-white {
+	color: #ffffff;
+}
+
+main a.text-white:hover {
+	color: #ffffff;
+}
+
+main a.no-link-style {
+	text-decoration: none;
+}

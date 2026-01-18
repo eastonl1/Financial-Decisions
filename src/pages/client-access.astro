@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<Layout>
+	<main>
+		<Hero
+			title="Client Account Access"
+			subtitle="Secure online access to your investment accounts and detailed portfolio reports."
+		/>
+
+		<section class="bg-white">
+			<div class="container mx-auto px-6 py-10 sm:py-12">
+				<div class="space-y-10">
+					<section class="text-sm text-slate-700">
+						<h2 class="text-xl font-semibold text-slate-900">
+							Portfolio Update Access
+						</h2>
+						<p class="mt-3">
+							Your financial market investments are managed by professional portfolio
+							experts at the Croft Financial Group through us as directed by you and
+							administered by the National Bank of Canada and can be viewed by
+							clicking on the National Bank of Canada login link below providing a
+							User ID and Password available through our office by calling 705-525-7526.
+						</p>
+						<p class="mt-4">
+							A detailed analysis of your investment account can be accessed by
+							clicking on the Croft Financial Group login link below and providing a
+							User ID and Password available through our office and also input of a
+							verification code sent to your phone each time you access (an extra
+							security feature).
+						</p>
+						<p class="mt-4">
+							Besides these two methods we provide quarterly paper or e-mail statements
+							sent directly to you which include fixed income investments such as GICs.
+							Of course you can call the office at anytime for further information on
+							your account and any money matters of interest or concern.
+						</p>
+					</section>
+
+					<section class="grid gap-6 md:grid-cols-2">
+						<article class="rounded-lg border border-slate-200 bg-slate-50 p-6">
+							<h3 class="text-lg font-semibold text-slate-900">National Bank Login</h3>
+							<p class="mt-2 text-sm text-slate-600">
+								View your investment account positions and statements administered by
+								National Bank of Canada.
+							</p>
+							<a
+								href="https://myportfolioplus.ca/nbin/login"
+								class="mt-4 inline-flex text-sm font-semibold text-slate-900 hover:text-slate-700"
+								target="_blank"
+								rel="noopener"
+							>
+								Go to National Bank Login
+							</a>
+						</article>
+
+						<article class="rounded-lg border border-slate-200 bg-slate-50 p-6">
+							<h3 class="text-lg font-semibold text-slate-900">
+								Croft Financial Group Login
+							</h3>
+							<p class="mt-2 text-sm text-slate-600">
+								Access a detailed analysis of your investment account through Croft
+								Financial Group's online portal.
+							</p>
+							<a
+								href="https://f-engine.ndexsystems.com/fengine/online/en/rncroftfinancialgrouplogin.go"
+								class="mt-4 inline-flex text-sm font-semibold text-slate-900 hover:text-slate-700"
+								target="_blank"
+								rel="noopener"
+							>
+								Go to Croft Financial Group Login
+							</a>
+						</article>
+					</section>
+
+					<section class="rounded-lg border border-slate-200 bg-slate-50 p-6 text-sm text-slate-700">
+						<h2 class="text-lg font-semibold text-slate-900">
+							Need Help Accessing Your Accounts?
+						</h2>
+						<p class="mt-2">
+							If you do not have a User ID and Password, or if you need assistance
+							with online access, please contact our office at
+							<strong>705-525-7526</strong>.
+						</p>
+					</section>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
