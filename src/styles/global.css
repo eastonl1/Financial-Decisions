@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+body {
+	background-color: #f6f1e9;
+	color: #0f172a;
+}
+
 main a {
 	color: #0f4c81;
 	text-decoration-color: transparent;
