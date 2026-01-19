@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import ChristmasPost from '../content/posts/Christmas 2025.md';
+
+const frontmatter = ChristmasPost.frontmatter ?? {};
 ---
 
 <Layout>
@@ -14,22 +17,10 @@ import Hero from '../components/Hero.astro';
 			<div class="container mx-auto px-6 py-10 sm:py-12">
 				<article class="rounded-lg border border-slate-200 bg-stone-50 p-6">
 					<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
-						Summer 2025
+						{frontmatter.issue ?? "Newsletter"}
 					</p>
-					<h2 class="mt-2 text-2xl font-semibold text-slate-900">
-						Summer 2025 Newsletter
-					</h2>
-					<p class="mt-3 text-sm text-slate-600">
-						Full newsletter edition covering family planning, fraud information, and
-						local updates.
-					</p>
-					<div class="mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white">
-						<iframe
-							title="2025 Summer Newsletter PDF"
-							src="/Newsletters/2025 Summer.pdf"
-							class="h-[1200px] w-full"
-							loading="lazy"
-						></iframe>
+					<div class="mt-4 space-y-6 text-sm text-slate-700">
+						<ChristmasPost />
 					</div>
 				</article>
 			</div>
