@@ -3,14 +3,14 @@ const {
 	title,
 	subtitle,
 	eyebrow,
-	backgroundImage,
+	backgroundImage = "/images/Office%20Painted.png",
 	overlayClass = "bg-white/60",
 	className = "",
 	contentClass = "",
 } = Astro.props;
 
 const sectionClass = [
-	"relative border-y border-stone-200 bg-stone-50",
+	"hero-accent relative border-y border-stone-200 bg-stone-50",
 	backgroundImage && "bg-cover bg-center",
 	className,
 ]
@@ -25,7 +25,7 @@ const hasContent = Astro.slots.has("default");
 	<div class={`container relative mx-auto px-6 py-12 sm:py-16 ${contentClass}`}>
 		<div class="max-w-3xl">
 			{eyebrow && (
-				<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+				<p class="eyebrow">
 					{eyebrow}
 				</p>
 			)}

@@ -3,7 +3,7 @@ title: "The Best Christmas Tree"
 issue: "Christmas 2025"
 ---
 
-# The Best Christmas Tree
+# <span style="font-size:1.2em;font-weight:700">The Best Christmas Tree</span>
 
 ![Illustration of children cutting down a Christmas tree in winter](/images/best-christmas-tree-illustration.png)
 
@@ -37,7 +37,7 @@ A photo of the Moore “cabin” from Tom’s brother **Jim’s** collection. Lo
 
 ---
 
-## Happy Holidays
+## <span style="font-size:1.1em;font-weight:700">Happy Holidays</span>
 
 ![Holiday wreath with Financial Decisions logo](/images/happy-holidays-financial-decisions.png)
 

@@ -10,11 +10,12 @@ import Hero from '../components/Hero.astro';
 			subtitle='Locally owned and operated - proud to be Canadian'
 			eyebrow="Financial Decisions"
 			backgroundImage="/images/Office%20Painted.png"
+			className="home-hero"
 		>
 			<div class="flex flex-wrap gap-3">
 				<a
 					href="/contact"
-					class="no-link-style rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+					class="no-link-style btn-accent rounded-md px-5 py-3 text-sm font-semibold transition"
 				>
 					Contact Us
 				</a>
@@ -25,7 +26,7 @@ import Hero from '../components/Hero.astro';
 			<div class="container mx-auto px-6 py-16">
 				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
 					<div>
-						<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+						<p class="eyebrow text-[color:var(--accent)]">
 							Community
 						</p>
 						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
@@ -37,7 +38,7 @@ import Hero from '../components/Hero.astro';
 							area and beyond who we consider to be friends as well as clients.
 						</p>
 					</div>
-					<div class="overflow-hidden rounded-lg border border-slate-200 bg-slate-100 shadow-sm lg:max-w-sm lg:justify-self-center">
+					<div class="overflow-hidden rounded-lg shadow-sm lg:max-w-sm lg:justify-self-center">
 						<img
 							src="/images/Meeting.jpg"
 							alt="Meeting with clients"
@@ -50,11 +51,11 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section class="bg-stone-50">
+		<section class="theme-divider bg-stone-50 border-y border-[color:var(--accent)]">
 			<div class="container mx-auto px-6 py-16">
 				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
 					<div class="order-2 lg:order-2">
-						<p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
+						<p class="eyebrow text-[color:var(--accent)]">
 							Mission
 						</p>
 						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
@@ -66,7 +67,7 @@ import Hero from '../components/Hero.astro';
 							as if it were our own and specifically this is our continuing commitment.
 						</p>
 					</div>
-					<div class="order-1 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm lg:order-1 lg:justify-self-center lg:max-w-[220px]">
+					<div class="order-1 overflow-hidden rounded-lg shadow-sm lg:order-1 lg:justify-self-center lg:max-w-[220px]">
 						<img
 							src="/images/Award.jpg"
 							alt="Award recognition"
@@ -81,13 +82,13 @@ import Hero from '../components/Hero.astro';
 
 		<section class="bg-white">
 			<div class="container mx-auto px-6 py-16">
-				<div class="flex flex-col gap-6 border-t border-slate-200 pt-8">
+				<div class="flex flex-col gap-6 border-t border-[color:var(--accent-muted)] pt-8">
 					<p class="text-sm text-slate-600">
 						Pages on our website highlight aspects of both lifestyle and financial
 						planning. Also available local newsletters and videos plus links to
 						market updates and client investment information.
 					</p>
-					<div class="self-center overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+					<div class="self-center overflow-hidden rounded-lg">
 						<img
 							src="/images/Banner.jpg"
 							alt="Financial Decisions banner"

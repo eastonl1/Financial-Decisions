@@ -1,12 +1,69 @@
 @import "tailwindcss";
 
+:root {
+	--accent: #8a6b4d;
+	--accent-dark: #73553c;
+	--accent-soft: #efe6dd;
+	--accent-muted: rgba(138, 107, 77, 0.35);
+}
+
 body {
-	background-color: #f6f1e9;
+	background-color: #ffffff;
 	color: #0f172a;
 }
 
+header {
+	background-color: #ffffff;
+	background-image: none;
+}
+
+header .nav-link-active {
+	background-color: var(--accent-soft);
+}
+
+header .nav-link:hover {
+	background-color: rgba(239, 230, 221, 0.65);
+}
+
+main .hero-accent {
+	border-top: 2px solid var(--accent);
+	border-bottom: 2px solid var(--accent);
+}
+
+main {
+	background-color: #ffffff;
+	background-image: none;
+}
+
+main > section + section {
+	border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+main > section.theme-divider {
+	border-top: 2px solid var(--accent);
+}
+
+main > section.no-divider {
+	border-top: none;
+}
+
+main .eyebrow {
+	display: inline-block;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+main img {
+	border-radius: 12px;
+	border: 1px solid var(--accent-muted);
+	box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
 main a {
-	color: #0f4c81;
+	color: var(--accent);
 	text-decoration-color: transparent;
 	text-decoration-line: underline;
 	text-decoration-thickness: 1px;
@@ -15,7 +72,7 @@ main a {
 }
 
 main a:hover {
-	color: #0b3b63;
+	color: var(--accent-dark);
 	text-decoration-color: currentColor;
 }
 
@@ -29,4 +86,52 @@ main a.text-white:hover {
 
 main a.no-link-style {
 	text-decoration: none;
+}
+
+main .btn-accent {
+	background-color: var(--accent);
+	color: #ffffff;
+}
+
+main .btn-accent:hover {
+	background-color: var(--accent-dark);
+}
+
+main mark {
+	background-color: var(--accent-soft);
+	color: inherit;
+	padding: 0 0.1em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	main > section {
+		animation: section-reveal 700ms ease-out both;
+	}
+
+	main > section:nth-of-type(2) {
+		animation-delay: 80ms;
+	}
+
+	main > section:nth-of-type(3) {
+		animation-delay: 160ms;
+	}
+
+	main > section:nth-of-type(4) {
+		animation-delay: 240ms;
+	}
+
+	main > section:nth-of-type(5) {
+		animation-delay: 320ms;
+	}
+}
+
+@keyframes section-reveal {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
