@@ -11,6 +11,7 @@ import Hero from '../components/Hero.astro';
 			eyebrow="Financial Decisions"
 			backgroundImage="/images/Office%20Painted.png"
 			className="home-hero"
+			contentClass="py-16 sm:py-20 lg:py-24"
 		>
 			<div class="flex flex-wrap gap-3">
 				<a
@@ -22,14 +23,14 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</Hero>
 
-		<section class="bg-white">
-			<div class="container mx-auto px-6 py-16">
-				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-					<div>
+		<section class="home-section home-section--alt reveal">
+			<div class="container mx-auto px-6 home-section__inner">
+				<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+					<div class="home-prose">
 						<p class="eyebrow text-[color:var(--accent)]">
 							Community
 						</p>
-						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
+						<h2 class="mt-3 text-[2rem] font-semibold text-slate-900">
 							Connected to the people we serve
 						</h2>
 						<p class="mt-4 text-base text-slate-600">
@@ -51,14 +52,14 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section class="theme-divider bg-stone-50 border-y border-[color:var(--accent)]">
-			<div class="container mx-auto px-6 py-16">
-				<div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-					<div class="order-2 lg:order-2">
+		<section class="home-section reveal">
+			<div class="container mx-auto px-6 home-section__inner">
+				<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+					<div class="home-prose order-2 lg:order-2">
 						<p class="eyebrow text-[color:var(--accent)]">
 							Mission
 						</p>
-						<h2 class="mt-3 text-3xl font-semibold text-slate-900">
+						<h2 class="mt-3 text-[2rem] font-semibold text-slate-900">
 							Committed to your peace of mind
 						</h2>
 						<p class="mt-4 text-base text-slate-600">
@@ -71,27 +72,6 @@ import Hero from '../components/Hero.astro';
 						<img
 							src="/images/Award.jpg"
 							alt="Award recognition"
-							class="h-full w-full object-cover"
-							loading="lazy"
-							decoding="async"
-						/>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="bg-white">
-			<div class="container mx-auto px-6 py-16">
-				<div class="flex flex-col gap-6 border-t border-[color:var(--accent-muted)] pt-8">
-					<p class="text-sm text-slate-600">
-						Pages on our website highlight aspects of both lifestyle and financial
-						planning. Also available local newsletters and videos plus links to
-						market updates and client investment information.
-					</p>
-					<div class="self-center overflow-hidden rounded-lg">
-						<img
-							src="/images/Banner.jpg"
-							alt="Financial Decisions banner"
 							class="h-full w-full object-cover"
 							loading="lazy"
 							decoding="async"

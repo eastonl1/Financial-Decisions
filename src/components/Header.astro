@@ -3,12 +3,12 @@ const { pathname } = Astro.url;
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
-  { href: "/blog", label: "Newsletter" },
+  { href: "/about", label: "About" },
+  { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
   { href: "/client-access", label: "Client Access" },
-  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact Us" },
+  { href: "/careers", label: "Careers" },
 ];
 
 const isActive = (href: string) => {
@@ -17,15 +17,15 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="bg-white">
+<header class="fixed left-0 right-0 top-0 z-50 border-b-2 border-[color:var(--accent)] bg-[#f7f4f0]">
   <div class="container">
-    <div class="flex flex-col gap-3 py-1 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col gap-1 py-0 sm:flex-row sm:items-center sm:justify-between">
       <!-- Brand -->
       <a href="/" class="inline-flex items-center gap-3">
         <img
           src="/images/Logo.jpg"
           alt="Financial Decisions logo"
-          class="ml-4 h-32 w-32 rounded-sm object-contain"
+          class="ml-4 -my-2 h-32 w-32 rounded-sm object-contain"
           width="128"
           height="128"
           loading="eager"
@@ -34,16 +34,15 @@ const isActive = (href: string) => {
       </a>
 
       <!-- Nav -->
-      <nav aria-label="Primary" class="ml-12">
-        <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[1.05rem]">
+      <nav aria-label="Primary" class="ml-8">
+        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[1.02rem]">
           {links.map((l) => (
             <li>
               <a
                 href={l.href}
                 class:list={[
-                  "nav-link rounded-md px-2 py-1 transition",
-                "text-slate-700 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300",
-                isActive(l.href) && "nav-link-active text-slate-900 border-slate-400",
+                  "nav-link px-1.5 py-1 transition",
+                isActive(l.href) && "nav-link-active",
                 ]}
                 aria-current={isActive(l.href) ? "page" : undefined}
               >

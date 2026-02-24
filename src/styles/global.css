@@ -5,6 +5,7 @@
 	--accent-dark: #73553c;
 	--accent-soft: #efe6dd;
 	--accent-muted: rgba(138, 107, 77, 0.35);
+	--header-height: 7rem;
 }
 
 body {
@@ -17,22 +18,49 @@ header {
 	background-image: none;
 }
 
-header .nav-link-active {
-	background-color: var(--accent-soft);
+header .nav-link {
+	color: #334155;
+	font-weight: 500;
+	border-bottom: 2px solid transparent;
+	text-decoration: none;
+	text-underline-offset: 4px;
+	transition: color 150ms ease, border-color 150ms ease, transform 80ms ease;
 }
 
 header .nav-link:hover {
-	background-color: rgba(239, 230, 221, 0.65);
+	color: #1f2937;
+	border-bottom-color: rgba(138, 107, 77, 0.4);
+}
+
+header .nav-link-active {
+	color: #0f172a;
+	font-weight: 600;
+	border-bottom-color: var(--accent);
+}
+
+header .nav-link:focus-visible {
+	outline: 2px solid var(--accent-dark);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+header .nav-link:active {
+	color: #0f172a;
+	transform: translateY(1px);
 }
 
 main .hero-accent {
-	border-top: 2px solid var(--accent);
 	border-bottom: 2px solid var(--accent);
+}
+
+main .hero-accent-top {
+	border-top: 2px solid var(--accent);
 }
 
 main {
 	background-color: #ffffff;
 	background-image: none;
+	padding-top: var(--header-height);
 }
 
 main > section + section {
@@ -95,6 +123,7 @@ main .btn-accent {
 
 main .btn-accent:hover {
 	background-color: var(--accent-dark);
+	color: #ffffff;
 }
 
 main mark {
@@ -103,8 +132,127 @@ main mark {
 	padding: 0 0.1em;
 }
 
+.home-hero h1 {
+	font-size: 2.05rem;
+	line-height: 1.15;
+	letter-spacing: -0.01em;
+}
+
+.home-hero .hero-content {
+	max-width: 70ch;
+}
+
+.home-hero .eyebrow {
+	font-size: 0.92rem;
+}
+
+.home-section .eyebrow {
+	font-size: 0.92rem;
+}
+
+.home-hero p:not(.eyebrow) {
+	color: #5b6778;
+	font-size: 0.98rem;
+}
+
+.home-section {
+	background-color: #ffffff;
+}
+
+.home-section--alt {
+	background-color: #f6f3ef;
+}
+
+.home-section + .home-section {
+	border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.home-section__inner {
+	padding-top: 4.5rem;
+	padding-bottom: 4.5rem;
+}
+
+.home-section--end .home-section__inner {
+	padding-bottom: 5.5rem;
+}
+
+.home-prose {
+	max-width: 60ch;
+}
+
+.home-prose h2 {
+	line-height: 1.2;
+	letter-spacing: -0.01em;
+}
+
+.home-prose p {
+	line-height: 1.75;
+}
+
+.reveal {
+	opacity: 0;
+	transform: translateY(8px);
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+@media (min-width: 640px) {
+	.home-hero h1 {
+		font-size: 2.2rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.home-hero h1 {
+		font-size: 2.45rem;
+	}
+	.home-section__inner {
+		padding-top: 5rem;
+		padding-bottom: 5rem;
+	}
+}
+
+.site-footer {
+	background-color: #f7f4f0;
+	border-top: 2px solid var(--accent);
+}
+
+.site-footer .footer-title {
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--accent-dark);
+}
+
+.site-footer .footer-link {
+	color: #1f2937;
+	text-decoration-color: transparent;
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+
+.site-footer .footer-link:hover {
+	color: var(--accent-dark);
+	text-decoration-color: currentColor;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-	main > section {
+	main > section:not(.reveal) {
 		animation: section-reveal 700ms ease-out both;
 	}
 
