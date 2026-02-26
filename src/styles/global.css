@@ -8,6 +8,12 @@
 	--header-height: 7rem;
 }
 
+@media (max-width: 639px) {
+	:root {
+		--header-height: 10rem;
+	}
+}
+
 body {
 	background-color: #ffffff;
 	color: #0f172a;
@@ -50,11 +56,11 @@ header .nav-link:active {
 }
 
 main .hero-accent {
-	border-bottom: 2px solid var(--accent);
+	border-bottom: 1px solid var(--accent);
 }
 
 main .hero-accent-top {
-	border-top: 2px solid var(--accent);
+	border-top: 1px solid var(--accent);
 }
 
 main {
@@ -146,6 +152,14 @@ main mark {
 	font-size: 0.92rem;
 }
 
+.home-hero h1 + p {
+	margin-top: 0.5rem;
+}
+
+.home-hero .hero-content > div {
+	margin-top: 1rem;
+}
+
 .home-section .eyebrow {
 	font-size: 0.92rem;
 }
@@ -226,7 +240,7 @@ main mark {
 
 .site-footer {
 	background-color: #f7f4f0;
-	border-top: 2px solid var(--accent);
+	border-top: 1px solid var(--accent);
 }
 
 .site-footer .footer-title {
