@@ -10,7 +10,7 @@
 
 @media (max-width: 639px) {
 	:root {
-		--header-height: 10rem;
+		--header-height: 7rem;
 	}
 }
 
@@ -110,6 +110,11 @@ main a:hover {
 	text-decoration-color: currentColor;
 }
 
+main a:focus-visible,
+main a:active {
+	text-decoration-color: currentColor;
+}
+
 main a.text-white {
 	color: #ffffff;
 }
@@ -130,6 +135,66 @@ main .btn-accent {
 main .btn-accent:hover {
 	background-color: var(--accent-dark);
 	color: #ffffff;
+}
+
+main .btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35rem;
+	border-radius: 0.375rem;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+main .btn-sm {
+	padding: 0.375rem 0.75rem;
+	font-size: 0.8rem;
+}
+
+main .btn-primary {
+	border: 1px solid var(--accent);
+	background-color: var(--accent);
+	color: #ffffff;
+}
+
+main .btn-primary:hover {
+	border-color: var(--accent-dark);
+	background-color: var(--accent-dark);
+	color: #ffffff;
+}
+
+main .btn-secondary {
+	border: 1px solid var(--accent-muted);
+	background-color: #ffffff;
+	color: var(--accent);
+}
+
+main .btn-secondary:hover {
+	border-color: var(--accent);
+	color: var(--accent-dark);
+}
+
+main .btn-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--accent);
+	text-decoration: none;
+}
+
+main .btn-link:hover {
+	color: var(--accent-dark);
+	text-decoration-line: underline;
+	text-decoration-color: currentColor;
 }
 
 main mark {
@@ -262,6 +327,11 @@ main mark {
 
 .site-footer .footer-link:hover {
 	color: var(--accent-dark);
+	text-decoration-color: currentColor;
+}
+
+.site-footer .footer-link:focus-visible,
+.site-footer .footer-link:active {
 	text-decoration-color: currentColor;
 }
 

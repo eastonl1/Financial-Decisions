@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+
+const postings = [];
 ---
 
 <Layout>
@@ -12,9 +14,46 @@ import Hero from '../components/Hero.astro';
 
 		<section class="bg-white min-h-[60vh]">
 			<div class="container mx-auto px-6 py-10 sm:py-12">
-				<p class="text-sm text-slate-600">
-					We are not hiring at the moment. Please check back later for opportunities.
-				</p>
+				<div class="space-y-8">
+					<section class="rounded-lg border border-[color:var(--accent-muted)] bg-white p-6 sm:p-8">
+						<h2 class="text-2xl font-semibold text-slate-900">Current Job Postings</h2>
+						{postings.length > 0 ? (
+							<div class="mt-5 grid gap-4 sm:grid-cols-2">
+								{postings.map((posting) => (
+									<article class="rounded-md border border-slate-200 p-4">
+										<h3 class="text-lg font-semibold text-slate-900">{posting.title}</h3>
+										<p class="mt-2 text-sm text-slate-600">{posting.summary}</p>
+										<a
+											href={`/careers/apply?posting=${encodeURIComponent(posting.title)}`}
+											class="btn btn-secondary mt-4"
+										>
+											Apply to This Posting
+										</a>
+									</article>
+								))}
+							</div>
+						) : (
+							<p class="mt-4 text-sm text-slate-600">
+								There are currently no job postings.
+							</p>
+						)}
+					</section>
+
+					<section class="rounded-lg border border-[color:var(--accent-muted)] bg-stone-50 p-6 sm:p-8">
+						<h2 class="text-2xl font-semibold text-slate-900">
+							Looking to apply anyway?
+						</h2>
+						<p class="mt-2 text-sm text-slate-600">
+							Tell us why you may be a good fit for our team.
+						</p>
+						<a
+							href="/careers/apply?posting=General%20Application"
+							class="btn btn-primary mt-5"
+						>
+							Submit General Application
+						</a>
+					</section>
+				</div>
 			</div>
 		</section>
 	</main>
