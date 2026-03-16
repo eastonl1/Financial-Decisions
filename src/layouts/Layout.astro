@@ -26,22 +26,59 @@ import Footer from '../components/Footer.astro'
 		<slot />
 		<Footer />
 		<script is:inline>
-			const sections = document.querySelectorAll('main > section');
-			if (sections.length) {
-				sections.forEach((section) => section.classList.add('reveal'));
+			(() => {
+				const targets = Array.from(
+					document.querySelectorAll('.reveal, .reveal-image, .img-reveal, [data-reveal-immediate]')
+				);
+				if (!targets.length) return;
+
+				// Respect reduced-motion users by bypassing all reveal transitions.
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+					targets.forEach((element) => {
+						element.classList.add('is-visible');
+						element.classList.remove('will-reveal');
+					});
+					return;
+				}
+
+				const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+				const revealBuffer = Math.max(64, viewportHeight * 0.08);
+				const isInitiallyInView = (element) => {
+					const rect = element.getBoundingClientRect();
+					return rect.top <= viewportHeight - revealBuffer && rect.bottom >= -24;
+				};
+
+				if (!('IntersectionObserver' in window)) {
+					targets.forEach((element) => element.classList.add('is-visible'));
+					return;
+				}
+
 				const observer = new IntersectionObserver(
-					(entries, obs) => {
+					(entries, activeObserver) => {
 						entries.forEach((entry) => {
-							if (entry.isIntersecting) {
-								entry.target.classList.add('is-visible');
-								obs.unobserve(entry.target);
-							}
+							if (!entry.isIntersecting) return;
+							entry.target.classList.remove('will-reveal');
+							entry.target.classList.add('is-visible');
+							activeObserver.unobserve(entry.target);
 						});
 					},
-					{ threshold: 0.12 }
+					{
+						threshold: 0.16,
+						rootMargin: '0px 0px -10% 0px',
+					}
 				);
-				sections.forEach((section) => observer.observe(section));
-			}
+
+				targets.forEach((element) => {
+					if (element.hasAttribute('data-reveal-immediate') || isInitiallyInView(element)) {
+						element.classList.add('is-visible');
+						return;
+					}
+
+					// Only below-the-fold content gets the hidden baseline state.
+					element.classList.add('will-reveal');
+					observer.observe(element);
+				});
+			})();
 		</script>
 	</body>
 </html>

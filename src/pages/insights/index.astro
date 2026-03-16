@@ -1,17 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
-import { newsletters } from '../../data/newsletters';
 
-const sorted = [...newsletters].sort(
-	(a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = [...allPosts].sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const [latest] = sorted;
-const libraryEntries = latest ? sorted.filter((entry) => entry.slug !== latest.slug) : sorted;
-const formatDateString = (value) =>
-	new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(
-		new Date(value)
-	);
+
+const featuredEntry = sorted.find((entry) => entry.data.featured) ?? sorted[0];
+const secondaryEntries = sorted.filter((entry) => entry.id !== featuredEntry?.id).slice(0, 3);
+
+const formatDateString = (value: Date) =>
+	new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(value);
 ---
 
 <Layout>
@@ -21,76 +22,257 @@ const formatDateString = (value) =>
 			subtitle="Posts and newsletters from the Financial Decisions team."
 		/>
 
-		<section class="bg-white">
-			<div class="container mx-auto px-6 py-10 sm:py-12">
-				{latest ? (
-					<section class="rounded-lg border border-[color:var(--accent-muted)] bg-stone-50 p-6 sm:p-8">
-						<p class="eyebrow text-[color:var(--accent)]">Latest Issue</p>
-						<h2 class="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
-							{latest.title}
-						</h2>
-						<p class="mt-2 text-sm text-slate-600">{formatDateString(latest.date)}</p>
-						{latest.description && (
-							<p class="mt-4 text-sm text-slate-600">{latest.description}</p>
-						)}
-						<div class="mt-5 flex flex-wrap gap-3">
+		<section class="bg-white no-divider">
+			<div class="container mx-auto max-w-6xl px-6 py-8 sm:py-10 lg:py-12">
+				{featuredEntry ? (
+					<section class="reveal border-b border-[color:var(--accent-muted)]/70 pb-10 sm:pb-12">
+						<article class="grid gap-7 lg:grid-cols-[1.25fr_minmax(0,1fr)] lg:items-center lg:gap-10">
 							<a
-								href={`/insights/newsletters/${latest.slug}`}
-								class="btn btn-primary"
+								href={`/insights/newsletters/${featuredEntry.slug}`}
+								class="reveal-image group no-link-style block overflow-hidden rounded-lg"
+								aria-label={`Read ${featuredEntry.data.title}`}
 							>
-								View the latest issue
+								<img
+									src={featuredEntry.data.image ?? '/images/Office%20Painted.png'}
+									alt={featuredEntry.data.title}
+									class="aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
+									loading="lazy"
+									decoding="async"
+								/>
 							</a>
-							<a
-								href={latest.pdfPath}
-								class="btn-link hover:underline underline-offset-4"
-							>
-								Download PDF
-							</a>
-						</div>
+
+							<div class="max-w-2xl">
+								<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
+									Featured Publication
+								</p>
+								<h2 class="mt-3 text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">
+									<a
+										href={`/insights/newsletters/${featuredEntry.slug}`}
+										class="underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
+									>
+										{featuredEntry.data.title}
+									</a>
+								</h2>
+								<p class="mt-3 text-sm text-slate-600">
+									{formatDateString(featuredEntry.data.pubDate)} &middot; {featuredEntry.data.readingTime}
+								</p>
+								{featuredEntry.data.description && (
+									<p class="mt-4 text-sm leading-7 text-slate-700">{featuredEntry.data.description}</p>
+								)}
+								{featuredEntry.data.issueItems && featuredEntry.data.issueItems.length > 0 && (
+									<div class="issue-brief issue-brief-featured">
+										<p class="issue-brief-label">
+											In This Issue
+										</p>
+										<ol class="issue-brief-list issue-brief-list-featured">
+											{featuredEntry.data.issueItems.map((item) => (
+												<li class="issue-brief-item">
+													{item}
+												</li>
+											))}
+										</ol>
+									</div>
+								)}
+								<div class="mt-5 flex flex-wrap items-center gap-4">
+									<a
+										href={`/insights/newsletters/${featuredEntry.slug}`}
+										class="text-sm font-semibold text-slate-900 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
+									>
+										Read newsletter &rarr;
+									</a>
+									{featuredEntry.data.pdfPath && (
+										<a
+											href={featuredEntry.data.pdfPath}
+											class="text-sm font-medium text-slate-700 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-900 hover:underline"
+										>
+											Download PDF
+										</a>
+									)}
+								</div>
+							</div>
+						</article>
 					</section>
 				) : (
-					<p class="text-sm text-slate-600">No newsletters are available yet.</p>
+					<p class="text-sm text-slate-700">No newsletters are available yet.</p>
 				)}
 
-				<section class="mt-10 rounded-lg border border-[color:var(--accent-muted)] bg-white p-6 sm:p-8">
-					<p class="eyebrow text-[color:var(--accent)]">Newsletters</p>
-					<h2 class="mt-3 text-2xl font-semibold text-slate-900 sm:text-3xl">
-						PDF Library
-					</h2>
-					<p class="mt-2 text-sm text-slate-600">
-						Download or view recent newsletters in a clean, print-ready format.
-					</p>
-					<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-						{libraryEntries.map((entry) => (
-							<article class="rounded-lg border border-[color:rgba(148,163,184,0.35)] bg-white p-5">
-								<p class="text-base font-semibold text-slate-900">{entry.title}</p>
-								<p class="mt-2 text-sm text-slate-600">
-									{formatDateString(entry.date)}
-								</p>
-								{entry.description && (
-									<p class="mt-3 text-sm text-slate-600">{entry.description}</p>
-								)}
-								<div class="mt-4 flex flex-wrap gap-3">
+				{secondaryEntries.length > 0 && (
+					<section class="reveal mt-10 sm:mt-12">
+						<div class="max-w-3xl">
+							<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
+								Quarterly Archive
+							</p>
+							<h2 class="mt-2 text-2xl font-semibold text-slate-900">Recent Issues</h2>
+						</div>
+
+						<div class="mt-7 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+							{secondaryEntries.map((entry) => (
+								<article class="group border-t border-[color:var(--accent-muted)]/55 pt-5">
 									<a
 										href={`/insights/newsletters/${entry.slug}`}
-										class="btn btn-primary btn-sm"
-										aria-label={`View ${entry.title}`}
+										class="reveal-image no-link-style block overflow-hidden rounded-md"
+										aria-label={`Read ${entry.data.title}`}
 									>
-										View
+										<img
+											src={entry.data.image ?? '/images/Office%20Painted.png'}
+											alt={entry.data.title}
+											class="aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
+											loading="lazy"
+											decoding="async"
+										/>
 									</a>
-									<a
-										href={entry.pdfPath}
-										class="btn-link text-xs hover:underline underline-offset-4"
-										aria-label={`Download ${entry.title} PDF`}
-									>
-										Download PDF
-									</a>
-								</div>
-							</article>
-						))}
-					</div>
-				</section>
+									<h3 class="mt-4 text-lg font-semibold leading-tight text-slate-900">
+										<a
+											href={`/insights/newsletters/${entry.slug}`}
+											class="underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
+										>
+											{entry.data.title}
+										</a>
+									</h3>
+									<p class="mt-2 text-xs text-slate-600">
+										{formatDateString(entry.data.pubDate)} &middot; {entry.data.readingTime}
+									</p>
+									{entry.data.issueItems && entry.data.issueItems.length > 0 && (
+										<div class="issue-brief issue-brief-compact">
+											<p class="issue-brief-label issue-brief-label-compact">
+												In This Issue
+											</p>
+											<ol class="issue-brief-list issue-brief-list-compact">
+												{entry.data.issueItems.map((item) => (
+													<li class="issue-brief-item issue-brief-item-compact">
+														{item}
+													</li>
+												))}
+											</ol>
+										</div>
+									)}
+									<div class="mt-3 flex flex-wrap items-center gap-3">
+										<a
+											href={`/insights/newsletters/${entry.slug}`}
+											class="inline-flex text-sm font-semibold text-slate-900 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
+										>
+											Read newsletter &rarr;
+										</a>
+										{entry.data.pdfPath && (
+											<a
+												href={entry.data.pdfPath}
+												class="inline-flex text-sm font-medium text-slate-700 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-900 hover:underline"
+											>
+												Download PDF
+											</a>
+										)}
+									</div>
+								</article>
+							))}
+						</div>
+					</section>
+				)}
 			</div>
 		</section>
 	</main>
 </Layout>
+
+<style>
+	.issue-brief {
+		margin-top: 1rem;
+		border-top: 1px solid rgba(148, 163, 184, 0.24);
+		padding-top: 0.9rem;
+	}
+
+	.issue-brief-featured {
+		max-width: 42rem;
+	}
+
+	.issue-brief-label {
+		font-size: 0.69rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.issue-brief-label-compact {
+		font-size: 0.64rem;
+		letter-spacing: 0.14em;
+	}
+
+	.issue-brief-list {
+		margin: 0.75rem 0 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: issue-brief-item;
+	}
+
+	.issue-brief-list-featured {
+		display: grid;
+		gap: 0.8rem 1.4rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.issue-brief-list-compact {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.issue-brief-item {
+		position: relative;
+		margin: 0;
+		border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+		padding: 0 0 0.8rem 2.1rem;
+		color: #334155;
+		font-size: 0.92rem;
+		font-weight: 500;
+		line-height: 1.45;
+	}
+
+	.issue-brief-item::before {
+		counter-increment: issue-brief-item;
+		content: counter(issue-brief-item, decimal-leading-zero);
+		position: absolute;
+		left: 0;
+		top: 0.02rem;
+		color: var(--accent);
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+	}
+
+	.issue-brief-list-featured .issue-brief-item:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.issue-brief-item-compact {
+		padding-left: 1.7rem;
+		padding-bottom: 0.5rem;
+		font-size: 0.78rem;
+		line-height: 1.35;
+	}
+
+	.issue-brief-item-compact::before {
+		top: 0.01rem;
+		font-size: 0.62rem;
+	}
+
+	.issue-brief-list-compact .issue-brief-item:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	@media (max-width: 640px) {
+		.issue-brief-list-featured {
+			grid-template-columns: 1fr;
+			gap: 0.55rem;
+		}
+
+		.issue-brief-list-featured .issue-brief-item {
+			border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+			padding-bottom: 0.55rem;
+		}
+
+		.issue-brief-list-featured .issue-brief-item:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+	}
+</style>

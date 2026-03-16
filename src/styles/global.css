@@ -19,6 +19,10 @@ body {
 	color: #0f172a;
 }
 
+html {
+	scroll-behavior: auto;
+}
+
 header {
 	background-color: #ffffff;
 	background-image: none;
@@ -30,7 +34,6 @@ header .nav-link {
 	border-bottom: 2px solid transparent;
 	text-decoration: none;
 	text-underline-offset: 4px;
-	transition: color 150ms ease, border-color 150ms ease, transform 80ms ease;
 }
 
 header .nav-link:hover {
@@ -52,15 +55,14 @@ header .nav-link:focus-visible {
 
 header .nav-link:active {
 	color: #0f172a;
-	transform: translateY(1px);
 }
 
 main .hero-accent {
-	border-bottom: 1px solid var(--accent);
+	border-bottom: none;
 }
 
 main .hero-accent-top {
-	border-top: 1px solid var(--accent);
+	border-top: none;
 }
 
 main {
@@ -70,7 +72,7 @@ main {
 }
 
 main > section + section {
-	border-top: 1px solid rgba(148, 163, 184, 0.35);
+	margin-top: clamp(1.5rem, 2.4vw, 2.5rem);
 }
 
 main > section.theme-divider {
@@ -79,6 +81,7 @@ main > section.theme-divider {
 
 main > section.no-divider {
 	border-top: none;
+	margin-top: 0;
 }
 
 main .eyebrow {
@@ -102,7 +105,6 @@ main a {
 	text-decoration-line: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 3px;
-	transition: color 150ms ease, text-decoration-color 150ms ease;
 }
 
 main a:hover {
@@ -148,7 +150,6 @@ main .btn {
 	font-weight: 600;
 	line-height: 1.2;
 	text-decoration: none;
-	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 main .btn-sm {
@@ -230,7 +231,7 @@ main mark {
 }
 
 .home-hero p:not(.eyebrow) {
-	color: #5b6778;
+	color: #475569;
 	font-size: 0.98rem;
 }
 
@@ -243,7 +244,7 @@ main mark {
 }
 
 .home-section + .home-section {
-	border-top: 1px solid rgba(15, 23, 42, 0.06);
+	margin-top: 0;
 }
 
 .home-section__inner {
@@ -266,26 +267,97 @@ main mark {
 
 .home-prose p {
 	line-height: 1.75;
+	color: #475569;
 }
 
-.reveal {
-	opacity: 0;
-	transform: translateY(8px);
-}
-
-.reveal.is-visible {
+/* Motion is opt-in: elements stay visible by default unless JS marks them for reveal. */
+.reveal,
+.reveal-image,
+.img-reveal {
 	opacity: 1;
 	transform: translateY(0);
-	transition: opacity 300ms ease-out, transform 300ms ease-out;
+	transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: opacity, transform;
+}
+
+.reveal.will-reveal,
+.reveal-image.will-reveal,
+.img-reveal.will-reveal {
+	opacity: 0;
+	transform: translateY(12px);
+}
+
+/* Keep image movement restrained for an editorial, trust-first feel. */
+.reveal-image img,
+.img-reveal img {
+	transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+	transform: scale(1);
+}
+
+.reveal-image.will-reveal img,
+.img-reveal.will-reveal img {
+	transform: scale(0.985);
+}
+
+.reveal.is-visible,
+.reveal-image.is-visible,
+.img-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-image.is-visible img,
+.img-reveal.is-visible img {
+	transform: scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.reveal {
-		opacity: 1;
-		transform: none;
-		transition: none;
+	.reveal,
+	.reveal-image,
+	.img-reveal {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+
+	.reveal-image img,
+	.img-reveal img {
+		transition: none !important;
+		transform: none !important;
 	}
 }
+
+/* Disable site-wide motion and hover transitions. */
+*,
+*::before,
+*::after {
+	animation: none !important;
+	transition: none !important;
+}
+
+.reveal,
+.reveal-image,
+.img-reveal,
+.reveal.will-reveal,
+.reveal-image.will-reveal,
+.img-reveal.will-reveal,
+.reveal.is-visible,
+.reveal-image.is-visible,
+.img-reveal.is-visible {
+	opacity: 1 !important;
+	transform: none !important;
+	will-change: auto !important;
+}
+
+.reveal-image img,
+.img-reveal img,
+.reveal-image.will-reveal img,
+.img-reveal.will-reveal img,
+.reveal-image.is-visible img,
+.img-reveal.is-visible img {
+	transform: none !important;
+}
+
 
 @media (min-width: 640px) {
 	.home-hero h1 {
@@ -322,7 +394,6 @@ main mark {
 	text-decoration-line: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 3px;
-	transition: color 150ms ease, text-decoration-color 150ms ease;
 }
 
 .site-footer .footer-link:hover {
@@ -335,35 +406,4 @@ main mark {
 	text-decoration-color: currentColor;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	main > section:not(.reveal) {
-		animation: section-reveal 700ms ease-out both;
-	}
 
-	main > section:nth-of-type(2) {
-		animation-delay: 80ms;
-	}
-
-	main > section:nth-of-type(3) {
-		animation-delay: 160ms;
-	}
-
-	main > section:nth-of-type(4) {
-		animation-delay: 240ms;
-	}
-
-	main > section:nth-of-type(5) {
-		animation-delay: 320ms;
-	}
-}
-
-@keyframes section-reveal {
-	from {
-		opacity: 0;
-		transform: translateY(12px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}

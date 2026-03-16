@@ -13,11 +13,11 @@ const maxFileSizeMb = 5;
 			subtitle="Submit your application and tell us about your interest in joining the team."
 		/>
 
-		<section class="bg-white min-h-[60vh]">
+		<section class="bg-white min-h-[60vh] reveal">
 			<div class="container mx-auto px-6 py-10 sm:py-12">
 				<article class="rounded-lg border border-[color:var(--accent-muted)] bg-white p-6 sm:p-8">
 					<h2 class="text-2xl font-semibold text-slate-900">Application Form</h2>
-					<p class="mt-2 text-sm text-slate-600">
+					<p class="mt-2 text-sm text-slate-700">
 						You can apply for a specific posting or submit a general application.
 					</p>
 
@@ -90,7 +90,7 @@ const maxFileSizeMb = 5;
 							<p class="block text-sm font-semibold text-slate-800">
 								Add resume and cover letter
 							</p>
-							<p class="mt-1 text-xs text-slate-600">
+							<p class="mt-1 text-xs text-slate-700">
 								Resume is required. Cover letter is optional. PDF, DOC, or DOCX only.
 								Maximum {maxFileSizeMb}MB per file.
 							</p>
@@ -106,11 +106,11 @@ const maxFileSizeMb = 5;
 								>
 									Choose Resume
 								</span>
-								<span data-file-name="resume" class="text-sm text-slate-600">No file selected</span>
+								<span data-file-name="resume" class="text-sm text-slate-700">No file selected</span>
 								<button
 									type="button"
 									data-clear-file="resume"
-									class="text-base font-semibold leading-none text-slate-400 hover:text-slate-700"
+									class="text-base font-semibold leading-none text-slate-500 hover:text-slate-700"
 									style="display:none"
 									aria-label="Remove selected resume"
 								>
@@ -138,13 +138,13 @@ const maxFileSizeMb = 5;
 									>
 										Choose Cover Letter
 									</span>
-									<span data-file-name="cover-letter" class="text-sm text-slate-600">
+									<span data-file-name="cover-letter" class="text-sm text-slate-700">
 										No file selected
 									</span>
 									<button
 										type="button"
 										data-clear-file="cover-letter"
-										class="text-base font-semibold leading-none text-slate-400 hover:text-slate-700"
+										class="text-base font-semibold leading-none text-slate-500 hover:text-slate-700"
 										style="display:none"
 										aria-label="Remove selected cover letter"
 									>
