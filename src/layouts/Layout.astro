@@ -9,9 +9,11 @@ import Footer from '../components/Footer.astro'
 	<head>
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-H6K866TMRM"></script>
-		<script>
+		<script is:inline>
 			window.dataLayer = window.dataLayer || [];
-			const gtag = (...args: unknown[]) => { window.dataLayer.push(args); };
+			function gtag() {
+				window.dataLayer.push(arguments);
+			}
 			gtag('js', new Date());
 			gtag('config', 'G-H6K866TMRM');
 		</script>
