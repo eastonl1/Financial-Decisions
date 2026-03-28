@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/Hero.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sorted = [...allPosts].sort(
@@ -16,152 +15,102 @@ const formatDateString = (value: Date) =>
 ---
 
 <Layout>
-	<main>
-		<Hero
-			title="Newsletters"
-			subtitle="Posts and newsletters from the Financial Decisions team."
-		/>
-
-		<section class="bg-white no-divider">
-			<div class="container mx-auto max-w-6xl px-6 py-8 sm:py-10 lg:py-12">
+	<main class="page-shell">
+		<section class="newsletter-index-section page-section-soft no-divider">
+			<div class="page-container page-container--content page-section--tight-top">
 				{featuredEntry ? (
-					<section class="reveal border-b border-[color:var(--accent-muted)]/70 pb-10 sm:pb-12">
-						<article class="grid gap-7 lg:grid-cols-[1.25fr_minmax(0,1fr)] lg:items-center lg:gap-10">
+					<section class="reveal pb-10 sm:pb-12">
+						<article class="newsletter-feature-card ui-card news-card overflow-hidden p-0">
 							<a
 								href={`/insights/newsletters/${featuredEntry.slug}`}
-								class="reveal-image group no-link-style block overflow-hidden rounded-lg"
+								class="newsletter-card-link group grid h-full gap-8 p-5 text-slate-900 no-link-style hover:no-underline focus-visible:no-underline sm:p-6 lg:grid-cols-[1.25fr_minmax(0,1fr)] lg:items-center lg:gap-12 lg:p-8"
 								aria-label={`Read ${featuredEntry.data.title}`}
 							>
-								<img
-									src={featuredEntry.data.image ?? '/images/Office%20Painted.png'}
-									alt={featuredEntry.data.title}
-									class="aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
-									loading="lazy"
-									decoding="async"
-								/>
-							</a>
-
-							<div class="max-w-2xl">
-								<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-									Featured Publication
-								</p>
-								<h2 class="mt-3 text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">
-									<a
-										href={`/insights/newsletters/${featuredEntry.slug}`}
-										class="underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
-									>
-										{featuredEntry.data.title}
-									</a>
-								</h2>
-								<p class="mt-3 text-sm text-slate-600">
-									{formatDateString(featuredEntry.data.pubDate)} &middot; {featuredEntry.data.readingTime}
-								</p>
-								{featuredEntry.data.description && (
-									<p class="mt-4 text-sm leading-7 text-slate-700">{featuredEntry.data.description}</p>
-								)}
-								{featuredEntry.data.issueItems && featuredEntry.data.issueItems.length > 0 && (
-									<div class="issue-brief issue-brief-featured">
-										<p class="issue-brief-label">
-											In This Issue
-										</p>
-										<ol class="issue-brief-list issue-brief-list-featured">
-											{featuredEntry.data.issueItems.map((item) => (
-												<li class="issue-brief-item">
-													{item}
-												</li>
-											))}
-										</ol>
-									</div>
-								)}
-								<div class="mt-5 flex flex-wrap items-center gap-4">
-									<a
-										href={`/insights/newsletters/${featuredEntry.slug}`}
-										class="text-sm font-semibold text-slate-900 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
-									>
-										Read newsletter &rarr;
-									</a>
-									{featuredEntry.data.pdfPath && (
-										<a
-											href={featuredEntry.data.pdfPath}
-											class="text-sm font-medium text-slate-700 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-900 hover:underline"
-										>
-											Download PDF
-										</a>
-									)}
+								<div class="reveal-image overflow-hidden rounded-lg">
+									<img
+										src={featuredEntry.data.image ?? '/images/Office%20Painted.png'}
+										alt={featuredEntry.data.title}
+										class:list={[
+											'aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]',
+											featuredEntry.slug === 'summer-2025' && 'newsletter-thumb--summer-2025',
+										]}
+										loading="lazy"
+										decoding="async"
+									/>
 								</div>
-							</div>
-						</article>
-					</section>
-				) : (
-					<p class="text-sm text-slate-700">No newsletters are available yet.</p>
-				)}
 
-				{secondaryEntries.length > 0 && (
-					<section class="reveal mt-10 sm:mt-12">
-						<div class="max-w-3xl">
-							<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-								Quarterly Archive
-							</p>
-							<h2 class="mt-2 text-2xl font-semibold text-slate-900">Recent Issues</h2>
-						</div>
-
-						<div class="mt-7 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-							{secondaryEntries.map((entry) => (
-								<article class="group border-t border-[color:var(--accent-muted)]/55 pt-5">
-									<a
-										href={`/insights/newsletters/${entry.slug}`}
-										class="reveal-image no-link-style block overflow-hidden rounded-md"
-										aria-label={`Read ${entry.data.title}`}
-									>
-										<img
-											src={entry.data.image ?? '/images/Office%20Painted.png'}
-											alt={entry.data.title}
-											class="aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
-											loading="lazy"
-											decoding="async"
-										/>
-									</a>
-									<h3 class="mt-4 text-lg font-semibold leading-tight text-slate-900">
-										<a
-											href={`/insights/newsletters/${entry.slug}`}
-											class="underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
-										>
-											{entry.data.title}
-										</a>
-									</h3>
-									<p class="mt-2 text-xs text-slate-600">
-										{formatDateString(entry.data.pubDate)} &middot; {entry.data.readingTime}
+								<div class="page-copy">
+									<p class="inner-page-eyebrow">
+										Featured Publication
 									</p>
-									{entry.data.issueItems && entry.data.issueItems.length > 0 && (
-										<div class="issue-brief issue-brief-compact">
-											<p class="issue-brief-label issue-brief-label-compact">
+									<h2 class="page-title mt-3">
+										{featuredEntry.data.title}
+									</h2>
+									<p class="inner-page-meta mt-3">
+										{formatDateString(featuredEntry.data.pubDate)} &middot; {featuredEntry.data.readingTime}
+									</p>
+									<div class="news-divider" aria-hidden="true"></div>
+									{featuredEntry.data.description && (
+										<p class="page-subtext mt-4">{featuredEntry.data.description}</p>
+									)}
+									{featuredEntry.data.issueItems && featuredEntry.data.issueItems.length > 0 && (
+										<div class="issue-brief issue-brief-featured">
+											<p class="issue-brief-label">
 												In This Issue
 											</p>
-											<ol class="issue-brief-list issue-brief-list-compact">
-												{entry.data.issueItems.map((item) => (
-													<li class="issue-brief-item issue-brief-item-compact">
+											<ol class="issue-brief-list issue-brief-list-featured">
+												{featuredEntry.data.issueItems.map((item) => (
+													<li class="issue-brief-item">
 														{item}
 													</li>
 												))}
 											</ol>
 										</div>
 									)}
-									<div class="mt-3 flex flex-wrap items-center gap-3">
-										<a
-											href={`/insights/newsletters/${entry.slug}`}
-											class="inline-flex text-sm font-semibold text-slate-900 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-700 hover:underline"
-										>
-											Read newsletter &rarr;
-										</a>
-										{entry.data.pdfPath && (
-											<a
-												href={entry.data.pdfPath}
-												class="inline-flex text-sm font-medium text-slate-700 underline-offset-4 transition-colors duration-200 ease-out hover:text-slate-900 hover:underline"
-											>
-												Download PDF
-											</a>
-										)}
-									</div>
+								</div>
+							</a>
+						</article>
+					</section>
+				) : (
+					<p class="inner-page-body">No newsletters are available yet.</p>
+				)}
+
+				{secondaryEntries.length > 0 && (
+					<section class="reveal mt-10 sm:mt-12">
+						<div class="page-copy">
+							<p class="inner-page-eyebrow">
+								Quarterly Archive
+							</p>
+							<h2 class="page-title--section mt-2">Recent Issues</h2>
+						</div>
+
+						<div class="newsletter-archive-grid mt-7 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+							{secondaryEntries.map((entry) => (
+								<article class="newsletter-archive-card ui-card news-card overflow-hidden p-0">
+									<a
+										href={`/insights/newsletters/${entry.slug}`}
+										class="newsletter-card-link group block h-full p-5 text-slate-900 no-link-style hover:no-underline focus-visible:no-underline"
+										aria-label={`Read ${entry.data.title}`}
+									>
+										<div class="reveal-image overflow-hidden rounded-md">
+											<img
+												src={entry.data.image ?? '/images/Office%20Painted.png'}
+												alt={entry.data.title}
+												class:list={[
+													'aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]',
+													entry.slug === 'summer-2025' && 'newsletter-thumb--summer-2025',
+												]}
+												loading="lazy"
+												decoding="async"
+											/>
+										</div>
+										<h3 class="inner-page-item-title mt-4">
+											{entry.data.title}
+										</h3>
+										<p class="inner-page-meta mt-2">
+											{formatDateString(entry.data.pubDate)} &middot; {entry.data.readingTime}
+										</p>
+									</a>
 								</article>
 							))}
 						</div>
@@ -173,6 +122,10 @@ const formatDateString = (value: Date) =>
 </Layout>
 
 <style>
+	.newsletter-thumb--summer-2025 {
+		object-position: center top;
+	}
+
 	.issue-brief {
 		margin-top: 1rem;
 		border-top: 1px solid rgba(148, 163, 184, 0.24);
@@ -191,11 +144,6 @@ const formatDateString = (value: Date) =>
 		color: var(--accent-dark);
 	}
 
-	.issue-brief-label-compact {
-		font-size: 0.64rem;
-		letter-spacing: 0.14em;
-	}
-
 	.issue-brief-list {
 		margin: 0.75rem 0 0;
 		padding: 0;
@@ -207,11 +155,6 @@ const formatDateString = (value: Date) =>
 		display: grid;
 		gap: 0.8rem 1.4rem;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.issue-brief-list-compact {
-		display: grid;
-		gap: 0.45rem;
 	}
 
 	.issue-brief-item {
@@ -242,24 +185,7 @@ const formatDateString = (value: Date) =>
 		padding-bottom: 0;
 	}
 
-	.issue-brief-item-compact {
-		padding-left: 1.7rem;
-		padding-bottom: 0.5rem;
-		font-size: 0.78rem;
-		line-height: 1.35;
-	}
-
-	.issue-brief-item-compact::before {
-		top: 0.01rem;
-		font-size: 0.62rem;
-	}
-
-	.issue-brief-list-compact .issue-brief-item:last-child {
-		border-bottom: none;
-		padding-bottom: 0;
-	}
-
-	@media (max-width: 640px) {
+	@media (max-width: 639px) {
 		.issue-brief-list-featured {
 			grid-template-columns: 1fr;
 			gap: 0.55rem;

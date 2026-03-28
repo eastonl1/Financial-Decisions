@@ -1,15 +1,15 @@
 ---
 const { pathname } = Astro.url;
 
-const links = [
-  { href: "/", label: "Home" },
+const navLinks = [
   { href: "/about", label: "About" },
   { href: "/insights", label: "Newsletters" },
   { href: "/resources", label: "Resources" },
-  { href: "/client-access", label: "Client Access" },
-  { href: "/contact", label: "Contact Us" },
   { href: "/careers", label: "Careers" },
 ];
+
+const utilityLink = { href: "/client-access", label: "Client Access" };
+const primaryCta = { href: "/contact", label: "Contact Us" };
 
 const isActive = (href: string) => {
   if (href === "/") return pathname === "/";
@@ -17,51 +17,76 @@ const isActive = (href: string) => {
 };
 ---
 
-<header data-site-header class="fixed left-0 right-0 top-0 z-50 border-b border-[color:var(--accent)] bg-[#f7f4f0]">
-  <div class="container">
-    <div class="flex items-center justify-between px-4 pb-0 md:px-0">
-      <!-- Brand -->
-      <a href="/" class="inline-flex items-center gap-3">
+<header
+  data-site-header
+  class="site-header fixed left-0 right-0 top-0 z-50 border-b border-[rgba(138,107,77,0.16)] bg-white"
+>
+  <div class="mx-auto w-full max-w-[92rem] pl-1 pr-4 sm:pl-2 sm:pr-6 lg:pl-3 lg:pr-8 xl:pl-4 xl:pr-10">
+    <div class="flex min-h-[5.75rem] items-center gap-4 sm:gap-6 lg:min-h-[6.5rem] lg:gap-10">
+      <a href="/" aria-label="Financial Decisions home" class="site-header__brand inline-flex shrink-0 items-center lg:-ml-1">
         <img
           src="/images/Logo.jpg"
           alt="Financial Decisions logo"
-          class="ml-4 -my-2 h-32 w-32 rounded-sm object-contain"
-          width="128"
-          height="128"
+          class="h-[3.48rem] w-auto max-w-none rounded-sm object-contain sm:h-[3.53rem] lg:h-[3.98rem]"
+          width="475"
+          height="234"
           loading="eager"
           decoding="async"
         />
       </a>
 
-      <!-- Desktop Nav -->
-      <nav aria-label="Primary" class="ml-8 hidden md:block">
-        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[1.02rem]">
-          {links.map((l) => (
-            <li>
-              <a
-                href={l.href}
-                class:list={[
-                  "nav-link px-1.5 py-1 transition",
-                isActive(l.href) && "nav-link-active",
-                ]}
-                aria-current={isActive(l.href) ? "page" : undefined}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div class="hidden shrink-0 items-center md:ml-auto md:flex">
+        <nav aria-label="Primary" class="header-primary-nav shrink-0">
+          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.98rem] lg:gap-x-6 xl:gap-x-7">
+            {navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={[
+                    "nav-link transition",
+                    isActive(link.href) && "nav-link-active",
+                  ]}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                >
+                  <span class="nav-link__label">{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <!-- Mobile Nav -->
-      <div class="relative md:hidden">
+        <div class="header-actions flex shrink-0 items-center gap-3 lg:gap-4">
+          <a
+            href={utilityLink.href}
+            class:list={[
+              "btn header-secondary-cta no-link-style",
+              isActive(utilityLink.href) && "header-secondary-cta-current",
+            ]}
+            aria-current={isActive(utilityLink.href) ? "page" : undefined}
+          >
+            {utilityLink.label}
+          </a>
+          <a
+            href={primaryCta.href}
+            class:list={[
+              "btn btn-primary cta-button header-cta no-link-style",
+              isActive(primaryCta.href) && "header-cta-current",
+            ]}
+            aria-current={isActive(primaryCta.href) ? "page" : undefined}
+          >
+            <span>{primaryCta.label}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="relative ml-auto md:hidden">
         <button
           type="button"
           data-mobile-nav-toggle
           aria-controls="mobile-nav-menu"
           aria-expanded="false"
           aria-label="Open menu"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[color:var(--accent-muted)] bg-white text-[color:var(--accent-dark)]"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[rgba(138,107,77,0.18)] bg-[#fcfaf7] text-[color:var(--accent-dark)] transition"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
@@ -71,26 +96,48 @@ const isActive = (href: string) => {
           id="mobile-nav-menu"
           data-mobile-nav-menu
           data-open="false"
-          class="pointer-events-none absolute right-0 top-12 z-50 w-64 max-h-0 -translate-y-1 overflow-hidden rounded-md border border-[color:var(--accent-muted)] bg-[#f7f4f0] opacity-0 shadow-sm transition-all duration-200 ease-out"
+          class="pointer-events-none absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(18rem,calc(100vw-2rem))] max-h-0 -translate-y-1 overflow-hidden rounded-xl border border-[rgba(138,107,77,0.18)] bg-[#fbf8f4] opacity-0 shadow-[0_18px_34px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out"
         >
           <nav aria-label="Mobile primary">
-            <ul class="p-2">
-              {links.map((l) => (
+            <ul class="p-2.5">
+              {navLinks.map((link) => (
                 <li>
                   <a
-                    href={l.href}
+                    href={link.href}
                     class:list={[
-                      "block rounded-md px-3 py-3 text-base font-medium text-slate-700",
-                      isActive(l.href) && "nav-link-active",
+                      "mobile-nav-link",
+                      isActive(link.href) && "mobile-nav-link-active",
                     ]}
-                    aria-current={isActive(l.href) ? "page" : undefined}
+                    aria-current={isActive(link.href) ? "page" : undefined}
                   >
-                    {l.label}
+                    {link.label}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
+          <div class="border-t border-[rgba(138,107,77,0.14)] p-3">
+            <a
+              href={utilityLink.href}
+              class:list={[
+                "mobile-nav-link mobile-nav-link--utility",
+                isActive(utilityLink.href) && "mobile-nav-link-active",
+              ]}
+              aria-current={isActive(utilityLink.href) ? "page" : undefined}
+            >
+              {utilityLink.label}
+            </a>
+            <a
+              href={primaryCta.href}
+              class:list={[
+                "btn btn-primary cta-button header-cta mt-2 w-full justify-center no-link-style",
+                isActive(primaryCta.href) && "header-cta-current",
+              ]}
+              aria-current={isActive(primaryCta.href) ? "page" : undefined}
+            >
+              <span>{primaryCta.label}</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -112,7 +159,7 @@ const isActive = (href: string) => {
       menu.classList.toggle('-translate-y-1', !open);
       menu.classList.toggle('pointer-events-none', !open);
       menu.classList.toggle('max-h-0', !open);
-      menu.classList.toggle('max-h-96', open);
+      menu.classList.toggle('max-h-[28rem]', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };

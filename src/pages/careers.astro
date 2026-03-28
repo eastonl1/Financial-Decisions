@@ -1,28 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
 
 const postings = [];
 ---
 
 <Layout>
-	<main>
-		<Hero
-			title="Careers"
-			subtitle="Join our team and help clients plan for the life they want."
-		/>
-
-		<section class="bg-white min-h-[60vh] reveal">
-			<div class="container mx-auto px-6 py-10 sm:py-12">
-				<div class="space-y-8">
-					<section class="rounded-lg border border-[color:var(--accent-muted)] bg-white p-6 sm:p-8">
-						<h2 class="text-2xl font-semibold text-slate-900">Current Job Postings</h2>
+	<main class="page-shell">
+		<section class="page-section-soft min-h-[60vh] reveal">
+			<div class="page-container page-container--content page-section--tight-top">
+				<div class="page-stack--lg">
+					<section class="job-card ui-card page-stack">
+						<h2 class="careers-panel-title">Current Job Postings</h2>
 						{postings.length > 0 ? (
 							<div class="mt-5 grid gap-4 sm:grid-cols-2">
 								{postings.map((posting) => (
-									<article class="rounded-md border border-slate-200 p-4">
-										<h3 class="text-lg font-semibold text-slate-900">{posting.title}</h3>
-										<p class="mt-2 text-sm text-slate-700">{posting.summary}</p>
+									<article class="ui-card p-5">
+										<h3 class="inner-page-item-title">{posting.title}</h3>
+										<p class="inner-page-body mt-2">{posting.summary}</p>
 										<a
 											href={`/careers/apply?posting=${encodeURIComponent(posting.title)}`}
 											class="btn btn-secondary mt-4"
@@ -33,20 +27,20 @@ const postings = [];
 								))}
 							</div>
 						) : (
-							<p class="mt-4 text-sm text-slate-700">
+							<p class="job-empty page-subtext mt-4">
 								There are currently no job postings.
 							</p>
 						)}
 					</section>
 
-					<section class="rounded-lg border border-[color:var(--accent-muted)] bg-stone-50 p-6 sm:p-8">
-						<h2 class="text-2xl font-semibold text-slate-900">
+					<section class="job-card ui-card page-stack">
+						<h2 class="careers-panel-title">
 							Looking to apply anyway?
 						</h2>
-						<p class="mt-2 text-sm text-slate-700">
+						<p class="page-subtext mt-2">
 							Tell us why you may be a good fit for our team.
 						</p>
-						<p class="mt-4 text-sm text-slate-700">
+						<p class="page-subtext mt-4">
 							Please email us at <a href="mailto:fdi@financialdecisions.ca" class="break-all font-medium text-[color:var(--accent)] hover:underline sm:break-normal">fdi@financialdecisions.ca</a>
 						</p>
 					</section>
@@ -55,4 +49,15 @@ const postings = [];
 		</section>
 	</main>
 </Layout>
+
+<style>
+	.careers-panel-title {
+		font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.028em;
+		color: #0f172a;
+		text-wrap: balance;
+	}
+</style>
 

@@ -1,91 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
 ---
 
 <Layout>
-	<main class="overflow-x-clip">
-		<Hero
-			title="About the Firm"
-			subtitle="Independent, family-run financial planning rooted in Sudbury and Northern Ontario."
-			className="bg-stone-50"
-			contentClass="py-10 sm:py-12"
-		/>
-
-		<section class="no-divider bg-[color:var(--accent-soft)]/40 reveal" data-reveal-immediate>
-			<div class="container mx-auto px-6 py-4 sm:py-5">
-				<div class="max-w-3xl">
-					<nav
-						class="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-slate-600"
-						aria-label="About page sections"
-					>
-						<a
-							href="#family-business-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Family Business
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#background-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Background
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#recognition-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Recognition
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#planning-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Planning
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#life-stages-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Life Stages
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#divorce-guidance-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Divorce Guidance
-						</a>
-						<span class="mx-2 text-slate-300" aria-hidden="true">|</span>
-						<a
-							href="#office-heading"
-							class="text-sm text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline focus:outline-none focus:ring-2 focus:ring-slate-300"
-						>
-							Our Office
-						</a>
-					</nav>
-				</div>
-			</div>
-		</section>
-
-		<section class="bg-white no-divider reveal" id="history" data-reveal-immediate>
-			<div class="container mx-auto max-w-5xl px-6 py-8 sm:py-10">
-				<div class="space-y-16 sm:space-y-20">
+	<main class="about-page page-shell overflow-x-clip">
+		<div class="about-divider"></div>
+		<section class="about-intro-section no-divider reveal" id="history" data-reveal-immediate>
+			<div class="container mx-auto max-w-5xl px-6 pt-10 pb-8 sm:pt-12 sm:pb-10">
+				<div class="space-y-20 sm:space-y-24 lg:space-y-28">
 					<section id="family-business">
 						<div class="py-1 sm:py-2">
 							<div class="grid gap-9 md:grid-cols-[minmax(0,1fr)_minmax(340px,0.95fr)] md:items-center md:gap-12">
-								<div class="max-w-[42rem]">
+								<div class="page-copy">
 									<h2
 										id="family-business-heading"
-										class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+										class="page-title--section scroll-mt-32"
 									>
 										A Family Business
 									</h2>
-									<div class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+									<div class="about-body-copy page-body mt-4 max-w-[40rem]">
 										Financial Decisions is locally owned and operated by the husband and wife
 										team of
 										<strong> John Lindsay and Linda Cartier and daughter Melanie Cartier.</strong>
@@ -114,9 +47,9 @@ import Hero from '../components/Hero.astro';
 					<div>
 						<section
 							id="background"
-							class="relative left-1/2 my-8 w-[100dvw] -translate-x-1/2 sm:my-10 bg-[color:var(--accent-soft)]/45 reveal"
+							class="page-band page-band--soft relative left-1/2 my-10 w-[100dvw] -translate-x-1/2 sm:my-12 reveal"
 						>
-							<div class="container mx-auto max-w-5xl px-6 py-5 sm:py-7">
+							<div class="container mx-auto max-w-5xl px-6 py-7 sm:py-9">
 								<div class="grid gap-8 md:grid-cols-[270px_minmax(0,1fr)] md:items-center md:gap-10">
 									<div class="w-full md:pt-1">
 										<div class="mx-auto w-full max-w-[270px] overflow-hidden rounded-lg md:mx-0 img-reveal">
@@ -133,11 +66,11 @@ import Hero from '../components/Hero.astro';
 									<div class="max-w-none">
 										<h2
 											id="background-heading"
-											class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+											class="page-title--section scroll-mt-32"
 										>
 											Professional Background
 										</h2>
-										<p class="mt-4 max-w-none text-sm leading-7 text-slate-700">
+										<p class="about-body-copy page-body mt-4 max-w-none">
 											As strong advocate for
 											<strong> higher standards in financial planning</strong>, she taught the
 											CFP (Certified Financial Planner) Course at Cambrian College and financial
@@ -152,7 +85,7 @@ import Hero from '../components/Hero.astro';
 											financial matters in separation and divorce. The website is
 											<strong> www.afds.ca</strong> for more information.
 										</p>
-										<p class="mt-4 max-w-none text-sm leading-7 text-slate-700">
+										<p class="about-body-copy page-body mt-4 max-w-none">
 											She has been involved in numerous volunteer activities and received
 											awards for this work and continues to support local initiatives as do
 											both Melanie and John.
@@ -162,17 +95,17 @@ import Hero from '../components/Hero.astro';
 							</div>
 						</section>
 
-						<section id="recognition" class="my-8 sm:my-10 reveal">
-							<div class="py-8 sm:py-9">
-								<div class="max-w-[44rem]">
+						<section id="recognition" class="my-10 sm:my-12 reveal">
+							<div class="py-10 sm:py-11">
+								<div class="page-copy--wide">
 									<h2
 										id="recognition-heading"
-										class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+										class="page-title--section scroll-mt-32"
 									>
 										Recognition and Client Feedback
 									</h2>
 									<div class="mt-4 space-y-7 text-sm leading-7 text-slate-700">
-										<p class="max-w-[41rem]">
+										<p class="about-body-copy max-w-[41rem]">
 											Linda received recognition as
 											<strong>Favorite Financial Planner</strong>
 											on three separate occasions in newspaper polls.
@@ -217,17 +150,17 @@ import Hero from '../components/Hero.astro';
 						</section>
 					</div>
 
-					<div class="relative left-1/2 w-[100dvw] -translate-x-1/2 bg-[color:var(--accent-soft)]/45 py-8 sm:py-9 reveal">
+					<div class="page-band page-band--soft relative left-1/2 w-[100dvw] -translate-x-1/2 py-10 sm:py-12 reveal">
 						<div class="container mx-auto max-w-5xl px-6">
 							<section id="planning">
-								<div class="max-w-[42rem]">
+								<div class="page-copy">
 								<h2
 									id="planning-heading"
-									class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+									class="page-title--section scroll-mt-32"
 								>
 									Comprehensive Planning
 								</h2>
-								<p class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+								<p class="about-body-copy page-body mt-4 max-w-[40rem]">
 									As our name implies, we help clients determine the best
 									<strong> financial decisions </strong>
 									based on their own and/or their families lifestyle goals and
@@ -242,15 +175,15 @@ import Hero from '../components/Hero.astro';
 								</div>
 							</section>
 
-							<section id="life-stages" class="mt-6 border-t border-[color:var(--accent-muted)]/80 pt-6">
-								<div class="max-w-[42rem]">
+							<section id="life-stages" class="mt-8 border-t border-[color:var(--accent-muted)]/80 pt-8">
+								<div class="page-copy">
 								<h2
 									id="life-stages-heading"
-									class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+									class="page-title--section scroll-mt-32"
 								>
 									Planning Through Life's Stages
 								</h2>
-								<p class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+								<p class="about-body-copy page-body mt-4 max-w-[40rem]">
 									<strong>The earlier you plan the better</strong> the results which
 									include investing, as even small amounts grow to large over time. This
 									is also the time to establish <strong>budgeting habits</strong> that
@@ -278,7 +211,7 @@ import Hero from '../components/Hero.astro';
 					</div>
 
 					<section id="divorce-guidance" class="reveal">
-						<div class="relative left-1/2 w-[100dvw] -translate-x-1/2 py-8 sm:py-9">
+						<div class="relative left-1/2 w-[100dvw] -translate-x-1/2 py-10 sm:py-12">
 							<div class="container mx-auto max-w-5xl px-6">
 								<div class="grid gap-8 md:grid-cols-[minmax(250px,0.82fr)_minmax(0,1.18fr)] md:items-center md:gap-11">
 								<div class="w-full">
@@ -293,14 +226,14 @@ import Hero from '../components/Hero.astro';
 									</div>
 								</div>
 
-								<div class="max-w-[42rem]">
+								<div class="page-copy">
 									<h2
 										id="divorce-guidance-heading"
-										class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+										class="page-title--section scroll-mt-32"
 									>
 										Separation and Divorce Guidance
 									</h2>
-									<p class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+									<p class="about-body-copy page-body mt-4 max-w-[40rem]">
 										It is unfortunate but many marriages end in separation and divorce.
 										Linda Cartier is a Chartered Financial Divorce Specialist (CFDS) as
 										well as her other professional designations, and has
@@ -326,16 +259,16 @@ import Hero from '../components/Hero.astro';
 					</section>
 
 					<section id="office" class="border-t border-[color:var(--accent-muted)] reveal">
-						<div class="pt-12 sm:pt-14">
+						<div class="pt-14 sm:pt-16">
 							<div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(300px,0.96fr)] md:items-start md:gap-11">
-								<div class="max-w-[42rem]">
+								<div class="page-copy">
 									<h2
 										id="office-heading"
-										class="scroll-mt-32 text-2xl font-semibold leading-tight tracking-tight text-slate-900"
+										class="page-title--section scroll-mt-32"
 									>
 										Our Office
 									</h2>
-									<p class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+									<p class="about-body-copy page-body mt-4 max-w-[40rem]">
 										Operating for several years in various locations as the only
 										<strong> fully independent </strong>
 										financial planning and investment firm in Northern Ontario we found a
@@ -350,7 +283,7 @@ import Hero from '../components/Hero.astro';
 										<strong> warm and welcoming atmosphere </strong>
 										of this fine old building.
 									</p>
-									<p class="mt-4 max-w-[40rem] text-sm leading-7 text-slate-700">
+									<p class="about-body-copy page-body mt-4 max-w-[40rem]">
 										The office is located at
 										<a
 											href="https://www.google.com/maps/search/?api=1&query=1546%20Bellevue%20Avenue%2C%20Sudbury%2C%20ON%2C%20P3B%203G2"
@@ -401,3 +334,36 @@ import Hero from '../components/Hero.astro';
 		</section>
 	</main>
 </Layout>
+
+<style>
+	.about-intro-section {
+		background: linear-gradient(
+			180deg,
+			rgba(246, 243, 239, 0.7) 0%,
+			rgba(255, 255, 255, 1) 60%
+		);
+		border-top: 1px solid rgba(138, 107, 77, 0.12);
+	}
+
+	.about-divider {
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			rgba(138, 107, 77, 0) 0%,
+			rgba(138, 107, 77, 0.25) 50%,
+			rgba(138, 107, 77, 0) 100%
+		);
+		opacity: 0.7;
+	}
+
+	#family-business {
+		padding-top: 0.5rem;
+	}
+
+	.about-body-copy {
+		font-size: 1rem;
+		line-height: 1.8;
+		color: #475569;
+		text-wrap: pretty;
+	}
+</style>

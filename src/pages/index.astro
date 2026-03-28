@@ -4,81 +4,438 @@ import Hero from '../components/Hero.astro';
 ---
 
 <Layout>
-	<main>
+	<main class="page-shell">
 		<Hero
-			title="Home Town Office with a Global Perspective"
-			subtitle='Locally owned and operated - proud to be Canadian'
-			eyebrow="Financial Decisions"
+			title="Independent Financial Planning"
+			subtitle="Locally owned and operated, we provide comprehensive guidance on investing, retirement, insurance, and long-term financial planning at every stage of life."
+			eyebrow="FINANCIAL DECISIONS"
 			backgroundImage="/images/Office%20Painted.png"
+			overlayClass="home-hero__overlay"
 			className="home-hero"
-			contentClass="py-12 sm:py-16 lg:py-20"
+			contentClass="home-hero__inner"
 		>
 			<div class="flex flex-wrap gap-3">
 				<a
 					href="/contact"
-					class="no-link-style btn-accent rounded-md px-5 py-3 text-sm font-semibold transition"
+					class="btn btn-primary cta-button hero-cta no-link-style"
 				>
-					Contact Us
+					<span>Contact Us</span>
 				</a>
 			</div>
 		</Hero>
 
-		<section class="home-section home-section--alt reveal no-divider">
-			<div class="container mx-auto px-6 home-section__inner">
-				<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-					<div class="home-prose">
+		<section class="home-section home-section--alt home-info-section home-community-section reveal no-divider">
+			<div class="page-container home-section__inner">
+				<div class="home-community-layout">
+					<div class="home-prose home-community-prose">
 						<p class="eyebrow text-[color:var(--accent)]">
-							Community
+							COMMUNITY
 						</p>
-						<h2 class="mt-3 text-[2rem] font-semibold tracking-tight text-slate-900">
+						<h2 class="home-community-title">
 							Connected to the people we serve
 						</h2>
-						<p class="mt-4 text-base text-slate-600">
+						<p class="home-community-body">
 							Proudly serving the lifestyle, financial planning and insurance needs of
 							hundreds of individuals, couples and families in the Greater Sudbury
 							area and beyond who we consider to be friends as well as clients.
 						</p>
+						<ul class="home-community-trust" aria-label="Financial Decisions trust points">
+							<li>Family Owned</li>
+							<li>Proudly Canadian</li>
+							<li>Serving the Community for 25+ Years</li>
+						</ul>
 					</div>
-					<div class="overflow-hidden rounded-lg shadow-sm lg:max-w-sm lg:justify-self-center">
-						<img
-							src="/images/Meeting.jpg"
-							alt="Meeting with clients"
-							class="h-full w-full object-cover"
-							loading="lazy"
-							decoding="async"
-						/>
-					</div>
+					<figure class="community-media-panel">
+						<div class="community-media-panel__frame">
+							<img
+								src="/images/Meeting.jpg"
+								alt="Financial Decisions meeting with clients"
+								class="community-media-panel__image"
+								loading="lazy"
+								decoding="async"
+							/>
+						</div>
+					</figure>
 				</div>
 			</div>
 		</section>
 
-		<section class="home-section reveal">
-			<div class="container mx-auto px-6 home-section__inner">
-				<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-					<div class="home-prose order-2 lg:order-2">
+		<section class="home-section home-section--end home-info-section home-mission-section reveal">
+			<div class="page-container home-section__inner">
+				<div class="home-mission-shell">
+					<div class="home-mission-intro">
 						<p class="eyebrow text-[color:var(--accent)]">
-							Mission
+							COMMITMENT
 						</p>
-						<h2 class="mt-3 text-[2rem] font-semibold tracking-tight text-slate-900">
+						<h2 class="home-mission-title">
 							Committed to your peace of mind
 						</h2>
-						<p class="mt-4 text-base text-slate-600">
-							Our dedicated mission for over 25 years is to bring to our valued clients
-							peace of mind as they understand we care about their financial well being
-							as if it were our own and specifically this is our continuing commitment.
-						</p>
 					</div>
-					<div class="order-1 overflow-hidden rounded-lg shadow-sm lg:order-1 lg:justify-self-center lg:max-w-[220px]">
-						<img
-							src="/images/Award.jpg"
-							alt="Award recognition"
-							class="h-full w-full object-cover"
-							loading="lazy"
-							decoding="async"
-						/>
+					<div class="home-mission-content">
+						<p class="home-mission-body">
+							Our dedicated mission for over 25 years is to bring to our valued
+							clients peace of mind as they understand we care about their financial
+							well being as if it were our own and specifically this is our
+							continuing commitment.
+						</p>
+						<ul class="home-mission-proof-list" aria-label="Financial Decisions mission proof points">
+							<li>Recognized in community reader polls</li>
+							<li>25+ years of trusted client relationships</li>
+							<li>Independent, family-owned financial planning firm</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</section>
 	</main>
 </Layout>
+
+<style>
+	.home-info-section .home-section__inner {
+		padding-top: clamp(4.75rem, 6vw, 6.35rem);
+		padding-bottom: clamp(4.75rem, 6vw, 6.35rem);
+	}
+
+	.home-info-section.home-community-section .home-section__inner {
+		padding-top: clamp(4rem, 5vw, 5rem);
+		padding-bottom: clamp(4.5rem, 5vw, 5.5rem);
+	}
+
+	.home-info-section + .home-info-section {
+		margin-top: clamp(2rem, 3vw, 3rem);
+	}
+
+	.home-community-layout {
+		display: grid;
+		gap: clamp(2.5rem, 4.5vw, 4rem);
+		align-items: start;
+	}
+
+	.home-community-prose {
+		max-width: 40rem;
+	}
+
+	.home-community-section .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-community-title {
+		margin-top: 1rem;
+		max-width: 15ch;
+		font-size: clamp(2.2rem, 4vw, 3rem);
+		font-weight: 600;
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		color: #0f172a;
+		text-wrap: balance;
+	}
+
+	.home-community-body {
+		margin-top: 1.35rem;
+		max-width: 39rem;
+		font-size: 1.04rem;
+		line-height: 1.8;
+		color: #475569;
+	}
+
+	.home-community-trust {
+		margin-top: 2rem;
+		display: grid;
+		gap: 0.95rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.home-community-trust li {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 4.1rem;
+		border: 1px solid rgba(138, 107, 77, 0.12);
+		border-radius: 1rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.97) 0%,
+			rgba(251, 248, 244, 0.96) 100%
+		);
+		padding: 1.15rem 1.15rem 1rem;
+		font-size: 0.97rem;
+		font-weight: 600;
+		line-height: 1.45;
+		letter-spacing: -0.015em;
+		text-align: center;
+		color: #1f2937;
+		box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+		text-wrap: pretty;
+	}
+
+	.home-community-trust li::before {
+		content: '';
+		position: absolute;
+		left: 1rem;
+		right: 1rem;
+		top: 0;
+		height: 2px;
+		border-radius: 999px;
+		background: linear-gradient(
+			90deg,
+			rgba(138, 107, 77, 0.14) 0%,
+			rgba(138, 107, 77, 0.48) 50%,
+			rgba(138, 107, 77, 0.14) 100%
+		);
+	}
+
+	.home-community-trust li:hover,
+	.home-community-trust li:focus-within {
+		border-color: rgba(138, 107, 77, 0.18);
+		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+	}
+
+	.community-media-panel {
+		width: min(100%, 30.5rem);
+		max-width: 30.5rem;
+		margin: 0 auto;
+	}
+
+	.community-media-panel__frame {
+		position: relative;
+		padding: clamp(0.9rem, 1.9vw, 1.05rem);
+		border-radius: 1.5rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.9) 0%,
+			rgba(246, 243, 239, 0.98) 100%
+		);
+		box-shadow: 0 20px 42px rgba(15, 23, 42, 0.07);
+	}
+
+	.community-media-panel__frame::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border: 1px solid rgba(138, 107, 77, 0.14);
+		border-radius: inherit;
+		pointer-events: none;
+	}
+
+	.community-media-panel__image {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 1.08rem;
+		border: 1px solid rgba(138, 107, 77, 0.12);
+		box-shadow: none;
+	}
+
+	.home-mission-shell {
+		position: relative;
+		display: grid;
+		gap: clamp(2rem, 3vw, 2.75rem);
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: clamp(1.8rem, 4vw, 3rem);
+		border: 1px solid rgba(138, 107, 77, 0.14);
+		border-radius: 1.75rem;
+		background: linear-gradient(180deg, #ffffff 0%, #faf7f3 100%);
+		box-shadow: 0 20px 44px rgba(15, 23, 42, 0.05);
+	}
+
+	.home-mission-shell::before {
+		content: '';
+		position: absolute;
+		inset: 1rem;
+		border: 1px solid rgba(138, 107, 77, 0.08);
+		border-radius: 1.25rem;
+		pointer-events: none;
+	}
+
+	.home-mission-intro,
+	.home-mission-content {
+		position: relative;
+		z-index: 1;
+	}
+
+	.home-mission-section .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-mission-title {
+		margin-top: 1rem;
+		max-width: 12ch;
+		font-size: clamp(2.1rem, 3.6vw, 2.8rem);
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: #0f172a;
+		text-wrap: balance;
+	}
+
+	.home-mission-body {
+		max-width: 41rem;
+		font-size: 1.02rem;
+		line-height: 1.85;
+		color: #475569;
+	}
+
+	.home-mission-content {
+		display: grid;
+		gap: 1.75rem;
+	}
+
+	.home-mission-proof-list {
+		display: grid;
+		gap: 0.95rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.home-mission-proof-list li {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 4.1rem;
+		border: 1px solid rgba(138, 107, 77, 0.12);
+		border-radius: 1rem;
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0.97) 0%,
+			rgba(251, 248, 244, 0.96) 100%
+		);
+		padding: 1.15rem 1.15rem 1rem;
+		font-size: 0.97rem;
+		font-weight: 600;
+		line-height: 1.45;
+		letter-spacing: -0.015em;
+		text-align: center;
+		color: #1f2937;
+		box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+		text-wrap: pretty;
+	}
+
+	.home-mission-proof-list li::before {
+		content: '';
+		position: absolute;
+		left: 1rem;
+		right: 1rem;
+		top: 0;
+		height: 2px;
+		border-radius: 999px;
+		background: linear-gradient(
+			90deg,
+			rgba(138, 107, 77, 0.14) 0%,
+			rgba(138, 107, 77, 0.48) 50%,
+			rgba(138, 107, 77, 0.14) 100%
+		);
+	}
+
+	.home-mission-proof-list li:hover,
+	.home-mission-proof-list li:focus-within {
+		border-color: rgba(138, 107, 77, 0.18);
+		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+	}
+
+	@media (min-width: 640px) {
+		.home-community-trust {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.home-mission-proof-list {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 639px) {
+		.home-mission-shell {
+			gap: 1.6rem;
+			padding: 1.4rem 1.2rem 1.5rem;
+			border-radius: 1.3rem;
+			border-color: rgba(138, 107, 77, 0.11);
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.96) 0%,
+				rgba(250, 247, 243, 0.92) 100%
+			);
+			box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+		}
+
+		.home-mission-shell::before {
+			inset: 0.75rem;
+			border-color: rgba(138, 107, 77, 0.05);
+			border-radius: 1rem;
+		}
+
+		.home-mission-title {
+			margin-top: 0.85rem;
+			font-size: clamp(1.95rem, 8.5vw, 2.3rem);
+		}
+
+		.home-mission-content {
+			gap: 1.35rem;
+		}
+
+		.home-mission-body {
+			line-height: 1.8;
+		}
+
+		.home-mission-proof-list {
+			gap: 0.8rem;
+		}
+
+		.home-mission-proof-list li {
+			justify-content: center;
+			min-height: auto;
+			border-color: rgba(138, 107, 77, 0.1);
+			border-radius: 0.85rem;
+			background: rgba(255, 255, 255, 0.64);
+			padding: 0.95rem 0.95rem 0.85rem;
+			text-align: center;
+			box-shadow: none;
+		}
+
+		.home-mission-proof-list li::before {
+			left: 0.9rem;
+			right: 0.9rem;
+			background: linear-gradient(
+				90deg,
+				rgba(138, 107, 77, 0.08) 0%,
+				rgba(138, 107, 77, 0.26) 50%,
+				rgba(138, 107, 77, 0.08) 100%
+			);
+		}
+
+		.home-mission-proof-list li:hover,
+		.home-mission-proof-list li:focus-within {
+			border-color: rgba(138, 107, 77, 0.12);
+			box-shadow: none;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.home-community-layout {
+			grid-template-columns: minmax(0, 1.04fr) minmax(22rem, 0.9fr);
+			align-items: center;
+		}
+
+		.home-community-prose {
+			padding-right: clamp(1rem, 2.5vw, 1.75rem);
+		}
+
+		.community-media-panel {
+			margin-left: auto;
+		}
+
+		.home-mission-shell {
+			grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+			align-items: start;
+			gap: clamp(2.5rem, 4vw, 4rem);
+		}
+
+		.home-mission-content {
+			border-left: 1px solid rgba(138, 107, 77, 0.14);
+			padding-left: clamp(1.4rem, 2.4vw, 1.85rem);
+		}
+	}
+</style>
