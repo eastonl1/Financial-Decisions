@@ -22,7 +22,7 @@ const hasContent = Astro.slots.has("default");
 
 <section class={sectionClass} style={style}>
 	{backgroundImage && <div class={`absolute inset-0 ${overlayClass}`}></div>}
-	<div class={`container relative mx-auto px-6 py-12 sm:py-16 ${contentClass}`}>
+	<div class={`page-container page-container--content relative py-12 sm:py-16 ${contentClass}`}>
 		<div class="hero-content max-w-3xl">
 			{eyebrow && (
 				<p class="eyebrow">

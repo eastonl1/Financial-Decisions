@@ -8,6 +8,9 @@
 	--accent-muted: rgba(138, 107, 77, 0.35);
 	--accent-glow: rgba(155, 123, 69, 0.28);
 	--header-height: 5.75rem;
+	--page-gutter: clamp(1rem, 3vw, 1.5rem);
+	--page-max-width: 80rem;
+	--page-content-max-width: 72rem;
 }
 
 @media (min-width: 768px) {
@@ -287,16 +290,16 @@ main > section.no-divider {
 
 .page-container {
 	width: 100%;
-	max-width: 80rem;
 	margin-inline: auto;
-	padding-inline: 1.5rem;
+	max-width: var(--page-max-width);
+	padding-inline: var(--page-gutter);
 }
 
 .page-container--content {
 	width: 100%;
-	max-width: 72rem;
 	margin-inline: auto;
-	padding-inline: 1.5rem;
+	max-width: var(--page-content-max-width);
+	padding-inline: var(--page-gutter);
 }
 
 .page-copy {
