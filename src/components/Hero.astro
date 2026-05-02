@@ -4,36 +4,170 @@ const {
 	subtitle,
 	eyebrow,
 	backgroundImage,
-	overlayClass = "bg-white/60",
+	backgroundWebp,
+	backgroundAvif,
+	backgroundWidth,
+	backgroundHeight,
+	image,
+	imageAlt = "",
+	imageWidth,
+	imageHeight,
+	overlayClass = "bg-[rgba(var(--white-rgb),0.6)]",
 	className = "",
 	contentClass = "",
+	imageClass = "",
+	variant = "hero",
 } = Astro.props;
 
+const isPageHeader = variant === "page";
+const hasBackgroundMedia = Boolean(backgroundImage || backgroundWebp || backgroundAvif);
 const sectionClass = [
-	"hero-accent relative bg-stone-50 reveal",
-	backgroundImage && "bg-cover bg-center",
+	"hero-accent relative bg-[var(--surface-band)] reveal",
 	className,
 ]
 	.filter(Boolean)
 	.join(" ");
-const style = backgroundImage ? `background-image: url('${backgroundImage}');` : undefined;
 const hasContent = Astro.slots.has("default");
+const hasMeta = Astro.slots.has("meta");
 ---
 
-<section class={sectionClass} style={style}>
-	{backgroundImage && <div class={`absolute inset-0 ${overlayClass}`}></div>}
-	<div class={`page-container page-container--content relative py-12 sm:py-16 ${contentClass}`}>
-		<div class="hero-content max-w-3xl">
-			{eyebrow && (
-				<p class="eyebrow">
-					{eyebrow}
-				</p>
+{isPageHeader ? (
+	<header class:list={["page-header", image && "page-header--with-media", className]}>
+		<div class:list={["page-header__content", contentClass]}>
+			{eyebrow && <p class="inner-page-eyebrow">{eyebrow}</p>}
+			<h1 class="page-title">{title}</h1>
+			{hasMeta && (
+				<div class="page-header__meta">
+					<slot name="meta" />
+				</div>
 			)}
-			<h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-				{title}
-			</h1>
-			{subtitle && <p class="mt-3 text-base text-slate-700">{subtitle}</p>}
-			{hasContent && <div class="mt-6"><slot /></div>}
+			{subtitle && <p class="page-subtext">{subtitle}</p>}
+			{hasContent && (
+				<div class="page-header__body">
+					<slot />
+				</div>
+			)}
 		</div>
-	</div>
-</section>
+		{image && (
+			<div class:list={["page-header__media", imageClass]}>
+				<img
+					src={image}
+					alt={imageAlt}
+					width={imageWidth}
+					height={imageHeight}
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		)}
+	</header>
+) : (
+	<section class={sectionClass}>
+		{hasBackgroundMedia && (
+			<picture class="hero-background-media" aria-hidden="true">
+				{backgroundAvif && <source srcset={backgroundAvif} type="image/avif" />}
+				{backgroundWebp && <source srcset={backgroundWebp} type="image/webp" />}
+				<img
+					src={backgroundImage}
+					alt=""
+					width={backgroundWidth}
+					height={backgroundHeight}
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</picture>
+		)}
+		{hasBackgroundMedia && <div class={`absolute inset-0 ${overlayClass}`}></div>}
+		<div class={`page-container page-container--content relative py-12 sm:py-16 ${contentClass}`}>
+			<div class="hero-content max-w-3xl">
+				{eyebrow && (
+					<p class="eyebrow">
+						{eyebrow}
+					</p>
+				)}
+				<h1>
+					{title}
+				</h1>
+				{subtitle && <p class="mt-3">{subtitle}</p>}
+				{hasContent && <div class="mt-6"><slot /></div>}
+			</div>
+		</div>
+	</section>
+)}
+
+<style>
+	.hero-background-media {
+		position: absolute;
+		inset: 0;
+		display: block;
+		overflow: hidden;
+	}
+
+	.hero-background-media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	.page-header {
+		max-width: 46rem;
+		padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.page-header--with-media {
+		display: grid;
+		max-width: none;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: center;
+	}
+
+	.page-header__content {
+		max-width: 46rem;
+	}
+
+	.page-header .inner-page-eyebrow + .page-title {
+		margin-top: 0.85rem;
+	}
+
+	.page-header__meta {
+		margin-top: 0.9rem;
+	}
+
+	.page-header__body {
+		margin-top: 1rem;
+	}
+
+	.page-header__body :global(.page-subtext:first-child),
+	.page-header__body :global(.page-body:first-child),
+	.page-header__body :global(.inner-page-body:first-child) {
+		margin-top: 0;
+	}
+
+	.page-header__media {
+		overflow: hidden;
+		border: 1px solid var(--rule-bronze);
+		border-radius: var(--radius-md);
+		background: var(--surface-warm);
+		box-shadow: 0 16px 34px rgba(var(--ink-shadow-rgb), 0.06);
+	}
+
+	.page-header__media img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+	}
+
+	@media (min-width: 768px) {
+		.page-header--with-media {
+			grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.72fr);
+		}
+	}
+</style>

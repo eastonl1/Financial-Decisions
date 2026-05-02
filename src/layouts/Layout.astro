@@ -2,6 +2,52 @@
 import '../styles/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+
+const defaultTitle = 'Financial Decisions | Independent Financial Planning'
+const defaultDescription =
+	'Independent financial planning services in Sudbury, Ontario, focused on investments, retirement, insurance, and long-term financial guidance.'
+const defaultImage = '/images/office-painted.jpg'
+const siteUrl = Astro.site ?? new URL('https://financialdecisions.ca')
+const {
+	title = defaultTitle,
+	description = defaultDescription,
+	image = defaultImage,
+	type = 'website',
+	heroPreload,
+} = Astro.props
+
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl)
+const imageUrl = new URL(image, siteUrl)
+const logoUrl = new URL('/images/logo-transparent.png', siteUrl)
+const localBusinessJson = {
+	'@context': 'https://schema.org',
+	'@type': ['LocalBusiness', 'FinancialService'],
+	'@id': new URL('/#financial-decisions', siteUrl).toString(),
+	name: 'Financial Decisions',
+	url: siteUrl.toString(),
+	logo: logoUrl.toString(),
+	image: imageUrl.toString(),
+	description: defaultDescription,
+	telephone: '+1-705-525-7526',
+	email: 'fdi@financialdecisions.ca',
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: '1546 Bellevue Avenue',
+		addressLocality: 'Sudbury',
+		addressRegion: 'ON',
+		postalCode: 'P3B 3G2',
+		addressCountry: 'CA',
+	},
+	openingHoursSpecification: [
+		{
+			'@type': 'OpeningHoursSpecification',
+			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+			opens: '09:00',
+			closes: '17:00',
+		},
+	],
+	sameAs: ['https://www.linkedin.com/company/financial-decisions-inc./'],
+}
 ---
 
 <!doctype html>
@@ -19,9 +65,34 @@ import Footer from '../components/Footer.astro'
 		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/jpeg" href="/images/Logo.jpg" />
+		<link rel="icon" type="image/png" href="/images/logo-transparent.png" />
+		<link rel="canonical" href={canonicalUrl.toString()} />
+		{heroPreload && (
+			<link
+				rel="preload"
+				as="image"
+				href={heroPreload.href}
+				type={heroPreload.type}
+				fetchpriority="high"
+			/>
+		)}
 		<meta name="generator" content={Astro.generator} />
-		<title>Financial Decisions</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Financial Decisions" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl.toString()} />
+		<meta property="og:image" content={imageUrl.toString()} />
+		<meta property="og:image:width" content="1536" />
+		<meta property="og:image:height" content="1024" />
+		<meta property="og:locale" content="en_CA" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl.toString()} />
+		<script type="application/ld+json" set:html={JSON.stringify(localBusinessJson)} />
 	</head>
 	<body>
 		<Header />

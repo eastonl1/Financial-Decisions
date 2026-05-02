@@ -12,34 +12,56 @@ const secondaryEntries = sorted.filter((entry) => entry.id !== featuredEntry?.id
 
 const formatDateString = (value: Date) =>
 	new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(value);
+
+const imageDimensions = new Map([
+	['/images/newsletters/fall-2025/fall-2025-melanie-medals.jpeg', { width: 600, height: 800 }],
+	['/images/newsletters/summer-2025/summer-2025-noah-chair.jpeg', { width: 500, height: 953 }],
+	['/images/newsletters/winter-tax-and-scams-2025/winter-tax-2025-fireworks.jpeg', { width: 3072, height: 4080 }],
+	['/images/newsletters/winter-2026/winter-2026-ski-chairs.jpeg', { width: 737, height: 645 }],
+	['/images/office-painted.jpg', { width: 1536, height: 1024 }],
+]);
+
+const getEntryImage = (entry: (typeof sorted)[number]) => entry.data.image ?? '/images/office-painted.jpg';
+const getEntryImageSize = (src: string) => imageDimensions.get(src) ?? { width: 1536, height: 1024 };
 ---
 
-<Layout>
-	<main class="page-shell">
+<Layout
+	title="Newsletters | Financial Decisions"
+	description="Read recent Financial Decisions newsletters with market commentary, planning reminders, and firm updates."
+>
+	<main class="newsletter-index-page page-shell">
 		<section class="newsletter-index-section page-section-soft no-divider">
 			<div class="page-container page-container--content page-section--tight-top">
 				{featuredEntry ? (
-					<section class="reveal pb-10 sm:pb-12">
+					<section class="newsletter-feature-section reveal pb-10 sm:pb-12">
 						<article class="newsletter-feature-card ui-card news-card overflow-hidden p-0">
 							<a
 								href={`/insights/newsletters/${featuredEntry.slug}`}
-								class="newsletter-card-link group grid h-full gap-8 p-5 text-slate-900 no-link-style hover:no-underline focus-visible:no-underline sm:p-6 lg:grid-cols-[1.25fr_minmax(0,1fr)] lg:items-center lg:gap-12 lg:p-8"
+								class="newsletter-card-link group grid h-full gap-8 p-5 text-[color:var(--ink-heading)] no-link-style hover:no-underline focus-visible:no-underline sm:p-6 lg:grid-cols-[1.25fr_minmax(0,1fr)] lg:items-center lg:gap-12 lg:p-8"
 								aria-label={`Read ${featuredEntry.data.title}`}
 							>
-								<div class="reveal-image overflow-hidden rounded-lg">
+								<div class="newsletter-image-frame reveal-image overflow-hidden rounded-lg">
+									{(() => {
+										const imageSrc = getEntryImage(featuredEntry);
+										const imageSize = getEntryImageSize(imageSrc);
+										return (
 									<img
-										src={featuredEntry.data.image ?? '/images/Office%20Painted.png'}
+										src={imageSrc}
 										alt={featuredEntry.data.title}
 										class:list={[
 											'aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]',
 											featuredEntry.slug === 'summer-2025' && 'newsletter-thumb--summer-2025',
 										]}
+										width={imageSize.width}
+										height={imageSize.height}
 										loading="lazy"
 										decoding="async"
 									/>
+										);
+									})()}
 								</div>
 
-								<div class="page-copy">
+								<div class="newsletter-feature-copy page-copy">
 									<p class="inner-page-eyebrow">
 										Featured Publication
 									</p>
@@ -76,8 +98,8 @@ const formatDateString = (value: Date) =>
 				)}
 
 				{secondaryEntries.length > 0 && (
-					<section class="reveal mt-10 sm:mt-12">
-						<div class="page-copy">
+					<section class="newsletter-archive-section reveal mt-10 sm:mt-12">
+						<div class="newsletter-archive-heading page-copy">
 							<p class="inner-page-eyebrow">
 								Quarterly Archive
 							</p>
@@ -89,20 +111,28 @@ const formatDateString = (value: Date) =>
 								<article class="newsletter-archive-card ui-card news-card overflow-hidden p-0">
 									<a
 										href={`/insights/newsletters/${entry.slug}`}
-										class="newsletter-card-link group block h-full p-5 text-slate-900 no-link-style hover:no-underline focus-visible:no-underline"
+										class="newsletter-card-link group block h-full p-5 text-[color:var(--ink-heading)] no-link-style hover:no-underline focus-visible:no-underline"
 										aria-label={`Read ${entry.data.title}`}
 									>
-										<div class="reveal-image overflow-hidden rounded-md">
+										<div class="newsletter-image-frame newsletter-image-frame--archive reveal-image overflow-hidden rounded-md">
+											{(() => {
+												const imageSrc = getEntryImage(entry);
+												const imageSize = getEntryImageSize(imageSrc);
+												return (
 											<img
-												src={entry.data.image ?? '/images/Office%20Painted.png'}
+												src={imageSrc}
 												alt={entry.data.title}
 												class:list={[
 													'aspect-[4/3] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]',
 													entry.slug === 'summer-2025' && 'newsletter-thumb--summer-2025',
 												]}
+												width={imageSize.width}
+												height={imageSize.height}
 												loading="lazy"
 												decoding="async"
 											/>
+												);
+											})()}
 										</div>
 										<h3 class="inner-page-item-title mt-4">
 											{entry.data.title}
@@ -122,13 +152,72 @@ const formatDateString = (value: Date) =>
 </Layout>
 
 <style>
+	.newsletter-index-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.88) 0%, rgba(var(--white-rgb), 1) 31rem),
+			var(--surface-page);
+	}
+
+	.newsletter-index-section {
+		background: transparent;
+	}
+
+	.newsletter-feature-section {
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.newsletter-feature-card {
+		border-radius: var(--radius-md);
+		border-color: rgba(var(--accent-rgb), 0.18);
+		background:
+			linear-gradient(180deg, rgba(var(--white-rgb), 0.94) 0%, rgba(var(--surface-soft-rgb), 0.9) 100%);
+		box-shadow: 0 18px 42px rgba(var(--ink-shadow-rgb), 0.07);
+	}
+
+	.newsletter-feature-card:hover,
+	.newsletter-archive-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 18px 36px rgba(var(--ink-shadow-rgb), 0.08);
+	}
+
+	.newsletter-image-frame {
+		border: 1px solid rgba(var(--accent-rgb), 0.18);
+		background: var(--surface-warm);
+		box-shadow: 0 14px 30px rgba(var(--ink-shadow-rgb), 0.07);
+	}
+
+	.newsletter-image-frame--archive {
+		box-shadow: none;
+	}
+
+	.newsletter-feature-copy {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.newsletter-archive-heading {
+		padding-top: clamp(0.25rem, 1vw, 0.75rem);
+	}
+
+	.newsletter-archive-card {
+		border-radius: var(--radius-md);
+		background: rgba(var(--white-rgb), 0.72);
+		box-shadow: none;
+	}
+
+	.newsletter-archive-card .newsletter-card-link {
+		min-height: 100%;
+	}
+
 	.newsletter-thumb--summer-2025 {
 		object-position: center top;
 	}
 
 	.issue-brief {
 		margin-top: 1rem;
-		border-top: 1px solid rgba(148, 163, 184, 0.24);
+		border-top: 1px solid rgba(var(--accent-rgb), 0.2);
 		padding-top: 0.9rem;
 	}
 
@@ -160,10 +249,10 @@ const formatDateString = (value: Date) =>
 	.issue-brief-item {
 		position: relative;
 		margin: 0;
-		border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
 		padding: 0 0 0.8rem 2.1rem;
-		color: #334155;
-		font-size: 0.92rem;
+		color: var(--ink-body);
+		font-size: var(--text-small);
 		font-weight: 500;
 		line-height: 1.45;
 	}
@@ -186,13 +275,18 @@ const formatDateString = (value: Date) =>
 	}
 
 	@media (max-width: 639px) {
+		.newsletter-feature-card,
+		.newsletter-archive-card {
+			border-radius: var(--radius-md);
+		}
+
 		.issue-brief-list-featured {
 			grid-template-columns: 1fr;
 			gap: 0.55rem;
 		}
 
 		.issue-brief-list-featured .issue-brief-item {
-			border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+			border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
 			padding-bottom: 0.55rem;
 		}
 

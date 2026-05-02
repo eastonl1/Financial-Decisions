@@ -1,46 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 ---
 
-<Layout>
+<Layout
+	title="About Financial Decisions | Family-Owned Financial Planning"
+	description="Learn about Financial Decisions, a family-owned financial planning firm serving Sudbury with independent advice and long-standing community roots."
+>
 	<main class="about-page page-shell overflow-x-clip">
-		<div class="about-divider"></div>
 		<section class="about-intro-section no-divider reveal" id="history" data-reveal-immediate>
 			<div class="page-container page-container--content pt-10 pb-8 sm:pt-12 sm:pb-10">
 				<div class="space-y-20 sm:space-y-24 lg:space-y-28">
-					<section id="family-business">
+					<section id="family-business" class="about-section about-section--opening">
 						<div class="py-1 sm:py-2">
-							<div class="grid gap-9 md:grid-cols-[minmax(0,1fr)_minmax(340px,0.95fr)] md:items-center md:gap-12">
-								<div class="page-copy">
-									<h2
-										id="family-business-heading"
-										class="page-title--section scroll-mt-32"
-									>
-										A Family Business
-									</h2>
-									<div class="about-body-copy page-body mt-4 max-w-[40rem]">
-										Financial Decisions is locally owned and operated by the husband and wife
-										team of
-										<strong> John Lindsay and Linda Cartier and daughter Melanie Cartier.</strong>
-										The firm recently received a 25 year membership plaque in the Greater
-										Sudbury Chamber of Commerce. Linda is President of the company since its
-										formation and has had extensive experience in the financial services
-										industry and as a community volunteer together with her partners.
-									</div>
+							<Hero
+								variant="page"
+								title="A Family Business"
+								image="/images/Family.jpg"
+								imageAlt="Family business team"
+								imageWidth="407"
+								imageHeight="314"
+							>
+								<div class="about-body-copy page-body max-w-[40rem]">
+									Financial Decisions is locally owned and operated by the husband and wife
+									team of
+									<strong> John Lindsay and Linda Cartier and daughter Melanie Cartier.</strong>
+									The firm recently received a 25 year membership plaque in the Greater
+									Sudbury Chamber of Commerce. Linda is President of the company since its
+									formation and has had extensive experience in the financial services
+									industry and as a community volunteer together with her partners.
 								</div>
-
-								<div class="w-full md:justify-self-end">
-									<div class="mx-auto w-full max-w-[440px] overflow-hidden rounded-lg md:mx-0">
-										<img
-											src="/images/Family.jpg"
-											alt="Family business team"
-											class="h-full w-full object-cover"
-											loading="lazy"
-											decoding="async"
-										/>
-									</div>
-								</div>
-							</div>
+							</Hero>
 						</div>
 					</section>
 
@@ -50,13 +40,15 @@ import Layout from '../layouts/Layout.astro';
 							class="page-band page-band--soft relative left-1/2 my-10 w-[100dvw] -translate-x-1/2 sm:my-12 reveal"
 						>
 							<div class="page-container page-container--content py-7 sm:py-9">
-								<div class="grid gap-8 md:grid-cols-[270px_minmax(0,1fr)] md:items-center md:gap-10">
+								<div class="about-split about-split--portrait grid gap-8 md:grid-cols-[270px_minmax(0,1fr)] md:items-center md:gap-10">
 									<div class="w-full md:pt-1">
-										<div class="mx-auto w-full max-w-[270px] overflow-hidden rounded-lg md:mx-0 img-reveal">
+										<div class="about-media-frame about-media-frame--portrait mx-auto w-full max-w-[270px] overflow-hidden rounded-lg md:mx-0 img-reveal">
 											<img
 												src="/images/Linda.jpg"
 												alt="Linda Cartier"
 												class="h-auto w-full object-cover"
+												width="340"
+												height="387"
 												loading="lazy"
 												decoding="async"
 											/>
@@ -71,7 +63,7 @@ import Layout from '../layouts/Layout.astro';
 											Professional Background
 										</h2>
 										<p class="about-body-copy page-body mt-4 max-w-none">
-											As strong advocate for
+											As a strong advocate for
 											<strong> higher standards in financial planning</strong>, she taught the
 											CFP (Certified Financial Planner) Course at Cambrian College and financial
 											education courses for the general public. Linda was the first financial
@@ -97,28 +89,28 @@ import Layout from '../layouts/Layout.astro';
 
 						<section id="recognition" class="my-10 sm:my-12 reveal">
 							<div class="py-10 sm:py-11">
-								<div class="page-copy--wide">
+								<div class="about-recognition page-copy--wide">
 									<h2
 										id="recognition-heading"
 										class="page-title--section scroll-mt-32"
 									>
 										Recognition and Client Feedback
 									</h2>
-									<div class="mt-4 space-y-7 text-sm leading-7 text-slate-700">
+									<div class="about-testimonial-stack mt-4 space-y-7 text-sm leading-7 text-[color:var(--ink-body)]">
 										<p class="about-body-copy max-w-[41rem]">
 											Linda received recognition as
 											<strong>Favorite Financial Planner</strong>
 											on three separate occasions in newspaper polls.
 										</p>
-										<div class="space-y-3 border-t border-[color:var(--accent-muted)]/70 pt-6">
+										<div class="about-testimonial space-y-3 border-t border-[color:var(--accent-muted)]/70 pt-6">
 											<p>
-												<strong class="font-semibold text-slate-800">
+												<strong class="font-semibold text-[color:var(--ink-strong)]">
 													Talbot Stevens
 													<br />
 													Financial Speaker, Educator and Author
 												</strong>
 											</p>
-											<p class="max-w-[37rem] pl-4 text-base text-slate-600">
+											<p class="max-w-[37rem] pl-4 text-base text-[color:var(--ink-muted)]">
 												<em>
 													"I am sincerely impressed with Linda Cartier's professionalism.
 													Financial Planning is about identifying individual goals, detailing a
@@ -128,11 +120,11 @@ import Layout from '../layouts/Layout.astro';
 												</em>
 											</p>
 										</div>
-										<div class="space-y-3 border-t border-[color:var(--accent-muted)]/70 pt-7">
+										<div class="about-testimonial space-y-3 border-t border-[color:var(--accent-muted)]/70 pt-7">
 											<p>
-												<strong class="font-semibold text-slate-800">D.M Thomson R.N. B.A. B.ScN</strong>
+												<strong class="font-semibold text-[color:var(--ink-strong)]">D.M Thomson R.N. B.A. B.ScN</strong>
 											</p>
-											<p class="max-w-[37rem] pl-4 text-base text-slate-600">
+											<p class="max-w-[37rem] pl-4 text-base text-[color:var(--ink-muted)]">
 												<em>
 													"I have worked with Linda Cartier as my personal financial planner for
 													over 25 years. I have referred others to Linda in the expectation they
@@ -150,9 +142,9 @@ import Layout from '../layouts/Layout.astro';
 						</section>
 					</div>
 
-					<div class="page-band page-band--soft relative left-1/2 w-[100dvw] -translate-x-1/2 py-10 sm:py-12 reveal">
-						<div class="page-container page-container--content">
-							<section id="planning">
+					<div class="about-planning-band page-band page-band--soft relative left-1/2 w-[100dvw] -translate-x-1/2 py-10 sm:py-12 reveal">
+						<div class="about-planning-grid page-container page-container--content">
+							<section id="planning" class="about-planning-item">
 								<div class="page-copy">
 								<h2
 									id="planning-heading"
@@ -164,7 +156,7 @@ import Layout from '../layouts/Layout.astro';
 									As our name implies, we help clients determine the best
 									<strong> financial decisions </strong>
 									based on their own and/or their families lifestyle goals and
-									objectives. This is done though the development of a
+									objectives. This is done through the development of a
 									<strong> comprehensive financial plan </strong>
 									which will consider all aspects including consideration of debt
 									reduction and control through budgeting as well as saving and
@@ -175,7 +167,7 @@ import Layout from '../layouts/Layout.astro';
 								</div>
 							</section>
 
-							<section id="life-stages" class="mt-8 border-t border-[color:var(--accent-muted)]/80 pt-8">
+							<section id="life-stages" class="about-planning-item mt-8 border-t border-[color:var(--accent-muted)]/80 pt-8">
 								<div class="page-copy">
 								<h2
 									id="life-stages-heading"
@@ -213,13 +205,15 @@ import Layout from '../layouts/Layout.astro';
 					<section id="divorce-guidance" class="reveal">
 						<div class="relative left-1/2 w-[100dvw] -translate-x-1/2 py-10 sm:py-12">
 							<div class="page-container page-container--content">
-								<div class="grid gap-8 md:grid-cols-[minmax(250px,0.82fr)_minmax(0,1.18fr)] md:items-center md:gap-11">
+								<div class="about-split about-split--divorce grid gap-8 md:grid-cols-[minmax(250px,0.82fr)_minmax(0,1.18fr)] md:items-center md:gap-11">
 								<div class="w-full">
-									<div class="mx-auto w-full max-w-[315px] overflow-hidden rounded-lg md:mx-0 img-reveal">
+									<div class="about-media-frame about-media-frame--certificate mx-auto w-full max-w-[315px] overflow-hidden rounded-lg md:mx-0 img-reveal">
 										<img
 											src="/images/Chartered%20Financial%20Divorce%20Specialist.jpg"
 											alt="Chartered Financial Divorce Specialist"
 											class="h-full w-full object-cover"
+											width="224"
+											height="179"
 											loading="lazy"
 											decoding="async"
 										/>
@@ -246,7 +240,7 @@ import Layout from '../layouts/Layout.astro';
 											href="https://www.afds.ca"
 											target="_blank"
 											rel="noopener"
-											class="font-semibold text-slate-900 hover:text-slate-700"
+											class="font-semibold text-[color:var(--ink-heading)] hover:text-[color:var(--ink-body)]"
 										>
 											www.afds.ca
 										</a>
@@ -260,7 +254,7 @@ import Layout from '../layouts/Layout.astro';
 
 					<section id="office" class="border-t border-[color:var(--accent-muted)] reveal">
 						<div class="pt-14 sm:pt-16">
-							<div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(300px,0.96fr)] md:items-start md:gap-11">
+							<div class="about-split about-split--office grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(300px,0.96fr)] md:items-start md:gap-11">
 								<div class="page-copy">
 									<h2
 										id="office-heading"
@@ -300,11 +294,13 @@ import Layout from '../layouts/Layout.astro';
 								</div>
 
 								<div class="w-full space-y-3 md:justify-self-end">
-									<div class="overflow-hidden rounded-lg img-reveal">
+									<div class="about-media-frame about-media-frame--office overflow-hidden rounded-lg img-reveal">
 										<img
 											src="/images/Office%202.jpg"
 											alt="Historic office exterior"
 											class="h-full w-full object-cover"
+											width="413"
+											height="246"
 											loading="lazy"
 											decoding="async"
 										/>
@@ -315,11 +311,13 @@ import Layout from '../layouts/Layout.astro';
 										rel="noopener"
 										class="no-link-style block"
 									>
-										<div class="overflow-hidden rounded-lg img-reveal">
+										<div class="about-media-frame about-media-frame--map overflow-hidden rounded-lg img-reveal">
 											<img
 												src="/images/map.jpg"
 												alt="Map showing the office location"
 												class="h-full w-full object-cover"
+												width="417"
+												height="187"
 												loading="lazy"
 												decoding="async"
 											/>
@@ -336,34 +334,164 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+	.about-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.86) 0%, rgba(var(--white-rgb), 1) 28rem),
+			var(--surface-page);
+	}
+
 	.about-intro-section {
 		background: linear-gradient(
 			180deg,
-			rgba(246, 243, 239, 0.7) 0%,
-			rgba(255, 255, 255, 1) 60%
+			rgba(var(--surface-band-rgb), 0.72) 0%,
+			rgba(var(--white-rgb), 0.96) 56%,
+			rgba(var(--white-rgb), 1) 100%
 		);
-		border-top: 1px solid rgba(138, 107, 77, 0.12);
-	}
-
-	.about-divider {
-		height: 1px;
-		background: linear-gradient(
-			90deg,
-			rgba(138, 107, 77, 0) 0%,
-			rgba(138, 107, 77, 0.25) 50%,
-			rgba(138, 107, 77, 0) 100%
-		);
-		opacity: 0.7;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.12);
 	}
 
 	#family-business {
 		padding-top: 0.5rem;
 	}
 
+	.about-section--opening {
+		padding-top: clamp(0.75rem, 2vw, 1.5rem);
+	}
+
+	.about-split {
+		position: relative;
+	}
+
+	.about-split--office::before {
+		content: '';
+		position: absolute;
+		inset: auto auto -1.75rem 0;
+		width: min(9rem, 38vw);
+		height: 1px;
+		background: rgba(var(--accent-rgb), 0.26);
+	}
+
+	.about-media-frame {
+		position: relative;
+		border: 1px solid var(--rule-bronze);
+		background: var(--surface-warm);
+		box-shadow: 0 18px 38px rgba(var(--ink-shadow-rgb), 0.09);
+	}
+
+	.about-media-frame::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		border-radius: inherit;
+		box-shadow: inset 0 0 0 1px rgba(var(--white-rgb), 0.34);
+	}
+
+	.about-media-frame img {
+		display: block;
+		transition: transform 700ms ease;
+	}
+
+	.about-media-frame--office img,
+	.about-media-frame--map img {
+		height: 100%;
+	}
+
+	.about-media-frame--portrait,
+	.about-media-frame--certificate {
+		box-shadow: 0 16px 34px rgba(var(--ink-shadow-rgb), 0.08);
+	}
+
+	.about-recognition {
+		max-width: 48rem;
+	}
+
+	.about-testimonial-stack {
+		position: relative;
+	}
+
+	.about-testimonial {
+		border-color: var(--rule-bronze) !important;
+	}
+
+	.about-testimonial p:last-child {
+		position: relative;
+		padding-left: clamp(1.1rem, 2vw, 1.45rem);
+		border-left: 2px solid rgba(var(--accent-rgb), 0.34);
+	}
+
+	.about-planning-band {
+		border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
+	}
+
+	.about-planning-grid {
+		display: grid;
+		gap: clamp(1.75rem, 3vw, 2.5rem);
+	}
+
+	.about-planning-item {
+		position: relative;
+	}
+
+	.about-split--office {
+		padding-bottom: clamp(0.75rem, 1.8vw, 1.25rem);
+	}
+
+	.about-media-frame--office {
+		aspect-ratio: 1.32;
+	}
+
+	.about-media-frame--map {
+		aspect-ratio: 1.74;
+		box-shadow: 0 12px 26px rgba(var(--ink-shadow-rgb), 0.07);
+	}
+
 	.about-body-copy {
-		font-size: 1rem;
+		font-size: var(--text-body);
 		line-height: 1.8;
-		color: #475569;
+		color: var(--ink-body);
 		text-wrap: pretty;
+	}
+
+	.about-body-copy strong {
+		color: var(--ink-stronger);
+		font-weight: 650;
+	}
+
+	@media (min-width: 768px) {
+		.about-split--portrait,
+		.about-split--divorce {
+			padding-block: clamp(0.25rem, 1vw, 0.75rem);
+		}
+
+		.about-planning-grid {
+			grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+			align-items: start;
+		}
+
+		#life-stages.about-planning-item {
+			margin-top: 0 !important;
+			padding-top: 0 !important;
+			padding-left: clamp(1.75rem, 3.4vw, 2.5rem);
+			border-top: 0 !important;
+			border-left: 1px solid rgba(var(--accent-rgb), 0.2);
+		}
+	}
+
+	@media (max-width: 767px) {
+		.about-media-frame {
+			box-shadow: 0 12px 28px rgba(var(--ink-shadow-rgb), 0.08);
+		}
+
+		.about-split--office::before {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.about-media-frame img {
+			transition: none;
+		}
 	}
 </style>

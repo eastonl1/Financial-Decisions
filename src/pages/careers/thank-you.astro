@@ -2,11 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout>
-	<main>
-		<section class="bg-white min-h-[60vh] reveal">
+<Layout
+	title="Application Submitted | Financial Decisions Careers"
+	description="Confirmation page for Financial Decisions career applications."
+>
+	<main class="careers-thanks-page page-shell">
+		<section class="careers-thanks-section page-section-soft no-divider min-h-[60vh] reveal">
 			<div class="page-container page-container--content py-10 sm:py-12">
-				<article class="rounded-lg border border-[color:var(--accent-muted)] bg-white p-6 sm:p-8">
+				<article class="careers-thanks-card ui-card news-card p-6 sm:p-8">
 					<h2 class="inner-page-section-title">Application Submitted</h2>
 					<p class="inner-page-body mt-3">
 						Thank you for your interest in joining Financial Decisions. We appreciate the
@@ -42,3 +45,33 @@ import Layout from '../../layouts/Layout.astro';
 		</section>
 	</main>
 </Layout>
+
+<style>
+	.careers-thanks-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.88) 0%, rgba(var(--white-rgb), 1) 28rem),
+			var(--surface-page);
+	}
+
+	.careers-thanks-section {
+		background: transparent;
+	}
+
+	.careers-thanks-card {
+		max-width: 50rem;
+		margin-inline: auto;
+		border-radius: var(--radius-md);
+		border-color: rgba(var(--accent-rgb), 0.18);
+		background: linear-gradient(
+			180deg,
+			rgba(var(--white-rgb), 0.96) 0%,
+			rgba(var(--surface-warm-rgb), 0.88) 100%
+		);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.careers-thanks-card:hover {
+		transform: none;
+		box-shadow: var(--shadow-lg);
+	}
+</style>

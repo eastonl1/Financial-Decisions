@@ -2,6 +2,7 @@
 const { pathname } = Astro.url;
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/insights", label: "Newsletters" },
   { href: "/resources", label: "Resources" },
@@ -19,109 +20,53 @@ const isActive = (href: string) => {
 
 <header
   data-site-header
-  class="site-header fixed left-0 right-0 top-0 z-50 border-b border-[rgba(138,107,77,0.16)] bg-white"
+  data-scrolled="false"
+  class="site-header fixed left-0 right-0 top-0 z-50"
 >
-  <div class="page-container page-container--content">
-    <div class="flex min-h-[5.75rem] items-center gap-4 sm:gap-6 lg:min-h-[6.5rem] lg:gap-10">
-      <a href="/" aria-label="Financial Decisions home" class="site-header__brand inline-flex shrink-0 items-center lg:-ml-1">
-        <img
-          src="/images/Logo.jpg"
-          alt="Financial Decisions logo"
-          class="h-[3.48rem] w-auto max-w-none rounded-sm object-contain sm:h-[3.53rem] lg:h-[3.98rem]"
-          width="475"
-          height="234"
-          loading="eager"
-          decoding="async"
-        />
-      </a>
+  <div class="site-header__surface">
+    <div class="page-container">
+      <div class="flex min-h-[4.5rem] items-center gap-4 sm:gap-6 lg:min-h-[5rem] lg:gap-10">
+        <a href="/" aria-label="Financial Decisions home" class="site-header__brand inline-flex shrink-0 items-center lg:-ml-1 xl:-ml-2">
+          <picture>
+            <source srcset="/images/logo-transparent.webp" type="image/webp" />
+            <img
+              src="/images/logo-transparent.png"
+              alt="Financial Decisions logo"
+              class="h-[3.48rem] w-auto max-w-none rounded-sm object-contain sm:h-[3.53rem] lg:h-[3.98rem]"
+              width="475"
+              height="234"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </a>
 
-      <div class="hidden shrink-0 items-center md:ml-auto md:flex">
-        <nav aria-label="Primary" class="header-primary-nav shrink-0">
-          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.98rem] lg:gap-x-6 xl:gap-x-7">
-            {navLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class:list={[
-                    "nav-link transition",
-                    isActive(link.href) && "nav-link-active",
-                  ]}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                >
-                  <span class="nav-link__label">{link.label}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div class="header-actions flex shrink-0 items-center gap-3 lg:gap-4">
-          <a
-            href={utilityLink.href}
-            class:list={[
-              "btn header-secondary-cta no-link-style",
-              isActive(utilityLink.href) && "header-secondary-cta-current",
-            ]}
-            aria-current={isActive(utilityLink.href) ? "page" : undefined}
-          >
-            {utilityLink.label}
-          </a>
-          <a
-            href={primaryCta.href}
-            class:list={[
-              "btn btn-primary cta-button header-cta no-link-style",
-              isActive(primaryCta.href) && "header-cta-current",
-            ]}
-            aria-current={isActive(primaryCta.href) ? "page" : undefined}
-          >
-            <span>{primaryCta.label}</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="relative ml-auto md:hidden">
-        <button
-          type="button"
-          data-mobile-nav-toggle
-          aria-controls="mobile-nav-menu"
-          aria-expanded="false"
-          aria-label="Open menu"
-          class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[rgba(138,107,77,0.18)] bg-[#fcfaf7] text-[color:var(--accent-dark)] transition"
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        </button>
-        <div
-          id="mobile-nav-menu"
-          data-mobile-nav-menu
-          data-open="false"
-          class="pointer-events-none absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(18rem,calc(100vw-2rem))] max-h-0 -translate-y-1 overflow-hidden rounded-xl border border-[rgba(138,107,77,0.18)] bg-[#fbf8f4] opacity-0 shadow-[0_18px_34px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out"
-        >
-          <nav aria-label="Mobile primary">
-            <ul class="p-2.5">
+        <div class="hidden shrink-0 items-center md:ml-auto md:flex lg:-mr-1 xl:mr-0">
+          <nav aria-label="Primary" class="header-primary-nav shrink-0">
+            <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.98rem] lg:gap-x-6 xl:gap-x-7">
               {navLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
                     class:list={[
-                      "mobile-nav-link",
-                      isActive(link.href) && "mobile-nav-link-active",
+                      "nav-link transition",
+                      isActive(link.href) && "nav-link-active",
                     ]}
                     aria-current={isActive(link.href) ? "page" : undefined}
                   >
-                    {link.label}
+                    <span class="nav-link__label">{link.label}</span>
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
-          <div class="border-t border-[rgba(138,107,77,0.14)] p-3">
+
+          <div class="header-actions flex shrink-0 items-center gap-3 lg:gap-4">
             <a
               href={utilityLink.href}
               class:list={[
-                "mobile-nav-link mobile-nav-link--utility",
-                isActive(utilityLink.href) && "mobile-nav-link-active",
+                "btn header-secondary-cta no-link-style",
+                isActive(utilityLink.href) && "header-secondary-cta-current",
               ]}
               aria-current={isActive(utilityLink.href) ? "page" : undefined}
             >
@@ -130,13 +75,75 @@ const isActive = (href: string) => {
             <a
               href={primaryCta.href}
               class:list={[
-                "btn btn-primary cta-button header-cta mt-2 w-full justify-center no-link-style",
+                "btn btn-primary cta-button header-cta no-link-style",
                 isActive(primaryCta.href) && "header-cta-current",
               ]}
               aria-current={isActive(primaryCta.href) ? "page" : undefined}
             >
               <span>{primaryCta.label}</span>
             </a>
+          </div>
+        </div>
+
+        <div class="relative ml-auto md:hidden">
+          <button
+            type="button"
+            data-mobile-nav-toggle
+            aria-controls="mobile-nav-menu"
+            aria-expanded="false"
+            aria-label="Open menu"
+            class="mobile-nav-toggle inline-flex h-11 w-11 items-center justify-center transition"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+          <div
+            id="mobile-nav-menu"
+            data-mobile-nav-menu
+            data-open="false"
+            class="mobile-nav-menu pointer-events-none absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(18rem,calc(100vw-2rem))] max-h-0 -translate-y-1 overflow-hidden opacity-0 transition-all duration-200 ease-out"
+          >
+            <nav aria-label="Mobile primary">
+              <ul class="p-2.5">
+                {navLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class:list={[
+                        "mobile-nav-link",
+                        isActive(link.href) && "mobile-nav-link-active",
+                      ]}
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div class="border-t border-[rgba(var(--accent-rgb),0.14)] p-3">
+              <a
+                href={utilityLink.href}
+                class:list={[
+                  "mobile-nav-link mobile-nav-link--utility",
+                  isActive(utilityLink.href) && "mobile-nav-link-active",
+                ]}
+                aria-current={isActive(utilityLink.href) ? "page" : undefined}
+              >
+                {utilityLink.label}
+              </a>
+              <a
+                href={primaryCta.href}
+                class:list={[
+                  "btn btn-primary cta-button header-cta mt-2 w-full justify-center no-link-style",
+                  isActive(primaryCta.href) && "header-cta-current",
+                ]}
+                aria-current={isActive(primaryCta.href) ? "page" : undefined}
+              >
+                <span>{primaryCta.label}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -148,9 +155,19 @@ const isActive = (href: string) => {
   const header = document.querySelector('[data-site-header]');
   if (header && !header.dataset.mobileNavInitialized) {
     header.dataset.mobileNavInitialized = 'true';
+    let floatingThreshold = 0;
+    let resizeObserver;
     const toggle = header.querySelector('[data-mobile-nav-toggle]');
     const menu = header.querySelector('[data-mobile-nav-menu]');
     const links = menu ? menu.querySelectorAll('a') : [];
+    const surface = header.querySelector('.site-header__surface');
+
+    const updateHeaderHeightProperty = () => {
+      const measuredHeight = surface
+        ? Math.max(surface.getBoundingClientRect().height, surface.getBoundingClientRect().bottom)
+        : header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-height', `${Math.ceil(measuredHeight)}px`);
+    };
 
     const setOpen = (open) => {
       if (!toggle || !menu) return;
@@ -183,5 +200,40 @@ const isActive = (href: string) => {
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') setOpen(false);
     });
+
+    let floatTicking = false;
+    const updateFloatingThreshold = () => {
+      floatingThreshold = Math.max(12, Math.round(header.getBoundingClientRect().height));
+      updateHeaderHeightProperty();
+    };
+
+    const syncFloatingState = () => {
+      header.dataset.scrolled = window.scrollY > floatingThreshold ? 'true' : 'false';
+      updateHeaderHeightProperty();
+      window.requestAnimationFrame(updateHeaderHeightProperty);
+      floatTicking = false;
+    };
+
+    const onScroll = () => {
+      if (floatTicking) return;
+      floatTicking = true;
+      window.requestAnimationFrame(syncFloatingState);
+    };
+
+    updateFloatingThreshold();
+    syncFloatingState();
+    if ('ResizeObserver' in window) {
+      resizeObserver = new ResizeObserver(() => {
+        updateFloatingThreshold();
+        syncFloatingState();
+      });
+      resizeObserver.observe(header);
+      if (surface) resizeObserver.observe(surface);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      updateFloatingThreshold();
+      syncFloatingState();
+    }, { passive: true });
   }
 </script>

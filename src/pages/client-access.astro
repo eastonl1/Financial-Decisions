@@ -1,16 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 ---
 
-<Layout>
-	<main class="page-shell">
-		<section class="page-section-soft reveal">
+<Layout
+	title="Client Access | Financial Decisions"
+	description="Access National Bank and Croft Financial Group portals for Financial Decisions client portfolio information."
+>
+	<main class="client-access-page page-shell">
+		<section class="client-access-section page-section-soft reveal">
 			<div class="page-container page-container--content page-section--tight-top">
-				<div class="page-stack--lg">
-					<section class="page-stack client-access-copy">
-						<h2 class="page-title">
-							Portfolio Update Access
-						</h2>
+				<div class="client-access-header-shell">
+					<Hero
+						variant="page"
+						title="Portfolio Update Access"
+						className="client-access-header"
+						contentClass="client-access-copy"
+					>
 						<p class="page-subtext">
 							Your financial market investments are managed by professional portfolio
 							experts at the Croft Financial Group through us as directed by you and
@@ -28,15 +34,16 @@ import Layout from '../layouts/Layout.astro';
 						<p class="page-subtext">
 							Besides these two methods we provide quarterly paper or e-mail statements
 							sent directly to you which include fixed income investments such as GICs.
-							Of course you can call the office at anytime for further information on
+							Of course you can call the office at any time for further information on
 							your account and any money matters of interest or concern.
 						</p>
-					</section>
+					</Hero>
 
-					<div class="section-divider" aria-hidden="true"></div>
+				</div>
 
-					<section class="grid gap-8 md:grid-cols-2">
-						<article class="ui-card access-card p-7">
+				<div class="client-access-shell page-stack--lg">
+					<section class="client-access-login-list">
+						<article class="access-row">
 							<h3 class="inner-page-item-title">National Bank Login</h3>
 							<p class="inner-page-body mt-2">
 								View your investment account positions and statements administered by
@@ -52,7 +59,7 @@ import Layout from '../layouts/Layout.astro';
 							</a>
 						</article>
 
-						<article class="ui-card access-card p-7">
+						<article class="access-row">
 							<h3 class="inner-page-item-title">
 								Croft Financial Group Login
 							</h3>
@@ -71,14 +78,14 @@ import Layout from '../layouts/Layout.astro';
 						</article>
 					</section>
 
-					<section class="ui-card access-card p-7">
+					<section class="client-access-help-note">
 						<h2 class="inner-page-item-title">
 							Need Help Accessing Your Accounts?
 						</h2>
 						<p class="inner-page-body mt-2">
 							If you do not have a User ID and Password, or if you need assistance
 							with online access, please contact our office at
-							<strong class="font-semibold text-slate-900">705-525-7526</strong>.
+							<strong class="font-semibold text-[color:var(--ink-heading)]">705-525-7526</strong>.
 						</p>
 					</section>
 				</div>
@@ -88,7 +95,75 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	.client-access-copy .page-subtext {
+	.client-access-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.88) 0%, rgba(var(--white-rgb), 1) 30rem),
+			var(--surface-page);
+	}
+
+	.client-access-section {
+		background: transparent;
+	}
+
+	.client-access-header-shell {
+		margin-inline: auto;
+	}
+
+	:global(.page-header.client-access-header) {
 		max-width: none;
+		width: 100%;
+	}
+
+	:global(.page-header__content.client-access-copy) {
+		max-width: none;
+		width: 100%;
+	}
+
+	.client-access-shell {
+		max-width: var(--page-content-max-width);
+		margin-inline: auto;
+		margin-top: clamp(1.25rem, 2.4vw, 1.75rem);
+	}
+
+	:global(.client-access-copy .page-subtext) {
+		max-width: none;
+	}
+
+	.client-access-login-list {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.access-row {
+		display: grid;
+		gap: 0.8rem;
+		align-content: start;
+		padding: clamp(1.15rem, 2.2vw, 1.45rem);
+		border: 1px solid rgba(var(--accent-rgb), 0.14);
+		border-radius: var(--radius-lg);
+		background: linear-gradient(
+			180deg,
+			rgba(var(--white-rgb), 0.96) 0%,
+			rgba(var(--surface-warm-rgb), 0.82) 100%
+		);
+		box-shadow: 0 14px 30px rgba(var(--ink-shadow-rgb), 0.045);
+	}
+
+	.access-row .btn {
+		align-self: flex-start;
+	}
+
+	.client-access-help-note {
+		padding-block: clamp(1.25rem, 2.5vw, 1.65rem);
+	}
+
+	@media (min-width: 768px) {
+		.client-access-login-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.access-row .btn {
+			margin-top: 0;
+		}
 	}
 </style>

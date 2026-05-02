@@ -1,5 +1,6 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 
 const videos = [
 	{
@@ -82,38 +83,42 @@ const partnerResearchCountLabel = `${partnerResearch.length} reports`;
 const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length === 1 ? 'link' : 'links'}`;
 ---
 
-<Layout>
-	<main class="page-shell">
+<Layout
+	title="Resources | Financial Decisions"
+	description="Video updates, partner research, and trusted market links from Financial Decisions."
+>
+	<main class="resources-page page-shell">
 		<section class="video-updates-section page-section-soft no-divider reveal" id="video-updates">
 			<div class="page-container page-container--content page-section--tight-top">
-				<div class="video-updates-shell p-6 sm:p-8">
-					<div class="page-stack mb-6">
-						<div class="flex items-baseline justify-between gap-4">
-							<h2 id="video-updates-heading" class="page-title scroll-mt-40">Video Updates</h2>
-							<span class="text-sm text-slate-600">{videoCountLabel}</span>
-						</div>
-						<p class="page-subtext">
-							Recent video updates discussing markets, financial planning, and investment topics.
-						</p>
-					</div>
-					<div class="resources-section mt-6 space-y-6">
-						<article class="ui-card resource-card video-resource-card resources-feature-card p-5">
-							<div class="flex items-center justify-between gap-4">
-								<p class="inner-page-eyebrow">Featured</p>
-								<p class="text-xs font-medium text-slate-600">{featured.year}</p>
+				<div class="video-updates-shell">
+					<Hero
+						variant="page"
+						eyebrow="Resources"
+						title="Video Updates"
+						subtitle="Recent video updates discussing markets, financial planning, and investment topics."
+					>
+						<p class="resources-page-header__count">{videoCountLabel}</p>
+					</Hero>
+					<div class="resources-section resources-video-list">
+						<article class="video-resource-card resources-feature-card">
+							<div class="video-resource-card__copy">
+								<div class="flex items-center justify-between gap-4">
+									<p class="inner-page-eyebrow">Featured</p>
+									<p class="text-xs font-medium text-[color:var(--ink-muted)]">{featured.year}</p>
+								</div>
+								<div class="mt-2 space-y-1">
+									<h3 class="inner-page-item-title">{featured.title}</h3>
+								</div>
+								<p class="inner-page-body mt-2">{featured.description}</p>
+								<p class="mt-2 text-xs font-medium uppercase tracking-wide text-[color:var(--ink-muted)]">
+									Length: {featured.length}
+								</p>
 							</div>
-							<div class="mt-2 space-y-1">
-								<h3 class="inner-page-item-title">{featured.title}</h3>
-							</div>
-							<p class="inner-page-body mt-2">{featured.description}</p>
-							<p class="mt-2 text-xs font-medium uppercase tracking-wide text-slate-600">
-								Length: {featured.length}
-							</p>
-							<div class="video-preview-shell resources-featured-video-preview mt-4 mx-auto w-full overflow-hidden rounded-lg border border-slate-200">
+							<div class="video-preview-shell resources-featured-video-preview mt-4 mx-auto w-full overflow-hidden rounded-lg border border-[color:var(--accent-muted)]">
 								<div class="relative aspect-video bg-slate-100" data-video-frame>
 									<button
 										type="button"
-										class="resources-video-trigger group absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+										class="resources-video-trigger group absolute inset-0"
 										aria-label={`Play ${featured.title}`}
 										data-video-embed={featured.embedUrl}
 										data-video-title={featured.title}
@@ -122,6 +127,8 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 											class="h-full w-full object-cover"
 											src={`https://i.ytimg.com/vi/${featured.videoId}/hqdefault.jpg`}
 											alt=""
+											width="480"
+											height="360"
 											loading="lazy"
 										/>
 										<span class="resources-video-overlay absolute inset-0"></span>
@@ -137,27 +144,29 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 							</div>
 						</article>
 
-						<div class="video-resources-grid grid gap-6 md:grid-cols-2">
+						<div class="video-resources-grid">
 							{others.map((video) => (
-								<article class="ui-card resource-card video-resource-card p-5">
-									<div class="flex items-center justify-between gap-4">
-										<p class="inner-page-eyebrow">
-											Video Update
+								<article class="video-resource-card">
+									<div class="video-resource-card__copy">
+										<div class="flex items-center justify-between gap-4">
+											<p class="inner-page-eyebrow">
+												Video Update
+											</p>
+											<p class="text-xs font-medium text-[color:var(--ink-muted)]">{video.year}</p>
+										</div>
+										<div class="mt-2 space-y-1">
+											<h3 class="inner-page-item-title">{video.title}</h3>
+										</div>
+										<p class="inner-page-body mt-2">{video.description}</p>
+										<p class="mt-2 text-xs font-medium uppercase tracking-wide text-[color:var(--ink-muted)]">
+											Length: {video.length}
 										</p>
-										<p class="text-xs font-medium text-slate-600">{video.year}</p>
 									</div>
-									<div class="mt-2 space-y-1">
-										<h3 class="inner-page-item-title">{video.title}</h3>
-									</div>
-									<p class="inner-page-body mt-2">{video.description}</p>
-									<p class="mt-2 text-xs font-medium uppercase tracking-wide text-slate-600">
-										Length: {video.length}
-									</p>
-									<div class="video-preview-shell mt-4 overflow-hidden rounded-lg border border-slate-200">
+									<div class="video-preview-shell mt-4 overflow-hidden rounded-lg border border-[color:var(--accent-muted)]">
 										<div class="relative aspect-video bg-slate-100" data-video-frame>
 											<button
 												type="button"
-												class="resources-video-trigger group absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+												class="resources-video-trigger group absolute inset-0"
 												aria-label={`Play ${video.title}`}
 												data-video-embed={video.embedUrl}
 												data-video-title={video.title}
@@ -169,6 +178,8 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 													]}
 													src={`https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`}
 													alt=""
+													width="480"
+													height="360"
 													loading="lazy"
 												/>
 												<span class="resources-video-overlay absolute inset-0"></span>
@@ -228,48 +239,51 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 			</script>
 		</section>
 
-		<section class="bg-white no-divider reveal" id="partner-research">
+		<section class="resources-link-section no-divider reveal" id="partner-research">
 			<div class="page-container page-container--content page-section--compact">
-				<div class="page-band--soft mt-0 rounded-2xl p-6 md:p-8">
-					<div class="page-stack mb-6">
-						<div class="flex items-baseline justify-between gap-4">
+				<div class="resources-link-panel">
+					<div class="resources-section-header page-stack">
+						<div class="resources-section-header__top">
 							<h2 id="partner-research-heading" class="page-title--section scroll-mt-40">Partner Research</h2>
-							<span class="text-sm text-slate-600">{partnerResearchCountLabel}</span>
+							<span class="resources-section-header__count">{partnerResearchCountLabel}</span>
 						</div>
 						<p class="page-subtext">
 							Market insights and commentary from Croft Financial Group, our investment research partner.
 						</p>
 					</div>
-					<div class="resources-section mt-6 grid gap-6 md:grid-cols-2">
+					<div class="resources-section resources-link-list resources-link-list--partner">
 						{partnerResearch.map((item) => (
 							<a
 								href={item.href}
-								class="partner-research-card resource-card ui-card group block rounded-xl border-l-2 py-6 pr-6 pl-5 no-underline hover:no-underline focus-visible:no-underline"
+								class="partner-research-card group no-underline hover:no-underline focus-visible:no-underline"
 								target="_blank"
 								rel="noopener"
 							>
 								<div class="partner-research-card__content">
-									<div class="space-y-1">
-										<div class="partner-research-card__eyebrow text-xs uppercase tracking-wide text-slate-600">
-											Market Commentary • Croft Financial Group
+									<div class="partner-research-card__header">
+										<div class="partner-research-card__eyebrow">
+											Market Commentary &middot; Croft Financial Group
 										</div>
 										<h3 class="inner-page-item-title">{item.title}</h3>
 									</div>
-									<p class="inner-page-body mt-2">{item.description}</p>
-									<span class="partner-research-card__indicator icon-circle" aria-hidden="true">
-										<svg
-											class="partner-research-card__indicator-arrow h-4 w-4"
-											viewBox="0 0 20 20"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="1.8"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<path d="M6 14 14 6" />
-											<path d="M7 6h7v7" />
-										</svg>
-									</span>
+									<p class="inner-page-body partner-research-card__copy">{item.description}</p>
+									<div class="partner-research-card__footer">
+										<span class="partner-research-card__action">Open research</span>
+										<span class="partner-research-card__indicator" aria-hidden="true">
+											<svg
+												class="partner-research-card__indicator-arrow h-4 w-4"
+												viewBox="0 0 20 20"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.8"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path d="M6 14 14 6" />
+												<path d="M7 6h7v7" />
+											</svg>
+										</span>
+									</div>
 								</div>
 							</a>
 						))}
@@ -278,42 +292,48 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 			</div>
 		</section>
 
-		<section class="mt-0 bg-white no-divider reveal" id="trusted-links">
+		<section class="resources-link-section resources-link-section--last mt-0 no-divider reveal" id="trusted-links">
 			<div class="page-container page-container--content page-section--compact">
-				<div class="p-6 sm:p-8">
-					<div class="page-stack mb-6">
-						<div class="flex items-baseline justify-between gap-4">
+				<div class="resources-link-panel resources-link-panel--plain">
+					<div class="resources-section-header page-stack">
+						<div class="resources-section-header__top">
 							<h2 id="trusted-links-heading" class="page-title--section scroll-mt-40">Trusted Links</h2>
-							<span class="text-sm text-slate-600">{trustedLinksCountLabel}</span>
+							<span class="resources-section-header__count">{trustedLinksCountLabel}</span>
 						</div>
 						<p class="page-subtext">External sources and market commentary.</p>
 					</div>
-					<div class="resources-section mt-6 grid gap-6 md:grid-cols-2">
+					<div class="resources-section resources-link-list resources-link-list--trusted">
 						{trustedLinks.map((item) => (
 							<a
 								href={item.href}
-								class="trusted-link-card partner-research-card resource-card ui-card group block rounded-xl p-6 no-underline hover:no-underline focus-visible:no-underline"
+								class="trusted-link-card partner-research-card group no-underline hover:no-underline focus-visible:no-underline"
 								target="_blank"
 								rel="noopener"
 							>
 								<div class="partner-research-card__content">
-									<h3 class="inner-page-item-title">{item.title}</h3>
-									<p class="inner-page-body mt-2">{item.description}</p>
-									<p class="partner-research-card__meta mt-3 text-xs text-slate-600">{item.linkLabel}</p>
-									<span class="partner-research-card__indicator icon-circle" aria-hidden="true">
-										<svg
-											class="partner-research-card__indicator-arrow h-4 w-4"
-											viewBox="0 0 20 20"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="1.8"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										>
-											<path d="M6 14 14 6" />
-											<path d="M7 6h7v7" />
-										</svg>
-									</span>
+									<div class="partner-research-card__header">
+										<div class="partner-research-card__eyebrow">Market News</div>
+										<h3 class="inner-page-item-title">{item.title}</h3>
+									</div>
+									<p class="inner-page-body partner-research-card__copy">{item.description}</p>
+									<p class="partner-research-card__meta">{item.linkLabel}</p>
+									<div class="partner-research-card__footer">
+										<span class="partner-research-card__action">Visit source</span>
+										<span class="partner-research-card__indicator" aria-hidden="true">
+											<svg
+												class="partner-research-card__indicator-arrow h-4 w-4"
+												viewBox="0 0 20 20"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.8"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path d="M6 14 14 6" />
+												<path d="M7 6h7v7" />
+											</svg>
+										</span>
+									</div>
 								</div>
 							</a>
 						))}
@@ -325,60 +345,237 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 </Layout>
 
 <style>
+	.resources-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.88) 0%, rgba(var(--white-rgb), 1) 32rem),
+			var(--surface-page);
+	}
+
+	.video-updates-section {
+		background: transparent;
+	}
+
+	.video-updates-shell {
+		padding-inline: 0 !important;
+	}
+
+	.resources-section-header {
+		position: relative;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.resources-section-header__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem 1rem;
+	}
+
+	.resources-section-header .page-title,
+	.resources-section-header .page-title--section {
+		max-width: 15ch;
+	}
+
+	.resources-section-header__count {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2rem;
+		padding: 0.35rem 0.8rem;
+		border: 1px solid rgba(var(--accent-rgb), 0.14);
+		border-radius: var(--radius-full);
+		background: rgba(var(--surface-band-rgb), 0.42);
+		color: var(--ink-muted);
+		font-size: 0.8rem;
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0.02em;
+	}
+
+	.resources-page-header__count {
+		font-size: var(--text-small);
+		color: var(--ink-muted);
+	}
+
+	.resources-video-list {
+		margin-top: var(--space-8);
+		border-top: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.video-resource-card {
+		padding-block: clamp(1.35rem, 3vw, 2rem);
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+	}
+
+	.video-resource-card__copy {
+		min-width: 0;
+	}
+
+	.resources-feature-card {
+		padding-top: clamp(1.5rem, 3.2vw, 2.2rem);
+	}
+
+	.resources-featured-video-preview,
+	.video-preview-shell {
+		background: var(--surface-warm);
+		box-shadow: 0 10px 24px rgba(var(--ink-shadow-rgb), 0.045);
+	}
+
 	.resources-featured-video-preview {
 		max-width: 100%;
+		box-shadow: 0 12px 28px rgba(var(--ink-shadow-rgb), 0.06);
 	}
 
-	@media (min-width: 768px) {
-		.resources-featured-video-preview {
-			max-width: clamp(18.5rem, 41vw, 32rem);
-		}
+	.video-preview-shell iframe,
+	.video-preview-shell img {
+		display: block;
 	}
 
-	@media (max-width: 639px) {
-		.video-updates-section .page-container {
-			padding-inline: 1rem;
-		}
+	.resources-link-section {
+		background: var(--surface-page);
+	}
 
-		.video-updates-shell {
-			padding-inline: 0;
-		}
+	.resources-link-panel {
+		border-top: 1px solid rgba(var(--accent-rgb), 0.18);
+		padding-top: clamp(1.15rem, 2.2vw, 1.55rem);
+	}
 
-		.video-resource-card {
-			padding: 0 0 1.5rem;
-			border: 0;
-			border-radius: 0;
-			background: transparent;
-			box-shadow: none;
-		}
+	.resources-link-panel--plain {
+		border-top-color: rgba(var(--accent-rgb), 0.14);
+	}
 
-		.resources-feature-card {
-			border-bottom: 1px solid rgba(138, 107, 77, 0.14);
-		}
+	.resources-link-list {
+		display: grid;
+		gap: 0.9rem;
+		margin-top: 1.15rem;
+		border-top: 0;
+		padding-top: 0;
+	}
 
-		.video-preview-shell {
-			border: 0;
-			border-radius: 0.9rem;
-			background: transparent;
-		}
+	.resources-link-list--partner {
+		grid-template-columns: minmax(0, 1fr);
+	}
 
-		.video-resource-card img {
-			border: 0;
-			box-shadow: none;
-		}
+	.resources-link-list--trusted {
+		grid-template-columns: minmax(0, 1fr);
+		max-width: 34rem;
+	}
 
-		.video-resource-card .inner-page-body {
-			line-height: 1.78;
-		}
+	.partner-research-card,
+	.trusted-link-card {
+		position: relative;
+		display: block;
+		padding: clamp(1rem, 1.8vw, 1.2rem);
+		border: 1px solid rgba(var(--accent-rgb), 0.14);
+		border-radius: 1rem;
+		background: linear-gradient(
+			180deg,
+			rgba(var(--white-rgb), 0.96) 0%,
+			rgba(var(--surface-warm-rgb), 0.8) 100%
+		);
+		box-shadow: 0 14px 30px rgba(var(--ink-shadow-rgb), 0.045);
+		color: inherit;
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease,
+			border-color 180ms ease,
+			background-color 180ms ease;
+	}
 
-		.video-resources-grid {
-			gap: 1.75rem;
-		}
+	.partner-research-card::before {
+		content: none;
+	}
 
-		.video-resources-grid .video-resource-card:last-child {
-			padding-bottom: 0;
-			border-bottom: 0;
-		}
+	.partner-research-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 18px 34px rgba(var(--ink-shadow-rgb), 0.06);
+		border-color: rgba(var(--accent-rgb), 0.2);
+	}
+
+	.partner-research-card:active {
+		color: inherit;
+		transform: translateY(-1px);
+	}
+
+	.partner-research-card:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+
+	.partner-research-card__content {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0.7rem;
+		align-items: start;
+		height: 100%;
+	}
+
+	.partner-research-card__header {
+		display: grid;
+		gap: 0.32rem;
+	}
+
+	.partner-research-card__eyebrow,
+	.partner-research-card__meta {
+		color: var(--ink-muted);
+	}
+
+	.partner-research-card__eyebrow {
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		line-height: 1.3;
+		text-transform: uppercase;
+	}
+
+	.partner-research-card__copy {
+		margin-top: 0;
+		line-height: 1.7;
+	}
+
+	.partner-research-card__meta {
+		margin: 0.1rem 0 0;
+		font-size: 0.78rem;
+		line-height: 1.55;
+	}
+
+	.partner-research-card__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.8rem;
+		margin-top: 0.2rem;
+		padding-top: 0.85rem;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.1);
+	}
+
+	.partner-research-card__action {
+		font-size: 0.84rem;
+		font-weight: 600;
+		line-height: 1.35;
+		color: var(--accent);
+	}
+
+	.partner-research-card__indicator {
+		display: inline-flex;
+		height: 2rem;
+		width: 2rem;
+		align-items: center;
+		justify-content: center;
+		color: var(--accent);
+		border: 1px solid rgba(var(--accent-rgb), 0.14);
+		border-radius: var(--radius-full);
+		background: rgba(var(--white-rgb), 0.78);
+	}
+
+	.partner-research-card__indicator-arrow {
+		transition: transform 180ms ease;
+	}
+
+	.partner-research-card:hover .partner-research-card__indicator-arrow {
+		transform: translateX(2px) translateY(-1px);
 	}
 
 	.resources-video-thumb--summer-2025 {
@@ -389,11 +586,19 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 		overflow: hidden;
 	}
 
+	.resources-video-trigger img {
+		transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.resources-video-trigger:hover img {
+		transform: scale(1.025);
+	}
+
 	.resources-video-overlay {
 		background: linear-gradient(
 			180deg,
-			rgba(15, 23, 42, 0.14) 0%,
-			rgba(15, 23, 42, 0.3) 100%
+			rgba(var(--ink-shadow-rgb), 0.14) 0%,
+			rgba(var(--ink-shadow-rgb), 0.3) 100%
 		);
 		transition: background-color 180ms ease, opacity 180ms ease;
 	}
@@ -413,12 +618,12 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 		justify-content: center;
 		width: clamp(3.9rem, 9vw, 4.65rem);
 		height: clamp(3.9rem, 9vw, 4.65rem);
-		border: 1px solid rgba(255, 255, 255, 0.74);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid rgba(var(--white-rgb), 0.74);
+		border-radius: var(--radius-full);
+		background: rgba(var(--white-rgb), 0.92);
 		box-shadow:
-			0 16px 30px rgba(15, 23, 42, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.82);
+			0 16px 30px rgba(var(--ink-shadow-rgb), 0.2),
+			inset 0 1px 0 rgba(var(--white-rgb), 0.82);
 		backdrop-filter: blur(4px);
 		transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 	}
@@ -433,94 +638,100 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 	.resources-video-trigger:hover .resources-video-overlay {
 		background: linear-gradient(
 			180deg,
-			rgba(15, 23, 42, 0.2) 0%,
-			rgba(15, 23, 42, 0.36) 100%
+			rgba(var(--ink-shadow-rgb), 0.2) 0%,
+			rgba(var(--ink-shadow-rgb), 0.36) 100%
 		);
 	}
 
 	.resources-video-trigger:hover .resources-video-play-indicator__button {
 		transform: scale(1.03);
 		box-shadow:
-			0 18px 34px rgba(15, 23, 42, 0.24),
-			inset 0 1px 0 rgba(255, 255, 255, 0.88);
+			0 18px 34px rgba(var(--ink-shadow-rgb), 0.24),
+			inset 0 1px 0 rgba(var(--white-rgb), 0.88);
 	}
 
 	.video-resource-card:hover {
-		transform: none !important;
-		box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05) !important;
-		border-color: rgba(138, 107, 77, 0.14) !important;
-	}
-
-	.partner-research-card {
-		position: relative;
-		will-change: transform, box-shadow;
-	}
-
-	.partner-research-card::before {
-		content: '';
-		position: absolute;
-		left: 1.15rem;
-		right: 1.15rem;
-		top: 0;
-		height: 2px;
-		border-radius: 999px;
-		background: linear-gradient(
-			90deg,
-			rgba(138, 107, 77, 0.12) 0%,
-			rgba(138, 107, 77, 0.4) 50%,
-			rgba(138, 107, 77, 0.12) 100%
-		);
-	}
-
-	.partner-research-card:active {
-		transform: translateY(-1px);
-		box-shadow:
-			0 10px 20px rgba(15, 23, 42, 0.06),
-			inset 0 1px 0 rgba(255, 255, 255, 0.78);
-	}
-
-	.partner-research-card:focus-visible {
-		outline: 3px solid rgba(138, 107, 77, 0.24);
-		outline-offset: 4px;
-	}
-
-	.partner-research-card__content {
-		display: flex;
-		min-height: 100%;
-		flex-direction: column;
-	}
-
-	.partner-research-card__eyebrow {
-		color: #64748b;
-	}
-
-	.partner-research-card__meta {
-		color: #64748b;
-	}
-
-	.partner-research-card__indicator {
-		margin-top: 1.2rem;
-		display: inline-flex;
-		height: 2.5rem;
-		width: 2.5rem;
-		align-items: center;
-		justify-content: center;
-		color: var(--accent);
-	}
-
-	.partner-research-card__indicator-arrow {
-		transition: transform 180ms ease;
-	}
-
-	.partner-research-card:hover .partner-research-card__indicator-arrow {
-		transform: translateX(2px) translateY(-1px);
+		transform: none;
 	}
 
 	.resources-feature-card .inner-page-body {
 		line-height: 1.88;
 	}
 
+	@media (min-width: 768px) {
+		.resources-feature-card {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.92fr);
+			gap: clamp(1.25rem, 3vw, 2rem);
+			align-items: center;
+		}
+
+		.resources-feature-card > .video-preview-shell {
+			grid-column: 2;
+			grid-row: 1;
+			margin-top: 0;
+		}
+
+		.resources-featured-video-preview {
+			max-width: clamp(18.5rem, 41vw, 32rem);
+		}
+
+		.video-resources-grid .video-resource-card {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.45fr);
+			gap: clamp(1.25rem, 3vw, 2rem);
+			align-items: start;
+		}
+
+		.video-resources-grid .video-preview-shell {
+			margin-top: 0;
+		}
+
+		.resources-link-list--partner {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 639px) {
+		.video-updates-section .page-container {
+			padding-inline: 1rem;
+		}
+
+		.video-preview-shell {
+			border: 0;
+			border-radius: 0.9rem;
+		}
+
+		.video-resource-card img {
+			border: 0;
+			box-shadow: none;
+		}
+
+		.video-resource-card .inner-page-body {
+			line-height: 1.78;
+		}
+
+		.video-resources-grid .video-resource-card:last-child {
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+
+		.resources-section-header .page-title--section {
+			max-width: 100%;
+		}
+
+		.resources-link-list {
+			gap: 0.8rem;
+		}
+
+		.partner-research-card,
+		.trusted-link-card {
+			padding: 0.95rem;
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
+		.resources-video-trigger img,
 		.resources-video-overlay,
 		.resources-video-play-indicator__button,
 		.partner-research-card,
@@ -528,6 +739,7 @@ const trustedLinksCountLabel = `${trustedLinks.length} ${trustedLinks.length ===
 			transition: none !important;
 		}
 
+		.resources-video-trigger:hover img,
 		.resources-video-trigger:hover .resources-video-play-indicator__button,
 		.partner-research-card:hover,
 		.partner-research-card:active,

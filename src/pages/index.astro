@@ -1,15 +1,39 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+
+const allInsights = await getCollection('blog', ({ data }) => !data.draft);
+const sortedInsights = [...allInsights].sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const latestInsight = sortedInsights[0];
+const latestInsightHref = latestInsight ? `/insights/newsletters/${latestInsight.slug}` : '/insights';
+
+const formatInsightDate = (value: Date) =>
+	new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(value);
+
+const getInsightSummary = (entry: (typeof sortedInsights)[number]) =>
+	entry.data.description?.trim() ||
+	entry.data.issueItems?.[0] ||
+	'Quarterly perspective on markets, planning, and financial decision-making.';
 ---
 
-<Layout>
+<Layout
+	title="Financial Decisions | Independent Financial Planning in Sudbury"
+	description="Locally owned and operated financial planning firm in Sudbury, providing guidance on investments, retirement, insurance, and long-term planning."
+	heroPreload={{ href: '/images/office-painted.avif', type: 'image/avif' }}
+>
 	<main class="page-shell">
 		<Hero
 			title="Independent Financial Planning"
 			subtitle="Locally owned and operated, we provide comprehensive guidance on investing, retirement, insurance, and long-term financial planning at every stage of life."
 			eyebrow="FINANCIAL DECISIONS"
-			backgroundImage="/images/Office%20Painted.png"
+			backgroundImage="/images/office-painted.jpg"
+			backgroundAvif="/images/office-painted.avif"
+			backgroundWebp="/images/office-painted.webp"
+			backgroundWidth="1536"
+			backgroundHeight="1024"
 			overlayClass="home-hero__overlay"
 			className="home-hero"
 			contentClass="home-hero__inner"
@@ -24,33 +48,130 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</Hero>
 
-		<section class="home-section home-section--alt home-info-section home-community-section reveal no-divider">
-			<div class="page-container page-container--content home-section__inner">
-				<div class="home-community-layout">
-					<div class="home-prose home-community-prose">
-						<p class="eyebrow text-[color:var(--accent)]">
-							COMMUNITY
+		<section class="home-credibility-rail no-divider reveal" aria-label="Financial Decisions credibility highlights">
+			<div class="page-container">
+				<div class="home-credibility-rail__shell">
+					<header class="home-credibility-rail__header">
+						<p class="eyebrow">Why Clients Stay</p>
+						<p class="home-credibility-rail__lede">
+							Steady financial guidance for individuals and families across every life stage.
 						</p>
-						<h2 class="home-community-title">
-							Connected to the people we serve
+					</header>
+					<ul class="home-credibility-rail__list" aria-label="Firm credibility highlights">
+						<li class="home-credibility-rail__item home-credibility-rail__item--anchor">
+							<span class="home-credibility-rail__item-label">Established</span>
+							<span class="home-credibility-rail__item-title">
+								<span class="home-credibility-rail__item-figure">25+</span>
+								<span class="home-credibility-rail__item-unit">years</span>
+							</span>
+							<span class="home-credibility-rail__item-copy">Serving clients through changing life stages</span>
+						</li>
+						<li class="home-credibility-rail__item">
+							<span class="home-credibility-rail__item-label">Recognized</span>
+							<span class="home-credibility-rail__item-title">Three-time Favorite Financial Planner</span>
+							<span class="home-credibility-rail__item-copy">Community reader polls in Greater Sudbury</span>
+						</li>
+						<li class="home-credibility-rail__item">
+							<span class="home-credibility-rail__item-label">Credentials</span>
+							<span class="home-credibility-rail__item-title">CFP &middot; R.F.P. &middot; CFDS</span>
+							<span class="home-credibility-rail__item-copy">Advanced planning designations held by the firm&rsquo;s lead planner</span>
+						</li>
+						<li class="home-credibility-rail__item">
+							<span class="home-credibility-rail__item-label">Family-led</span>
+							<span class="home-credibility-rail__item-title">Locally owned and operated</span>
+							<span class="home-credibility-rail__item-copy">Linda Cartier and Melanie Cartier</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="home-planning-philosophy-section reveal no-divider" aria-labelledby="planning-philosophy-title">
+			<div class="page-container page-container--content">
+				<div class="home-planning-philosophy-shell">
+					<div class="home-planning-philosophy-intro">
+						<p class="eyebrow">PLANNING PHILOSOPHY</p>
+						<h2 id="planning-philosophy-title" class="home-planning-philosophy-title">
+							Our Approach
 						</h2>
-						<p class="home-community-body">
-							Proudly serving the lifestyle, financial planning and insurance needs of
-							hundreds of individuals, couples and families in the Greater Sudbury
-							area and beyond who we consider to be friends as well as clients.
-						</p>
-						<ul class="home-community-trust" aria-label="Financial Decisions trust points">
-							<li>Family Owned</li>
-							<li>Proudly Canadian</li>
-							<li>Serving the Community for 25+ Years</li>
-						</ul>
 					</div>
-					<figure class="community-media-panel">
-						<div class="community-media-panel__frame">
+					<div class="home-planning-philosophy-content">
+						<p class="home-planning-philosophy-body">
+							Financial planning is personal, thoughtful, and long-term. It is about making thoughtful decisions in the context of your goals, responsibilities, and the life you want to build over time. Our role is to help clients understand their options clearly, plan with discipline, and move forward with confidence.
+						</p>
+						<p class="home-planning-philosophy-supporting">
+							That approach has guided our work with clients and families for more than two decades.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="home-planning-areas-section reveal no-divider" aria-labelledby="planning-areas-title">
+			<div class="page-container page-container--content">
+				<div class="home-planning-areas-shell">
+					<header class="home-planning-areas-intro">
+						<p class="eyebrow">PLANNING AREAS</p>
+						<h2 id="planning-areas-title" class="home-planning-areas-title">
+							Planning That Adapts to Real Life
+						</h2>
+						<p class="home-planning-areas-lead">
+							Comprehensive guidance means looking at the full picture, not isolated decisions.
+						</p>
+					</header>
+					<ol class="home-planning-areas-list" aria-label="Financial planning areas of focus">
+						<li>
+							<h3 class="home-planning-areas-heading">Retirement Planning</h3>
+							<p class="home-planning-areas-copy">Preparing for income, lifestyle, and long-term stability.</p>
+						</li>
+						<li>
+							<h3 class="home-planning-areas-heading">Investment Guidance</h3>
+							<p class="home-planning-areas-copy">Aligning portfolios with goals, risk, and time horizon.</p>
+						</li>
+						<li>
+							<h3 class="home-planning-areas-heading">Insurance and Protection</h3>
+							<p class="home-planning-areas-copy">Protecting what matters through appropriate coverage.</p>
+						</li>
+						<li>
+							<h3 class="home-planning-areas-heading">Tax-Aware Planning</h3>
+							<p class="home-planning-areas-copy">Making decisions with long-term efficiency in mind.</p>
+						</li>
+						<li>
+							<h3 class="home-planning-areas-heading">Estate and Legacy Considerations</h3>
+							<p class="home-planning-areas-copy">Planning for continuity, family, and future wishes.</p>
+						</li>
+						<li>
+							<h3 class="home-planning-areas-heading">Separation and Divorce Guidance</h3>
+							<p class="home-planning-areas-copy">Specialized support where financial decisions require added care.</p>
+						</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+
+		<section class="home-local-roots-section reveal no-divider" aria-labelledby="local-roots-title">
+			<div class="page-container page-container--content">
+				<div class="home-local-roots-shell">
+					<div class="home-local-roots-copy">
+						<p class="eyebrow">TRUST</p>
+						<h2 id="local-roots-title" class="home-local-roots-title">
+							Built on Relationships
+						</h2>
+						<p class="home-local-roots-body">
+							Financial Decisions has always been built on relationships. We work with individuals, couples, and families over time, helping them make thoughtful financial decisions as life changes. That long view is personal, steady, and grounded in trust.
+						</p>
+						<p class="home-local-roots-closing">
+							Personal in approach. Long-term in perspective.
+						</p>
+					</div>
+					<figure class="home-local-roots-media">
+						<div class="home-local-roots-media__frame">
 							<img
 								src="/images/Meeting.jpg"
 								alt="Financial Decisions meeting with clients"
-								class="community-media-panel__image"
+								class="home-local-roots-media__image"
+								width="578"
+								height="381"
 								loading="lazy"
 								decoding="async"
 							/>
@@ -60,30 +181,180 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section class="home-section home-section--end home-info-section home-mission-section reveal">
-			<div class="page-container page-container--content home-section__inner">
-				<div class="home-mission-shell">
-					<div class="home-mission-intro">
-						<p class="eyebrow text-[color:var(--accent)]">
-							COMMITMENT
-						</p>
-						<h2 class="home-mission-title">
-							Committed to your peace of mind
+		<section class="home-advisor-recognition-section reveal no-divider" aria-labelledby="advisor-recognition-title">
+			<div class="page-container page-container--content">
+				<div class="home-advisor-recognition-shell">
+					<figure class="home-advisor-recognition-media">
+						<div class="home-advisor-recognition-media__frame">
+							<img
+								src="/images/Linda.jpg"
+								alt="Linda Cartier"
+								class="home-advisor-recognition-media__image"
+								width="340"
+								height="387"
+								loading="lazy"
+								decoding="async"
+							/>
+						</div>
+					</figure>
+					<div class="home-advisor-recognition-copy">
+						<p class="eyebrow">Professional Background</p>
+						<h2 id="advisor-recognition-title" class="home-advisor-recognition-title">
+							Experience That Clients Have Come to Rely On
 						</h2>
-					</div>
-					<div class="home-mission-content">
-						<p class="home-mission-body">
-							Our dedicated mission for over 25 years is to bring to our valued
-							clients peace of mind as they understand we care about their financial
-							well being as if it were our own and specifically this is our
-							continuing commitment.
+						<p class="home-advisor-recognition-body">
+							Financial Decisions is led by Linda Cartier, whose work reflects a long-standing commitment to financial planning, education, and higher professional standards. Her background includes teaching the CFP course at Cambrian College, leading financial education for the public, and holding advanced planning designations including CFP, R.F.P., PRP, ELP, and CFDS.
 						</p>
-						<ul class="home-mission-proof-list" aria-label="Financial Decisions mission proof points">
-							<li>Recognized in community reader polls</li>
-							<li>25+ years of trusted client relationships</li>
-							<li>Independent, family-owned financial planning firm</li>
+						<ul class="home-advisor-recognition-highlights" aria-label="Advisor recognition highlights">
+							<li>Certified and specialized planning credentials</li>
+							<li>Financial education and teaching experience</li>
+							<li>Trusted by clients over many years</li>
 						</ul>
+						<a href="/about" class="btn btn-secondary home-advisor-recognition-cta no-link-style">
+							<span>Learn More About Our Team</span>
+						</a>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="home-recognition-proof-section reveal no-divider" aria-label="Recognition and testimonial highlight">
+			<div class="page-container page-container--content">
+				<div class="home-recognition-proof-shell">
+					<p class="eyebrow">Recognition</p>
+					<h2 class="home-recognition-proof-title">What Clients Have Said</h2>
+					<div class="home-recognition-proof-quotes" aria-label="Client testimonials">
+						<blockquote class="home-recognition-proof-quote">
+							<p>&ldquo;Linda takes the time to get to know her clients and provide the most comprehensive financial plans I have ever seen.&rdquo;</p>
+							<cite class="home-recognition-proof-source">Talbot Stevens, Financial Speaker, Educator and Author</cite>
+						</blockquote>
+						<blockquote class="home-recognition-proof-quote">
+							<p>&ldquo;Linda possesses extensive knowledge and the patience to assist people in coming to a full understanding of their financial situation and to assist them in constructive solutions.&rdquo;</p>
+							<cite class="home-recognition-proof-source">D.M Thomson, R.N. B.A. B.ScN</cite>
+						</blockquote>
+					</div>
+					<a href="/about#recognition" class="btn btn-secondary home-recognition-proof-cta no-link-style">
+						<span>See What Clients Have to Say</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="home-insights-preview-section reveal no-divider" aria-labelledby="home-insights-preview-title">
+			<div class="page-container page-container--content">
+				<div class="home-insights-preview-shell">
+					<header class="home-insights-preview-header">
+						<p class="eyebrow">Recent Insights</p>
+						<h2 id="home-insights-preview-title" class="home-insights-preview-title">
+							Latest Newsletter
+						</h2>
+						<p class="home-insights-preview-intro">
+							Quarterly newsletters and video updates that reflect our ongoing perspective on markets, planning, and financial decision-making.
+						</p>
+					</header>
+
+					{latestInsight ? (
+						<article class="home-insights-latest-item" aria-label="Most recent newsletter">
+							<a href={latestInsightHref} class="home-insights-latest-media no-link-style">
+								{latestInsight.data.image ? (
+									<img
+										src={latestInsight.data.image}
+										alt={`${latestInsight.data.title} newsletter cover image`}
+										width="720"
+										height="540"
+										loading="lazy"
+										decoding="async"
+									/>
+								) : (
+									<div class="home-insights-latest-media-fallback" aria-hidden="true">
+										<span>Financial Decisions</span>
+									</div>
+								)}
+							</a>
+							<div class="home-insights-latest-content">
+								<div class="home-insights-item-meta-row">
+									<p class="home-insights-item-label">Featured Issue</p>
+									<p class="home-insights-item-meta">
+										{formatInsightDate(latestInsight.data.pubDate)} &middot; {latestInsight.data.readingTime}
+									</p>
+								</div>
+								<h3 class="home-insights-item-title">
+									<a href={latestInsightHref} class="no-link-style">
+										{latestInsight.data.title}
+									</a>
+								</h3>
+								<p class="home-insights-item-copy">
+									{getInsightSummary(latestInsight)}
+								</p>
+								<div class="home-insights-item-details">
+									{latestInsight.data.issueItems && latestInsight.data.issueItems.length > 0 && (
+										<div class="home-insights-item-hook" aria-label="Newsletter highlights">
+											<p class="home-insights-item-hook-label">In this issue</p>
+											<ul class="home-insights-item-hook-list">
+												{latestInsight.data.issueItems.slice(0, 3).map((item) => (
+													<li>{item}</li>
+												))}
+											</ul>
+										</div>
+									)}
+									<div class="home-insights-item-support">
+										<p class="home-insights-item-support-label">Archive</p>
+										<p class="home-insights-item-support-copy">
+											Review recent issues and video updates in one place.
+										</p>
+										{latestInsight.data.pdfPath && (
+											<a
+												href={latestInsight.data.pdfPath}
+												class="home-insights-item-support-link"
+												target="_blank"
+												rel="noopener"
+											>
+												Open PDF version
+											</a>
+										)}
+									</div>
+								</div>
+								<div class="home-insights-latest-actions">
+									<a
+										href={latestInsightHref}
+										class="btn btn-primary home-insights-latest-link no-link-style"
+									>
+										<span>Read Latest Newsletter</span>
+									</a>
+									<a href="/insights" class="btn btn-secondary home-insights-archive-link no-link-style">
+										<span>View All Newsletters</span>
+									</a>
+								</div>
+							</div>
+						</article>
+					) : (
+						<p class="home-insights-preview-empty">Insights will appear here as new updates are published.</p>
+					)}
+
+					{!latestInsight && (
+						<a href="/insights" class="btn btn-secondary home-insights-preview-cta no-link-style">
+							<span>View All Newsletters</span>
+						</a>
+					)}
+				</div>
+			</div>
+		</section>
+
+		<section class="home-closing-cta-section reveal no-divider" aria-labelledby="home-closing-cta-title">
+			<div class="page-container page-container--content">
+				<div class="home-closing-cta-shell">
+					<h2 id="home-closing-cta-title" class="home-closing-cta-title">
+						Start With a Conversation
+					</h2>
+					<p class="home-closing-cta-body">
+						Whether you are planning for retirement, reviewing your current strategy, or looking for clearer direction, we welcome the opportunity to speak with you.
+					</p>
+					<a href="/contact" class="btn btn-primary home-closing-cta-button no-link-style">
+						<span>Contact Us</span>
+					</a>
+					<p class="home-closing-cta-contact">
+						1546 Bellevue Avenue, Sudbury, Ontario | 705-525-PLAN
+					</p>
 				</div>
 			</div>
 		</section>
@@ -91,351 +362,1262 @@ import Hero from '../components/Hero.astro';
 </Layout>
 
 <style>
-	.home-info-section .home-section__inner {
-		padding-top: clamp(4.75rem, 6vw, 6.35rem);
-		padding-bottom: clamp(4.75rem, 6vw, 6.35rem);
+	.home-credibility-rail {
+		position: relative;
+		padding-block: clamp(2.4rem, 4vw, 3.2rem);
+		background: var(--surface-band);
 	}
 
-	.home-info-section.home-community-section .home-section__inner {
-		padding-top: clamp(4rem, 5vw, 5rem);
-		padding-bottom: clamp(4.5rem, 5vw, 5.5rem);
-	}
-
-	.home-info-section + .home-info-section {
-		margin-top: clamp(2rem, 3vw, 3rem);
-	}
-
-	.home-community-layout {
+	.home-credibility-rail__shell {
 		display: grid;
-		gap: clamp(2.5rem, 4.5vw, 4rem);
-		align-items: start;
+		gap: 0;
 	}
 
-	.home-community-prose {
-		max-width: 40rem;
+	.home-credibility-rail__header {
+		margin: 0 auto;
+		max-width: 52rem;
+		padding: 0 clamp(0.5rem, 2vw, 1rem) clamp(1.5rem, 2.8vw, 2rem);
+		text-align: center;
 	}
 
-	.home-community-section .eyebrow {
+	.home-credibility-rail__header .eyebrow {
 		color: var(--accent);
 	}
 
-	.home-community-title {
-		margin-top: 1rem;
-		max-width: 15ch;
-		font-size: clamp(2.2rem, 4vw, 3rem);
-		font-weight: 600;
-		line-height: 1.08;
-		letter-spacing: -0.03em;
-		color: #0f172a;
+	.home-credibility-rail__lede {
+		margin: 0.85rem auto 0;
+		max-width: 44rem;
+		font-size: var(--text-proof-lede);
+		font-weight: 500;
+		line-height: 1.55;
+		letter-spacing: -0.015em;
+		color: var(--ink-heading);
 		text-wrap: balance;
 	}
 
-	.home-community-body {
-		margin-top: 1.35rem;
-		max-width: 39rem;
-		font-size: 1.04rem;
-		line-height: 1.8;
-		color: #475569;
-	}
-
-	.home-community-trust {
-		margin-top: 2rem;
+	.home-credibility-rail__list {
 		display: grid;
-		gap: 0.95rem;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0;
+		margin: 0;
 		padding: 0;
 		list-style: none;
+		border-top: 1px solid var(--rule-bronze);
+		border-bottom: 1px solid var(--rule-bronze);
 	}
 
-	.home-community-trust li {
+	.home-credibility-rail__item {
 		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 4.1rem;
-		border: 1px solid rgba(138, 107, 77, 0.12);
-		border-radius: 1rem;
-		background: linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.97) 0%,
-			rgba(251, 248, 244, 0.96) 100%
-		);
-		padding: 1.15rem 1.15rem 1rem;
-		font-size: 0.97rem;
+		display: grid;
+		grid-template-rows: auto 1fr auto;
+		row-gap: 0.85rem;
+		min-height: 7.75rem;
+		padding: 1.4rem clamp(1rem, 2vw, 1.45rem) 1.35rem;
+		text-align: left;
+		border-top: 1px solid var(--rule-bronze-soft);
+	}
+
+	.home-credibility-rail__item:not(.home-credibility-rail__item--anchor) {
+		grid-template-rows: auto auto auto;
+		row-gap: 0.75rem;
+	}
+
+	.home-credibility-rail__item:first-child {
+		border-top: none;
+	}
+
+	.home-credibility-rail__item-label {
+		display: block;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: var(--eyebrow-tracking);
+		line-height: 1.2;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.home-credibility-rail__item-title {
+		align-self: center;
+		display: block;
+		max-width: 26ch;
+		font-size: 1.18rem;
 		font-weight: 600;
-		line-height: 1.45;
-		letter-spacing: -0.015em;
-		text-align: center;
-		color: #1f2937;
-		box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+		letter-spacing: -0.012em;
+		line-height: 1.3;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+	.home-credibility-rail__item:not(.home-credibility-rail__item--anchor) .home-credibility-rail__item-title {
+		align-self: start;
+		min-height: calc(1.3em * 2);
+	}
+
+	.home-credibility-rail__item--anchor .home-credibility-rail__item-title {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		max-width: none;
+	}
+
+	.home-credibility-rail__item-figure {
+		font-size: var(--text-proof-figure);
+		font-weight: 600;
+		line-height: 0.95;
+		letter-spacing: -0.045em;
+		color: var(--ink-heading);
+	}
+
+	.home-credibility-rail__item-unit {
+		font-size: var(--text-body-lg);
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: var(--ink-soft);
+	}
+
+	.home-credibility-rail__item-copy {
+		align-self: end;
+		display: block;
+		max-width: 30ch;
+		font-size: var(--text-small);
+		line-height: 1.6;
+		color: var(--ink-body);
 		text-wrap: pretty;
 	}
-
-	.home-community-trust li::before {
-		content: '';
-		position: absolute;
-		left: 1rem;
-		right: 1rem;
-		top: 0;
-		height: 2px;
-		border-radius: 999px;
-		background: linear-gradient(
-			90deg,
-			rgba(138, 107, 77, 0.14) 0%,
-			rgba(138, 107, 77, 0.48) 50%,
-			rgba(138, 107, 77, 0.14) 100%
-		);
+	.home-credibility-rail__item:not(.home-credibility-rail__item--anchor) .home-credibility-rail__item-copy {
+		align-self: start;
+		min-height: calc(1.6em * 2);
 	}
 
-	.home-community-trust li:hover,
-	.home-community-trust li:focus-within {
-		border-color: rgba(138, 107, 77, 0.18);
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+	.home-planning-philosophy-section {
+		position: relative;
+		padding-block: clamp(3rem, 5vw, 4.2rem) clamp(3.1rem, 5.2vw, 4.4rem);
+		background: var(--surface-band);
 	}
 
-	.community-media-panel {
-		width: min(100%, 30.5rem);
-		max-width: 30.5rem;
+	.home-planning-philosophy-section .page-container--content {
+		display: grid;
+		place-items: center;
+	}
+
+	.home-planning-philosophy-shell {
+		position: relative;
+		display: grid;
+		gap: clamp(1.5rem, 2.4vw, 2.2rem);
+		width: min(100%, 72rem);
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: clamp(1.65rem, 3vw, 2.35rem) clamp(1.3rem, 2.8vw, 2.05rem);
+		border: none;
+		border-radius: 0;
+		background: transparent;
+		box-shadow: none;
+	}
+
+	.home-planning-philosophy-intro,
+	.home-planning-philosophy-content {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		margin-inline: auto;
+	}
+
+	.home-planning-philosophy-intro {
+		text-align: center;
+	}
+
+	.home-planning-philosophy-content {
+		text-align: center;
+	}
+
+	.home-planning-philosophy-intro .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-planning-philosophy-title {
+		margin-top: 0.9rem;
+		margin-inline: auto;
+		width: fit-content;
+		max-width: 100%;
+		font-size: var(--text-section-title);
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-planning-philosophy-body {
+		max-width: 47rem;
+		margin-inline: auto;
+		text-align: center;
+		font-size: var(--text-body-lg);
+		line-height: 1.86;
+		color: var(--ink-body);
+	}
+
+	.home-planning-philosophy-supporting {
+		margin-top: 1.2rem;
+		margin-inline: auto;
+		max-width: 47rem;
+		text-align: center;
+		font-size: var(--text-body);
+		line-height: 1.72;
+		letter-spacing: 0.01em;
+		color: var(--accent-copy);
+	}
+
+	.home-planning-areas-section {
+		position: relative;
+		padding-block: clamp(2.55rem, 4.4vw, 3.75rem) clamp(3.1rem, 5vw, 4.25rem);
+		background: var(--surface-page);
+	}
+
+	.home-planning-areas-shell {
+		max-width: 72rem;
 		margin: 0 auto;
 	}
 
-	.community-media-panel__frame {
-		position: relative;
-		padding: clamp(0.9rem, 1.9vw, 1.05rem);
-		border-radius: 1.5rem;
-		background: linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.9) 0%,
-			rgba(246, 243, 239, 0.98) 100%
-		);
-		box-shadow: 0 20px 42px rgba(15, 23, 42, 0.07);
+	.home-planning-areas-intro {
+		max-width: 44rem;
+		margin: 0 auto;
+		text-align: center;
 	}
 
-	.community-media-panel__frame::after {
+	.home-planning-areas-intro .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-planning-areas-title {
+		margin-top: 0.9rem;
+		font-size: var(--text-section-title);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-planning-areas-lead {
+		margin-top: 1.1rem;
+		font-size: var(--text-body-lg);
+		line-height: 1.8;
+		color: var(--ink-body);
+	}
+
+	.home-planning-areas-list {
+		counter-reset: planning-area;
+		display: grid;
+		gap: 0;
+		margin: clamp(2rem, 3.5vw, 2.85rem) auto 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--rule-bronze);
+		max-width: 68rem;
+	}
+
+	.home-planning-areas-list li {
+		counter-increment: planning-area;
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0.55rem;
+		padding: 1.15rem 0.2rem 1.1rem 2.4rem;
+		border-bottom: 1px solid var(--rule-bronze);
+	}
+
+	.home-planning-areas-list li::before {
+		content: counter(planning-area, decimal-leading-zero);
+		position: absolute;
+		top: 1.14rem;
+		left: 0;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: var(--eyebrow-tracking);
+		color: rgba(var(--accent-rgb), 0.9);
+	}
+
+	.home-planning-areas-heading {
+		margin: 0;
+		font-size: var(--text-lede);
+		font-weight: 600;
+		line-height: 1.3;
+		letter-spacing: -0.01em;
+		color: var(--ink-strong);
+	}
+
+	.home-planning-areas-copy {
+		margin: 0;
+		font-size: var(--text-body);
+		line-height: 1.75;
+		color: var(--ink-body);
+	}
+
+	.home-local-roots-section {
+		position: relative;
+		padding-block: clamp(2.8rem, 4.5vw, 3.95rem) clamp(3.3rem, 5.2vw, 4.6rem);
+		background: var(--surface-band);
+	}
+
+	.home-local-roots-shell {
+		display: grid;
+		gap: clamp(1.5rem, 3vw, 2.6rem);
+		max-width: 64rem;
+		margin: 0 auto;
+		align-items: center;
+	}
+
+	.home-local-roots-shell .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-local-roots-copy {
+		text-align: center;
+	}
+
+	.home-local-roots-title {
+		margin-top: 0.95rem;
+		font-size: var(--text-section-title-wide);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-local-roots-body {
+		margin-top: 1.2rem;
+		font-size: var(--text-body-lg);
+		line-height: 1.84;
+		color: var(--ink-body);
+		text-wrap: pretty;
+	}
+
+	.home-local-roots-closing {
+		margin-top: 1.35rem;
+		font-size: var(--text-body);
+		font-weight: 500;
+		line-height: 1.7;
+		letter-spacing: 0.01em;
+		color: var(--accent-copy);
+	}
+
+	.home-local-roots-media {
+		width: min(100%, 31rem);
+		margin: 0 auto;
+	}
+
+	.home-local-roots-media__frame {
+		position: relative;
+		padding: clamp(0.9rem, 1.8vw, 1.05rem);
+		border-radius: 1.45rem;
+		background: linear-gradient(
+			180deg,
+			rgba(var(--white-rgb), 0.92) 0%,
+			rgba(var(--surface-band-rgb), 0.95) 100%
+		);
+		box-shadow: 0 20px 40px rgba(var(--ink-shadow-rgb), 0.08);
+	}
+
+	.home-local-roots-media__frame::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		border: 1px solid rgba(138, 107, 77, 0.14);
+		border: 1px solid var(--rule-bronze);
 		border-radius: inherit;
 		pointer-events: none;
 	}
 
-	.community-media-panel__image {
+	.home-local-roots-media__image {
 		display: block;
 		width: 100%;
-		height: auto;
-		border-radius: 1.08rem;
-		border: 1px solid rgba(138, 107, 77, 0.12);
+		aspect-ratio: 5 / 4;
+		object-fit: cover;
+		border-radius: 1.05rem;
+		border: 1px solid rgba(var(--accent-rgb), 0.08);
 		box-shadow: none;
 	}
 
-	.home-mission-shell {
+	.home-advisor-recognition-section {
 		position: relative;
+		padding-block: clamp(2.85rem, 4.6vw, 4rem) clamp(3.15rem, 5.2vw, 4.45rem);
+		background: var(--surface-page);
+	}
+
+	.home-advisor-recognition-shell {
 		display: grid;
-		gap: clamp(2rem, 3vw, 2.75rem);
-		max-width: 72rem;
+		gap: clamp(1.65rem, 3.2vw, 3rem);
+		max-width: 66rem;
 		margin: 0 auto;
-		padding: clamp(1.8rem, 4vw, 3rem);
-		border: 1px solid rgba(138, 107, 77, 0.14);
-		border-radius: 1.75rem;
-		background: linear-gradient(180deg, #ffffff 0%, #faf7f3 100%);
-		box-shadow: 0 20px 44px rgba(15, 23, 42, 0.05);
+		align-items: center;
 	}
 
-	.home-mission-shell::before {
-		content: '';
-		position: absolute;
-		inset: 1rem;
-		border: 1px solid rgba(138, 107, 77, 0.08);
-		border-radius: 1.25rem;
-		pointer-events: none;
-	}
-
-	.home-mission-intro,
-	.home-mission-content {
-		position: relative;
-		z-index: 1;
-	}
-
-	.home-mission-section .eyebrow {
+	.home-advisor-recognition-shell .eyebrow {
 		color: var(--accent);
 	}
 
-	.home-mission-title {
-		margin-top: 1rem;
-		max-width: 12ch;
-		font-size: clamp(2.1rem, 3.6vw, 2.8rem);
+	.home-advisor-recognition-copy {
+		text-align: center;
+	}
+
+	.home-advisor-recognition-title {
+		margin-top: 0.95rem;
+		font-size: var(--text-section-title-wide);
 		font-weight: 600;
-		line-height: 1.1;
+		line-height: 1.12;
 		letter-spacing: -0.03em;
-		color: #0f172a;
+		color: var(--ink-heading);
 		text-wrap: balance;
 	}
 
-	.home-mission-body {
-		max-width: 41rem;
-		font-size: 1.02rem;
-		line-height: 1.85;
-		color: #475569;
-	}
-
-	.home-mission-content {
-		display: grid;
-		gap: 1.75rem;
-	}
-
-	.home-mission-proof-list {
-		display: grid;
-		gap: 0.95rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.home-mission-proof-list li {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 4.1rem;
-		border: 1px solid rgba(138, 107, 77, 0.12);
-		border-radius: 1rem;
-		background: linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0.97) 0%,
-			rgba(251, 248, 244, 0.96) 100%
-		);
-		padding: 1.15rem 1.15rem 1rem;
-		font-size: 0.97rem;
-		font-weight: 600;
-		line-height: 1.45;
-		letter-spacing: -0.015em;
-		text-align: center;
-		color: #1f2937;
-		box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+	.home-advisor-recognition-body {
+		margin-top: 1.2rem;
+		font-size: var(--text-body-lg);
+		line-height: 1.84;
+		color: var(--ink-body);
 		text-wrap: pretty;
 	}
 
-	.home-mission-proof-list li::before {
+	.home-advisor-recognition-media {
+		width: min(100%, 20rem);
+		margin: 0 auto;
+	}
+
+	.home-advisor-recognition-media__frame {
+		position: relative;
+		padding: clamp(0.9rem, 1.8vw, 1rem);
+		border-radius: 1.55rem;
+		background: linear-gradient(
+			180deg,
+			rgba(249, 246, 241, 0.96) 0%,
+			rgba(var(--white-rgb), 0.92) 100%
+		);
+		box-shadow: 0 18px 36px rgba(var(--ink-shadow-rgb), 0.08);
+	}
+
+	.home-advisor-recognition-media__frame::after {
 		content: '';
 		position: absolute;
-		left: 1rem;
-		right: 1rem;
+		inset: 0;
+		border: 1px solid var(--rule-bronze);
+		border-radius: inherit;
+		pointer-events: none;
+	}
+
+	.home-advisor-recognition-media__image {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+		object-position: center top;
+		border-radius: 1.1rem;
+		border: 1px solid rgba(var(--accent-rgb), 0.08);
+		box-shadow: none;
+	}
+
+	.home-advisor-recognition-highlights {
+		display: grid;
+		gap: 0;
+		margin: clamp(1.75rem, 3vw, 2.2rem) auto 0;
+		padding: 0;
+		list-style: none;
+		max-width: 48rem;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.home-advisor-recognition-highlights li {
+		position: relative;
+		padding: 0.98rem 0.4rem 0.92rem 1.3rem;
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+		font-size: var(--text-body);
+		font-weight: 500;
+		line-height: 1.6;
+		color: var(--ink-strong);
+	}
+
+	.home-advisor-recognition-highlights li::before {
+		content: '';
+		position: absolute;
+		left: 0.2rem;
+		top: 1.36rem;
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: var(--radius-full);
+		background: rgba(var(--accent-rgb), 0.56);
+	}
+
+	.home-advisor-recognition-cta {
+		margin-top: clamp(1.55rem, 2.8vw, 2rem);
+	}
+
+	.home-recognition-proof-section {
+		position: relative;
+		padding-block: clamp(2.45rem, 4vw, 3.35rem) clamp(2.75rem, 4.4vw, 3.65rem);
+		background: var(--surface-band);
+	}
+
+	.home-recognition-proof-shell {
+		max-width: 64rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.home-recognition-proof-shell .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-recognition-proof-title {
+		margin-top: 0.85rem;
+		font-size: var(--text-feature-title);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+		max-width: 23ch;
+		margin-inline: auto;
+	}
+
+	.home-recognition-proof-quotes {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0;
+		margin: clamp(1.75rem, 3vw, 2.25rem) auto 0;
+		max-width: 58rem;
+		border-top: 1px solid var(--rule-bronze);
+		border-bottom: 1px solid var(--rule-bronze);
+	}
+
+	.home-recognition-proof-quote {
+		display: grid;
+		gap: 0.85rem;
+		margin: 0;
+		padding: clamp(1.1rem, 2vw, 1.45rem) 0;
+		text-align: center;
+	}
+
+	.home-recognition-proof-quote + .home-recognition-proof-quote {
+		border-top: 1px solid var(--rule-bronze);
+	}
+
+	.home-recognition-proof-quote p {
+		margin: 0;
+		max-width: 62ch;
+		margin-inline: auto;
+		font-size: var(--text-body-lg);
+		font-weight: 500;
+		line-height: 1.72;
+		letter-spacing: -0.01em;
+		color: var(--ink-soft);
+		text-wrap: pretty;
+	}
+
+	.home-recognition-proof-source {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		font-size: var(--text-eyebrow-lg);
+		font-style: normal;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		line-height: 1.4;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.home-recognition-proof-cta {
+		margin-top: clamp(1.2rem, 2.2vw, 1.8rem);
+		display: flex;
+		width: fit-content;
+		margin-inline: auto;
+	}
+
+	.home-insights-preview-section {
+		position: relative;
+		padding-block: clamp(2.35rem, 4vw, 3.2rem) clamp(2.45rem, 4.2vw, 3.45rem);
+		background: var(--surface-page);
+	}
+
+	.home-insights-preview-section::before {
+		content: '';
+		position: absolute;
 		top: 0;
-		height: 2px;
-		border-radius: 999px;
+		left: 50%;
+		width: min(92%, 68rem);
+		height: 1px;
+		transform: translateX(-50%);
 		background: linear-gradient(
 			90deg,
-			rgba(138, 107, 77, 0.14) 0%,
-			rgba(138, 107, 77, 0.48) 50%,
-			rgba(138, 107, 77, 0.14) 100%
+			rgba(var(--accent-rgb), 0) 0%,
+			var(--rule-bronze) 20%,
+			var(--rule-bronze) 80%,
+			rgba(var(--accent-rgb), 0) 100%
 		);
 	}
 
-	.home-mission-proof-list li:hover,
-	.home-mission-proof-list li:focus-within {
-		border-color: rgba(138, 107, 77, 0.18);
-		box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+	.home-insights-preview-shell {
+		max-width: 68rem;
+		margin: 0 auto;
+	}
+
+	.home-insights-preview-header {
+		max-width: 44rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.home-insights-preview-header .eyebrow {
+		color: var(--accent);
+	}
+
+	.home-insights-preview-title {
+		margin-top: 0.85rem;
+		text-align: center;
+		font-size: var(--text-feature-title);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-insights-preview-intro {
+		max-width: 45rem;
+		margin: 0.95rem auto 0;
+		text-align: center;
+		font-size: var(--text-body-lg);
+		line-height: 1.74;
+		color: var(--ink-body);
+		text-wrap: pretty;
+	}
+
+	.home-insights-latest-item {
+		display: grid;
+		gap: clamp(1.3rem, 2.5vw, 2.4rem);
+		margin: clamp(1.75rem, 3vw, 2.4rem) auto 0;
+		padding: clamp(1rem, 1.9vw, 1.3rem);
+		border: 1px solid rgba(var(--accent-rgb), 0.16);
+		border-radius: 1.4rem;
+		background: linear-gradient(
+			180deg,
+			rgba(var(--white-rgb), 0.98) 0%,
+			rgba(var(--surface-warm-rgb), 0.58) 100%
+		);
+		box-shadow: 0 18px 40px rgba(var(--ink-shadow-rgb), 0.055);
+		text-align: left;
+	}
+
+	.home-insights-latest-media {
+		display: block;
+		overflow: hidden;
+		padding: clamp(0.55rem, 1vw, 0.8rem);
+		border-radius: 1rem;
+		border: 1px solid rgba(var(--accent-rgb), 0.12);
+		background: linear-gradient(
+			180deg,
+			rgba(var(--surface-band-rgb), 0.88) 0%,
+			rgba(var(--white-rgb), 0.95) 100%
+		);
+		box-shadow: 0 14px 30px rgba(var(--ink-shadow-rgb), 0.06);
+	}
+
+	.home-insights-latest-media img,
+	.home-insights-latest-media-fallback {
+		display: block;
+		width: 100%;
+		aspect-ratio: 5 / 4;
+	}
+
+	.home-insights-latest-media img {
+		object-fit: contain;
+		object-position: center;
+		border-radius: 0.8rem;
+		background: rgba(var(--white-rgb), 0.7);
+		border: 0;
+		box-shadow: none;
+		transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.home-insights-latest-media:hover img {
+		transform: scale(1.02);
+	}
+
+	.home-insights-latest-media-fallback {
+		display: grid;
+		place-items: center;
+		padding: 1.5rem;
+		font-size: var(--text-item-title);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		color: var(--accent-dark);
+	}
+
+	.home-insights-latest-content {
+		display: grid;
+		gap: 0.7rem;
+		align-content: start;
+	}
+
+	.home-insights-item-meta-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.55rem 1rem;
+	}
+
+	.home-insights-item-label {
+		margin: 0;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: var(--eyebrow-tracking);
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.home-insights-item-title {
+		margin: 0;
+		font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-insights-item-meta {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		line-height: 1.45;
+		text-transform: uppercase;
+		color: var(--ink-subtle);
+	}
+
+	.home-insights-item-copy {
+		margin: 0.15rem 0 0;
+		font-size: var(--text-body);
+		line-height: 1.8;
+		color: var(--ink-body);
+		max-width: 54ch;
+	}
+
+	.home-insights-item-details {
+		display: grid;
+		gap: clamp(1rem, 2vw, 1.5rem);
+		margin-top: 0.45rem;
+	}
+
+	.home-insights-item-hook {
+		padding-top: 1rem;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.14);
+	}
+
+	.home-insights-item-hook-label {
+		margin: 0;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		line-height: 1.3;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.home-insights-item-hook-list {
+		margin: 0.6rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 0;
+		list-style: none;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+	}
+
+	.home-insights-item-hook-list li {
+		margin: 0;
+		padding: 0.62rem 0;
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+		font-size: var(--text-body);
+		line-height: 1.55;
+		color: var(--ink-strong);
+	}
+
+	.home-insights-item-support {
+		padding-top: 1rem;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.14);
+	}
+
+	.home-insights-item-support-label {
+		margin: 0;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		line-height: 1.3;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+
+	.home-insights-item-support-copy {
+		margin: 0.6rem 0 0;
+		font-size: var(--text-small);
+		line-height: 1.65;
+		color: var(--ink-body);
+		max-width: 26rem;
+	}
+
+	.home-insights-item-support-link {
+		display: inline-flex;
+		margin-top: 0.72rem;
+		font-size: var(--text-small);
+		font-weight: 600;
+		line-height: 1.5;
+		color: var(--accent);
+	}
+
+	.home-insights-latest-actions {
+		margin-top: 0.25rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--rule-bronze);
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.7rem;
+	}
+
+	.home-insights-latest-link {
+		min-width: 14.5rem;
+	}
+
+	.home-insights-archive-link {
+		min-width: 13.4rem;
+	}
+
+	.home-insights-preview-empty {
+		margin-top: 1.35rem;
+		text-align: center;
+		font-size: var(--text-body);
+		line-height: 1.72;
+		color: var(--ink-muted);
+	}
+
+	.home-insights-preview-cta {
+		margin: clamp(1.5rem, 2.8vw, 1.95rem) auto 0;
+	}
+
+	.home-closing-cta-section {
+		position: relative;
+		padding-block: clamp(3.4rem, 5.6vw, 4.75rem) clamp(3.8rem, 5.9vw, 5.1rem);
+		background: var(--surface-band);
+	}
+
+	.home-closing-cta-shell {
+		max-width: 50rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.home-closing-cta-title {
+		font-size: var(--text-section-title);
+		font-weight: 600;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
+		color: var(--ink-heading);
+		text-wrap: balance;
+	}
+
+	.home-closing-cta-body {
+		max-width: 44rem;
+		margin: 1.15rem auto 0;
+		font-size: var(--text-body-lg);
+		line-height: 1.82;
+		color: var(--ink-body);
+		text-wrap: pretty;
+	}
+
+	.home-closing-cta-button {
+		margin: clamp(1.55rem, 2.9vw, 2.05rem) auto 0;
+	}
+
+	.home-closing-cta-contact {
+		margin-top: 1rem;
+		font-size: var(--text-meta);
+		line-height: 1.65;
+		letter-spacing: 0.01em;
+		color: var(--ink-subtle);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-insights-latest-media img {
+			transition: none;
+		}
+
+		.home-insights-latest-media:hover img {
+			transform: none;
+		}
 	}
 
 	@media (min-width: 640px) {
-		.home-community-trust {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+		.home-planning-philosophy-title {
+			white-space: nowrap;
 		}
 
-		.home-mission-proof-list {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+		.home-credibility-rail__list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
+
+		.home-credibility-rail__item {
+			border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+		}
+
+		.home-credibility-rail__item:nth-child(-n + 2) {
+			border-top: none;
+		}
+
+		.home-credibility-rail__item:nth-child(even) {
+			border-left: 1px solid rgba(var(--accent-rgb), 0.12);
+		}
+
 	}
 
 	@media (max-width: 639px) {
-		.home-mission-shell {
-			gap: 1.6rem;
-			padding: 1.4rem 1.2rem 1.5rem;
-			border-radius: 1.3rem;
-			border-color: rgba(138, 107, 77, 0.11);
-			background: linear-gradient(
-				180deg,
-				rgba(255, 255, 255, 0.96) 0%,
-				rgba(250, 247, 243, 0.92) 100%
-			);
-			box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+		.home-planning-philosophy-section {
+			padding-block: 2.45rem 2.6rem;
 		}
 
-		.home-mission-shell::before {
-			inset: 0.75rem;
-			border-color: rgba(138, 107, 77, 0.05);
-			border-radius: 1rem;
+		.home-planning-philosophy-shell {
+			gap: 1.15rem;
+			padding: 1.35rem 1.1rem 1.45rem;
+			border-radius: 0;
+			background: transparent;
+			box-shadow: none;
 		}
 
-		.home-mission-title {
-			margin-top: 0.85rem;
-			font-size: clamp(1.95rem, 8.5vw, 2.3rem);
+		.home-planning-philosophy-title {
+			margin-top: 0.7rem;
+			font-size: var(--text-mobile-section-title-sm);
+			max-width: 14ch;
 		}
 
-		.home-mission-content {
-			gap: 1.35rem;
-		}
-
-		.home-mission-body {
+		.home-planning-philosophy-body {
+			font-size: var(--text-body);
 			line-height: 1.8;
 		}
 
-		.home-mission-proof-list {
-			gap: 0.8rem;
+		.home-planning-philosophy-supporting {
+			margin-top: 1rem;
+			font-size: var(--text-small);
+			line-height: 1.66;
 		}
 
-		.home-mission-proof-list li {
-			justify-content: center;
-			min-height: auto;
-			border-color: rgba(138, 107, 77, 0.1);
-			border-radius: 0.85rem;
-			background: rgba(255, 255, 255, 0.64);
-			padding: 0.95rem 0.95rem 0.85rem;
-			text-align: center;
-			box-shadow: none;
+		.home-planning-areas-section {
+			padding-block: 2.15rem 2.55rem;
 		}
 
-		.home-mission-proof-list li::before {
-			left: 0.9rem;
-			right: 0.9rem;
-			background: linear-gradient(
-				90deg,
-				rgba(138, 107, 77, 0.08) 0%,
-				rgba(138, 107, 77, 0.26) 50%,
-				rgba(138, 107, 77, 0.08) 100%
-			);
+		.home-planning-areas-title {
+			font-size: var(--text-mobile-section-title-md);
 		}
 
-		.home-mission-proof-list li:hover,
-		.home-mission-proof-list li:focus-within {
-			border-color: rgba(138, 107, 77, 0.12);
-			box-shadow: none;
+		.home-planning-areas-lead {
+			font-size: var(--text-body);
+			line-height: 1.72;
+		}
+
+		.home-planning-areas-list {
+			margin-top: 1.65rem;
+		}
+
+		.home-planning-areas-list li {
+			padding: 1rem 0 0.95rem 2rem;
+		}
+
+		.home-planning-areas-list li::before {
+			top: 1rem;
+			font-size: 0.66rem;
+			letter-spacing: 0.15em;
+		}
+
+		.home-local-roots-section {
+			padding-block: 2.45rem 2.8rem;
+		}
+
+		.home-local-roots-title {
+			font-size: var(--text-mobile-section-title);
+		}
+
+		.home-local-roots-body {
+			font-size: var(--text-body);
+			line-height: 1.78;
+		}
+
+		.home-local-roots-closing {
+			margin-top: 1.1rem;
+			font-size: var(--text-small);
+			line-height: 1.65;
+		}
+
+		.home-local-roots-media {
+			width: min(100%, 28rem);
+		}
+
+		.home-advisor-recognition-section {
+			padding-block: 2.35rem 2.8rem;
+		}
+
+		.home-advisor-recognition-title {
+			font-size: var(--text-mobile-section-title);
+		}
+
+		.home-advisor-recognition-body {
+			font-size: var(--text-body);
+			line-height: 1.78;
+		}
+
+		.home-advisor-recognition-media {
+			width: min(100%, 17rem);
+		}
+
+		.home-advisor-recognition-highlights {
+			margin-top: 1.55rem;
+		}
+
+		.home-advisor-recognition-highlights li {
+			padding: 0.88rem 0 0.86rem 1.15rem;
+			font-size: var(--text-small);
+		}
+
+		.home-advisor-recognition-highlights li::before {
+			left: 0.1rem;
+			top: 1.22rem;
+		}
+
+		.home-advisor-recognition-cta {
+			width: 100%;
+		}
+
+		.home-recognition-proof-section {
+			padding-block: 2.05rem 2.4rem;
+		}
+
+		.home-recognition-proof-title {
+			font-size: var(--text-mobile-feature-title);
+		}
+
+		.home-recognition-proof-quotes {
+			margin-top: 1.35rem;
+		}
+
+		.home-recognition-proof-quote {
+			padding: 1rem 0;
+		}
+
+		.home-recognition-proof-quote p {
+			font-size: var(--text-body);
+			line-height: 1.66;
+		}
+
+		.home-recognition-proof-source {
+			font-size: var(--text-eyebrow-lg);
+		}
+
+		.home-recognition-proof-cta {
+			width: 100%;
+			margin-top: 1.05rem;
+		}
+
+		.home-insights-preview-section {
+			padding-block: 2.3rem 2.7rem;
+		}
+
+		.home-insights-preview-title {
+			font-size: var(--text-mobile-section-title);
+		}
+
+		.home-insights-preview-intro {
+			font-size: var(--text-body);
+			line-height: 1.76;
+		}
+
+		.home-insights-latest-item {
+			margin-top: 1.45rem;
+			padding: 0.9rem;
+			gap: 1rem;
+		}
+
+		.home-insights-item-title {
+			font-size: 1.55rem;
+		}
+
+		.home-insights-item-copy {
+			font-size: var(--text-small);
+			line-height: 1.72;
+		}
+
+		.home-insights-item-meta-row {
+			align-items: start;
+			flex-direction: column;
+			gap: 0.3rem;
+		}
+
+		.home-insights-item-hook-list li {
+			font-size: var(--text-meta);
+		}
+
+		.home-insights-latest-actions {
+			display: grid;
+			gap: 0.56rem;
+		}
+
+		.home-insights-latest-link {
+			width: 100%;
+		}
+
+		.home-insights-archive-link {
+			width: 100%;
+		}
+
+		.home-insights-preview-cta {
+			width: 100%;
+		}
+
+		.home-closing-cta-section {
+			padding-block: 2.85rem 3.25rem;
+		}
+
+		.home-closing-cta-title {
+			font-size: var(--text-mobile-cta-title);
+		}
+
+		.home-closing-cta-body {
+			font-size: var(--text-body);
+			line-height: 1.76;
+		}
+
+		.home-closing-cta-button {
+			width: 100%;
+		}
+
+		.home-closing-cta-contact {
+			font-size: var(--text-meta);
+			line-height: 1.6;
 		}
 	}
 
 	@media (min-width: 1024px) {
-		.home-community-layout {
-			grid-template-columns: minmax(0, 1.04fr) minmax(22rem, 0.9fr);
+		.home-planning-philosophy-shell {
+			grid-template-columns: minmax(0, 1fr);
 			align-items: center;
+			gap: clamp(1.3rem, 2vw, 1.75rem);
+			padding: clamp(2rem, 3.4vw, 2.6rem) clamp(1.7rem, 3vw, 2.45rem);
 		}
 
-		.home-community-prose {
-			padding-right: clamp(1rem, 2.5vw, 1.75rem);
+		.home-planning-philosophy-content {
+			max-width: 52rem;
+			margin-inline: auto;
 		}
 
-		.community-media-panel {
+		.home-planning-areas-shell {
+			display: grid;
+			grid-template-columns: minmax(16rem, 0.4fr) minmax(0, 0.6fr);
+			gap: clamp(1.8rem, 3vw, 2.9rem);
+			align-items: start;
+		}
+
+		.home-planning-areas-intro {
+			position: sticky;
+			top: calc(var(--header-height) + clamp(0.9rem, 1.8vw, 1.5rem));
+			max-width: 20rem;
+			margin: 0;
+			text-align: left;
+		}
+
+		.home-planning-areas-title,
+		.home-planning-areas-lead {
+			max-width: 20rem;
+		}
+
+		.home-planning-areas-list {
+			margin-top: 0;
+			max-width: none;
+		}
+
+		.home-planning-areas-list li {
+			grid-template-columns: minmax(15rem, 0.88fr) minmax(0, 1.12fr);
+			gap: clamp(1.4rem, 2.4vw, 2.15rem);
+			padding: 1.2rem 0.1rem 1.16rem 3rem;
+			align-items: start;
+		}
+
+		.home-planning-areas-list li::before {
+			top: 1.2rem;
+		}
+
+		.home-local-roots-shell {
+			grid-template-columns: minmax(0, 1.04fr) minmax(22rem, 0.96fr);
+			max-width: 66rem;
+		}
+
+		.home-local-roots-copy {
+			text-align: left;
+		}
+
+		.home-local-roots-media {
 			margin-left: auto;
 		}
 
-		.home-mission-shell {
-			grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-			align-items: start;
-			gap: clamp(2.5rem, 4vw, 4rem);
+		.home-advisor-recognition-shell {
+			grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+			max-width: 66rem;
 		}
 
-		.home-mission-content {
-			border-left: 1px solid rgba(138, 107, 77, 0.14);
-			padding-left: clamp(1.4rem, 2.4vw, 1.85rem);
+		.home-advisor-recognition-copy {
+			text-align: left;
 		}
+
+		.home-recognition-proof-quotes {
+			grid-template-columns: 1fr;
+		}
+
+		.home-insights-latest-item {
+			grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+			align-items: stretch;
+		}
+
+		.home-insights-latest-content {
+			gap: 0.8rem;
+		}
+
+		.home-insights-item-details {
+			grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
+			align-items: start;
+		}
+
+		.home-insights-item-hook,
+		.home-insights-item-support {
+			padding-top: 0.95rem;
+		}
+
+		.home-credibility-rail__shell {
+			max-width: 76rem;
+			margin: 0 auto;
+		}
+
+		.home-credibility-rail__header {
+			padding-bottom: clamp(1.75rem, 3vw, 2.35rem);
+		}
+
+		.home-credibility-rail__list {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.home-credibility-rail__item {
+			min-height: clamp(8.5rem, 9vw, 9.5rem);
+			padding: 1.55rem clamp(1.15rem, 1.7vw, 1.5rem) 1.45rem;
+			border-top: none;
+			border-left: 1px solid var(--rule-bronze);
+		}
+
+		.home-credibility-rail__item:first-child {
+			border-left: none;
+		}
+
 	}
+
 </style>

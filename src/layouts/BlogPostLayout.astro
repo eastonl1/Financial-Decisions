@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+import Hero from '../components/Hero.astro';
 
 interface Props {
 	title: string;
@@ -16,17 +17,30 @@ const formatDate = (value: Date) =>
 	new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(
 		new Date(value)
 	);
+const metaDescription =
+	description && description.trim()
+		? description
+		: `Newsletter from Financial Decisions published ${formatDate(pubDate)}.`;
 ---
 
-<Layout>
-	<main class="page-shell">
-		<section class="newsletter-post-section page-section-soft reveal">
+<Layout
+	title={`${title} | Financial Decisions`}
+	description={metaDescription}
+	type="article"
+>
+	<main class="page-shell newsletter-post-page">
+		<section class="newsletter-post-section reveal no-divider">
 			<div class="page-container page-container--content page-section--tight-top">
-				<article class="ui-card news-card newsletter-post-shell page-stack--lg p-6 sm:p-8">
-					<header class="page-stack">
-						<p class="inner-page-eyebrow">Newsletters</p>
-						<h1 class="page-title">{title}</h1>
-						<p class="inner-page-meta">
+				<article class="newsletter-post-shell page-stack--lg">
+					<Hero
+						variant="page"
+						eyebrow="Newsletters"
+						title={title}
+						subtitle={description}
+						className="newsletter-post-header"
+						contentClass="newsletter-post-header__content"
+					>
+						<p slot="meta" class="inner-page-meta newsletter-post-meta">
 							{formatDate(pubDate)} &middot; {readingTime}
 							{updatedDate && (
 								<span>
@@ -34,33 +48,38 @@ const formatDate = (value: Date) =>
 								</span>
 							)}
 						</p>
-						{description && <p class="page-subtitle">{description}</p>}
-						<div class="flex flex-wrap items-center gap-3 border-t border-[color:var(--accent-muted)] pt-5">
-							<a href="/insights" class="btn btn-primary">
+						<nav
+							class="newsletter-post-masthead-actions"
+							aria-label="Newsletter actions"
+						>
+							<a href="/insights" class="newsletter-post-back-link">
 								Back to Newsletters
 							</a>
 							{pdfPath && (
-								<a href={pdfPath} download class="btn btn-secondary">
+								<a href={pdfPath} download class="btn btn-secondary btn-sm newsletter-post-pdf-link">
 									Download PDF
 								</a>
 							)}
-						</div>
-					</header>
+						</nav>
+					</Hero>
 
-					<div class="newsletter-post-content max-w-none text-[1.04rem] leading-[1.9] text-slate-700 [&_a]:text-[color:var(--accent)] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-[1.75rem] [&_h2]:font-semibold [&_h2]:leading-[1.12] [&_h2]:tracking-[-0.03em] [&_h2]:text-slate-900 [&_h3]:mt-8 [&_h3]:text-[1.3rem] [&_h3]:font-semibold [&_h3]:leading-[1.2] [&_h3]:tracking-[-0.02em] [&_h3]:text-slate-900 [&_p+p]:mt-5 [&_ul]:mt-5 [&_ul]:space-y-2 [&_li]:leading-[1.9]">
+					<div class="newsletter-post-content prose-newsletter max-w-none">
 						<slot />
 					</div>
 
-					<div class="flex flex-wrap items-center gap-3 border-t border-[color:var(--accent-muted)] pt-5">
-						<a href="/insights" class="btn btn-primary">
+					<nav
+						class="newsletter-post-actions newsletter-post-actions--footer flex flex-wrap items-center gap-3"
+						aria-label="Newsletter footer actions"
+					>
+						<a href="/insights" class="newsletter-post-back-link">
 							Back to Newsletters
 						</a>
 						{pdfPath && (
-							<a href={pdfPath} download class="btn btn-secondary">
+							<a href={pdfPath} download class="btn btn-secondary btn-sm newsletter-post-pdf-link">
 								Download PDF
 							</a>
 						)}
-					</div>
+					</nav>
 				</article>
 			</div>
 		</section>
@@ -68,95 +87,160 @@ const formatDate = (value: Date) =>
 </Layout>
 
 <style is:global>
-	.newsletter-post-shell:hover {
-		transform: none !important;
-		box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05) !important;
-		border-color: rgba(138, 107, 77, 0.14) !important;
+	.newsletter-post-section {
+		background: transparent;
 	}
 
-	.newsletter-post-content .newsletter-issue-summary {
-		margin: 0 0 1.75rem;
-		padding: 1.55rem;
-		border: 1px solid rgba(138, 107, 77, 0.18);
-		border-radius: 1rem;
-		background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
-		box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+	.newsletter-post-section .page-section--tight-top {
+		padding-top: clamp(0.65rem, 1.4vw, 1.15rem);
+		padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-note {
-		margin: 0 0 0.7rem;
-		color: #64748b;
-		font-size: 0.82rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		line-height: 1.45;
-		text-transform: uppercase;
+	.newsletter-post-page {
+		background:
+			linear-gradient(180deg, rgba(var(--surface-page-tint-rgb), 0.9) 0%, rgba(var(--white-rgb), 1) 22rem),
+			var(--surface-page);
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-label {
-		margin: 0;
-		color: var(--accent-dark);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.18em;
-		line-height: 1.4;
-		text-transform: uppercase;
+	.newsletter-post-shell {
+		margin-inline: auto;
+		max-width: min(100%, var(--page-content-max-width));
+		gap: clamp(0.8rem, 1.4vw, 1.1rem);
+		padding: clamp(0.65rem, 1.3vw, 1rem) 0 clamp(2.5rem, 4vw, 3.4rem);
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-list {
-		margin: 0.9rem 0 0;
-		padding: 0;
-		list-style: none;
-		counter-reset: newsletter-issue-summary;
-		display: grid;
-		gap: 0.8rem 1.4rem;
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-	}
-
-	.newsletter-post-content .newsletter-issue-summary-item {
+	.page-header.newsletter-post-header {
 		position: relative;
-		margin: 0;
-		padding: 0 0 0.85rem 2.2rem;
-		border-bottom: 1px solid rgba(148, 163, 184, 0.22);
-		color: #334155;
-		font-size: 0.95rem;
-		font-weight: 500;
-		line-height: 1.45;
+		max-width: none !important;
+		width: 100%;
+		padding: clamp(0.95rem, 1.8vw, 1.35rem) 0 clamp(1rem, 1.9vw, 1.45rem);
+		border-top: 0;
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.16);
+		background: transparent;
+		background-color: transparent;
+		background-image: none;
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-item::before {
-		counter-increment: newsletter-issue-summary;
-		content: counter(newsletter-issue-summary, decimal-leading-zero);
-		position: absolute;
-		top: 0.05rem;
-		left: 0;
-		color: var(--accent);
-		font-size: 0.68rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
+	.newsletter-post-header .page-header__content,
+	.newsletter-post-header__content {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			'eyebrow'
+			'title'
+			'meta'
+			'subtitle'
+			'actions';
+		row-gap: 0.75rem;
+		max-width: none !important;
+		width: 100%;
+	}
+
+	.newsletter-post-header .inner-page-eyebrow {
+		grid-area: eyebrow;
+	}
+
+	.newsletter-post-header .page-title {
+		grid-area: title;
+		max-width: 14ch;
+		font-size: var(--text-newsletter-title);
+		line-height: 1.05;
+	}
+
+	.newsletter-post-header .page-header__meta {
+		grid-area: meta;
+	}
+
+	.newsletter-post-meta {
+		max-width: 34rem;
+		padding-top: 0;
+		border-top: 0;
+		font-size: var(--text-meta);
+		line-height: 1.55;
+		color: var(--ink-muted);
+	}
+
+	.newsletter-post-header .page-subtext {
+		grid-area: subtitle;
+		margin-top: 0.1rem;
+		max-width: 41rem;
+	}
+
+	.newsletter-post-header .page-header__body {
+		grid-area: actions;
+		margin-top: 0;
+	}
+
+	.newsletter-post-masthead-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+		margin-left: auto;
+	}
+
+	.newsletter-post-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.newsletter-post-actions--footer {
+		justify-self: start;
+		justify-content: flex-start;
+		width: 100%;
+		padding-top: 1.35rem;
+		border-top: 1px solid rgba(var(--accent-rgb), 0.16);
+	}
+
+	.newsletter-post-back-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.25rem;
+		color: var(--accent-dark);
+		font-size: var(--text-meta);
+		font-weight: 600;
 		line-height: 1.2;
+		text-decoration-line: underline;
+		text-decoration-color: rgba(var(--accent-rgb), 0.28);
+		text-underline-offset: 0.28rem;
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-item:last-child {
-		border-bottom: none;
-		padding-bottom: 0;
+	.newsletter-post-back-link:hover {
+		color: var(--accent-dark);
+		text-decoration-color: currentColor;
 	}
 
-	.newsletter-post-content .newsletter-issue-summary-byline {
-		margin: 1rem 0 0;
-		padding-top: 0.9rem;
-		border-top: 1px solid rgba(148, 163, 184, 0.18);
-		color: #64748b;
-		font-size: 0.92rem;
-		font-style: italic;
-		line-height: 1.6;
+	.newsletter-post-pdf-link {
+		border-color: rgba(var(--accent-rgb), 0.24);
 	}
 
-	.newsletter-post-content section > img:not([style*='max-width']) {
-		width: auto !important;
-		max-width: min(100%, 44rem) !important;
-		height: auto !important;
-		margin-inline: auto !important;
+	.newsletter-post-shell > header,
+	.newsletter-post-shell > .newsletter-post-content,
+	.newsletter-post-shell > div,
+	.newsletter-post-shell > nav {
+		padding-inline: clamp(0.2rem, 1.8vw, 1rem);
+	}
+
+	@media (min-width: 768px) {
+		.newsletter-post-header .page-header__content,
+		.newsletter-post-header__content {
+			grid-template-columns: minmax(0, 1fr) auto;
+			grid-template-areas:
+				'eyebrow actions'
+				'title actions'
+				'meta actions'
+				'subtitle actions';
+			column-gap: clamp(1.8rem, 4vw, 4rem);
+			align-items: start;
+		}
+
+		.newsletter-post-masthead-actions {
+			justify-self: end;
+			align-self: start;
+			justify-content: flex-end;
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -174,67 +258,31 @@ const formatDate = (value: Date) =>
 			padding: 0 !important;
 		}
 
+		:global(.newsletter-post-header)::after {
+			width: 100%;
+		}
+
 		.newsletter-post-section .newsletter-post-shell > header,
 		.newsletter-post-section .newsletter-post-shell > .newsletter-post-content,
-		.newsletter-post-section .newsletter-post-shell > div {
+		.newsletter-post-section .newsletter-post-shell > div,
+		.newsletter-post-section .newsletter-post-shell > nav {
 			background: transparent !important;
 			background-color: transparent !important;
 			background-image: none !important;
 			box-shadow: none !important;
 		}
 
-		.newsletter-post-content .newsletter-issue-summary {
-			padding: 1rem 0 0;
-			border: 0;
-			border-top: 1px solid rgba(138, 107, 77, 0.16);
-			border-radius: 0;
-			background: transparent;
-			box-shadow: none;
+		:global(.newsletter-post-header) {
+			padding-top: 0.85rem;
 		}
 
-		.newsletter-post-content .newsletter-issue-summary-list {
-			grid-template-columns: 1fr;
-			gap: 0.6rem;
+		:global(.newsletter-post-header .page-title) {
+			max-width: 100%;
 		}
 
-		.newsletter-post-content .newsletter-issue-summary-item {
-			padding-bottom: 0.6rem;
-		}
-
-		.newsletter-post-content section > img:not([style*='max-width']) {
-			max-width: 100% !important;
-			border: 0 !important;
-			box-shadow: none !important;
-		}
-
-		/* Older newsletter markdown uses layout tables; stack them on phones. */
-		.newsletter-post-content table {
-			display: block;
-			width: 100% !important;
-			border-spacing: 0 !important;
-		}
-
-		.newsletter-post-content table tbody,
-		.newsletter-post-content table tr {
-			display: block;
-			width: 100% !important;
-		}
-
-		.newsletter-post-content table tr + tr {
-			margin-top: 1.25rem;
-		}
-
-		.newsletter-post-content table td,
-		.newsletter-post-content table th {
-			display: block;
-			width: 100% !important;
-			padding-left: 0 !important;
-			padding-right: 0 !important;
-		}
-
-		.newsletter-post-content table td + td,
-		.newsletter-post-content table th + th {
-			margin-top: 1.25rem;
+		.newsletter-post-masthead-controls,
+		.newsletter-post-actions {
+			justify-content: flex-start;
 		}
 	}
 </style>
